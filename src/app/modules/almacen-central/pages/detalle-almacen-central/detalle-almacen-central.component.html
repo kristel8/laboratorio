@@ -1,0 +1,13 @@
+<app-button [label]="'Regresar'" [router]="'/almacen-central'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'outlined'">
+</app-button>
+<br>
+<br>
+
+<div class="t-flex-start">
+  <h2>{{titulo}}</h2>
+</div>
+<br>
+<section class="container-table">
+  <app-table *ngIf="isCargado" [listaElementos]="listaElementos" [columnas]="colsVisibles" [filas]="10"
+    [listaElementosAFiltrar]="['descripcion']" [isMostrarAcciones]="false"></app-table>
+</section>

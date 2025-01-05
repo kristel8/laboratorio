@@ -1,0 +1,104 @@
+<form (ngSubmit)="guardarElemento()" [formGroup]="empleadoForm">
+  <h2>{{titulo}}</h2>
+  <br>
+  <section class="container-form t-col-2 t-col-sm-1">
+    <div class="form">
+      <span class="form-text">Tipo Documento:</span>
+      <p-dropdown [options]="tipoDocumentos" formControlName="tipoDocumento" optionLabel="tipo" placeholder="Seleccione"></p-dropdown>
+      <div class="validation" *ngIf="tipoDocumento?.invalid && (tipoDocumento?.dirty || tipoDocumento?.touched)">
+        <small *ngIf="tipoDocumento?.errors?.['required']" class="p-error">Tipo Documento es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Nro Documento:</span>
+      <input id="numDocumento" type="text" formControlName="numDocumento" pInputText numbersOnly/>
+      <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
+        <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
+        <small *ngIf="numDocumento?.errors?.['minlength'] || numDocumento?.errors?.['maxlength']" class="p-error">Número de Documento debe tener 11 dígitos</small>
+      </div>
+    </div>
+
+
+    <div class="form">
+      <span class="form-text">Nomnbre:</span>
+      <input id="descripcion" type="text" formControlName="nombre" pInputText />
+      <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+        <small *ngIf="nombre?.errors?.['required']" class="p-error">Nomnbre es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Apellido:</span>
+      <input id="descripcion" type="text" formControlName="apellido" pInputText />
+      <div class="validation" *ngIf="apellido?.invalid && (apellido?.dirty || apellido?.touched)">
+        <small *ngIf="apellido?.errors?.['required']" class="p-error">Apellido es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Dirección:</span>
+      <input id="descripcion" type="text" formControlName="direccion" pInputText />
+      <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
+        <small *ngIf="direccion?.errors?.['required']" class="p-error">Dirección es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Telefono:</span>
+      <input id="telefono" type="text" formControlName="telefono" pInputText numbersOnly/>
+      <div class="validation" *ngIf="telefono?.invalid && (telefono?.dirty || telefono?.touched)">
+        <small *ngIf="telefono?.errors?.['required']" class="p-error">Teléfono es obligatorio</small>
+        <small *ngIf="telefono?.errors?.['minlength'] || telefono?.errors?.['maxlength']" class="p-error">Teléfono debe tener 6 dígitos</small>
+      </div>
+    </div>
+
+
+    <div class="form">
+      <span class="form-text">Celular:</span>
+      <input id="celular" type="text" formControlName="celular" pInputText numbersOnly/>
+      <div class="validation" *ngIf="celular?.invalid && (celular?.dirty || celular?.touched)">
+        <small *ngIf="celular?.errors?.['required']" class="p-error">Celular es obligatorio</small>
+        <small *ngIf="celular?.errors?.['minlength'] || celular?.errors?.['maxlength']" class="p-error">Celular debe tener 9 dígitos</small>
+      </div>
+    </div>
+
+
+    <div class="form">
+      <span class="form-text">Sueldo:</span>
+      <p-inputNumber formControlName="sueldo"  inputId="currency-us" mode="currency" currency="PEN" locale="en-US">
+      </p-inputNumber>
+      <div class="validation" *ngIf="sueldo?.invalid && (sueldo?.dirty || sueldo?.touched)">
+        <small *ngIf="sueldo?.errors?.['required']" class="p-error">Sueldo es obligatorio</small>
+        <small *ngIf="sueldo?.errors?.['minlength'] || sueldo?.errors?.['maxlength']" class="p-error">Sueldo debe tener 6 dígitos</small>
+      </div>
+    </div>
+
+
+    <div class="form">
+      <span class="form-text">Cargo:</span>
+      <p-dropdown [options]="listaCargos" formControlName="cargo" optionLabel="descripcion" placeholder="Seleccione"></p-dropdown>
+      <div class="validation" *ngIf="cargo?.invalid && (cargo?.dirty || cargo?.touched)">
+        <small *ngIf="cargo?.errors?.['required']" class="p-error">Cargo es obligatorio</small>
+      </div>
+    </div>
+
+
+    <div class="form">
+      <span class="form-text">Áreas:</span>
+      <p-dropdown [options]="listaAreas" formControlName="area" optionLabel="descripcion" placeholder="Seleccione"></p-dropdown>
+      <div class="validation" *ngIf="area?.invalid && (area?.dirty || area?.touched)">
+        <small *ngIf="area?.errors?.['required']" class="p-error">Area es obligatorio</small>
+      </div>
+    </div>
+
+  </section>
+
+  <br>
+  <div class="container-opciones">
+    <app-button [label]="'Cancelar'" [router]="'/empleados'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'" >
+    </app-button>
+    <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="!empleadoForm.valid">
+    </app-button>
+  </div>
+</form>

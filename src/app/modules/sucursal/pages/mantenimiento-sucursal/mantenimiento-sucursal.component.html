@@ -1,0 +1,53 @@
+<form (ngSubmit)="guardarSucursal()" [formGroup]="sucursalForm">
+  <h2>{{titulo}}</h2>
+  <br>
+  <section class="container-form t-col-2 t-col-sm-1">
+
+    <div class="form">
+      <span class="form-text">Nombre Sucursal:</span>
+      <input id="nombreSucur" type="text" formControlName="nombreSucur" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="nombreSucur?.invalid && (nombreSucur?.dirty || nombreSucur?.touched)">
+        <small *ngIf="nombreSucur?.errors?.['required']" class="p-error">Nombre Sucursal es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Configuración Documento Impreso:</span>
+      <p-dropdown [options]="listaTipoConfiguracion" formControlName="configDocumentoImpreso" optionLabel="tituloConfiguracion" placeholder="Seleccione"></p-dropdown>
+      <div class="validation" *ngIf="configDocumentoImpreso?.invalid && (configDocumentoImpreso?.dirty || configDocumentoImpreso?.touched)">
+        <small *ngIf="configDocumentoImpreso?.errors?.['required']" class="p-error">Configuración Documento Impreso es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Dirección:</span>
+      <input id="direccion" type="text" formControlName="direccion" autocomplete="off" pInputText/>
+      <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
+        <small *ngIf="direccion?.errors?.['required']" class="p-error">Dirección es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Departamento:</span>
+      <input id="departamento" type="text" formControlName="departamento" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="departamento?.invalid && (departamento?.dirty || departamento?.touched)">
+        <small *ngIf="departamento?.errors?.['required']" class="p-error">Departamento es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Provincia:</span>
+      <input id="provincia" type="text" formControlName="provincia" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="provincia?.invalid && (provincia?.dirty || provincia?.touched)">
+        <small *ngIf="provincia?.errors?.['required']" class="p-error">Provincia es obligatorio</small>
+      </div>
+    </div>
+  </section>
+  <br>
+  <div class="container-opciones">
+    <app-button [label]="'Cancelar'" [router]="'/sucursales'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    </app-button>
+    <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="!sucursalForm.valid">
+    </app-button>
+  </div>
+</form>

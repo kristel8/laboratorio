@@ -1,0 +1,46 @@
+<aside class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''">
+  <div class="logo-container">
+    <button class="logo">A</button>
+    <div class="logo-text" @fadeInOut *ngIf="collapsed">TIENDA</div>
+    <button class="btn-close" @rotate (click)="closeSidenav()" *ngIf="collapsed"><i class="fas fa-times"></i></button>
+  </div>
+
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/dashboard']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Principal
+        </p>
+      </a>
+    </li>
+    <li class="sidenav-nav-item" *ngFor="let item of menu">
+      <a class="sidenav-nav-link" *ngIf="item.ruta != ''" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
+        <i class="sidenav-link-icon" [class]="item.imagen"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">{{ item.nombre }}
+          <i class="fas fa-angle-down"></i>
+        </p>
+      </a>
+
+
+      <a class="sidenav-nav-link" *ngIf="item.ruta == ''" [routerLink]="[item!.ruta]" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
+        <i class="sidenav-link-icon" [class]="item.imagen"></i>
+        <p class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
+          {{ item.nombre }}
+        </p>
+      </a>
+
+      <ul class="sidenav-nav" @fadeInOut *ngIf="item.estado == '0' && collapsed">
+        <li class="sidenav-nav-subitem"  *ngFor="let subItem of item.subMenu"
+          [ngClass]="subItem.estado == '0' ? 'subItem-actived' : ''">
+          <a class="sidenav-nav-link" [routerLink]="[subItem.ruta]" (click)="eventoSeleccionado(subItem.nombre, '0')">
+            <i class="sidenav-link-icon-circle" [class]="'far fa-circle'"></i>
+            <p class="sidenav-link-text">{{ subItem.nombre }}</p>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>

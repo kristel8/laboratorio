@@ -1,0 +1,40 @@
+<div class="t-flex-start t-flex">
+    <h2>Importar Productos</h2>
+	
+	
+  </div>
+
+  
+
+<div class="cardImport p-4">
+   
+    
+ <!--  <input type="file" (change)="onFileChange($event)"  />    -->
+ <div class="custom-input-file col-md-6 col-sm-6 col-xs-6">
+    <i class="fas fa-upload"></i>
+    <input type="file" id="fichero-tarifas" class="input-file" value="" (change)="onFileChange($event)">
+    {{reader}}
+    </div>
+
+    <div>
+        <button class="buttonImportar" (click)="enviarDataImportar()"><i class="fas fa-check"></i> Realizar Importación</button>
+    </div>
+
+
+
+   </div>
+
+  
+
+  <section class="container-table">
+    <app-table
+      *ngIf="isCargado"
+      [listaElementos]="listaProductos"
+      [columnas]="colsVisibles"
+      [filas]="10"
+      [listaElementosAFiltrar]="['descripcion']"
+	  [isMostrarAcciones]="false"
+      [isMostrarBuscador]="false"
+      [isMostrarExportacion]="false"
+    ></app-table>
+  </section>

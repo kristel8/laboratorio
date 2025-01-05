@@ -1,0 +1,215 @@
+<h2>Insertar Venta</h2>
+
+<br />
+<form (ngSubmit)="guardarVenta($event)" [formGroup]="ventaForm">
+  <section class="t-col-2-auto t-col-sm-1">
+    <section class="container-table" [formGroup]="itemsForm">
+      <ng-container formArrayName="items">
+        <p-table [columns]="colsCarritoVisibles" [scrollable]="true" [responsiveLayout]="'scroll'" [value]="items.controls"
+          class="datatable-ventas" styleClass="p-datatable-striped" [rowHover]="true"
+          dataKey="id" scrollHeight="flex">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="max-width: 70px" *ngIf="!isEditar">Acción</th>
+              <th [ngStyle]="{ width: 'auto' }" *ngFor="let col of columns">
+                {{ col.header }}
+              </th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-controls let-i="rowIndex">
+            <tr [formGroupName]="i">
+              <td *ngIf="!isEditar" style="max-width: 70px" >
+                <app-button [icono]="'pi pi-times'" [estiloBoton]="'rounded'" (eventoClick)="deleteItem(i, controls)">
+                </app-button>
+              </td>
+              <td>
+                {{ controls.value.descripcion }}
+              </td>
+              <td>
+                <p-inputNumber id="cantidad" placeholder="0" formControlName="cantidad" [showButtons]="true"
+                  inputId="stacked" [min]="1" [max]="controls.value.stockActual"
+                  (onInput)="
+                    onChangeCantidadXTotal(controls, 'cantidad', $event.value)
+                  ">
+                </p-inputNumber>
+              </td>
+              <td>
+                {{ tipoDeMoneda }}
+                {{ controls.value.precio }}
+              </td>
+              <td style="display: grid;">
+                <div>
+                {{ tipoDeMoneda }}
+                <p-inputNumber id="descuento" placeholder="0" formControlName="descuento" [showButtons]="false"
+                  inputId="stacked" mode="decimal" locale="en-US" [minFractionDigits]="2" [min]="0" [max]="controls.value.descuentoMaximo" (onInput)="
+                    onChangeCantidadXTotal(controls, 'descuento', $event.value)"  [style]="{'width': '80px'}">
+                </p-inputNumber>
+              </div>
+                <span><b>Desc. Max: {{ controls.value.descuentoMaximo | number: '1.0-2'}} </b></span>
+              </td>
+              <td class="font-medium">
+                {{ tipoDeMoneda }}
+                {{ controls.value.total | number: '1.0-2' }}
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="footer">
+            <tr class="first-row">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right">Total Bruto</td>
+              <td>{{ totalFinal - 0.18 * totalFinal | currency: "S/" }}</td>
+            </tr>
+
+            <tr class="second-row">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right">+ IGV 18%</td>
+              <td>{{ 0.18 * totalFinal | currency: "S/" }}</td>
+            </tr>
+            <tr class="third-row">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-right">Total Neto</td>
+              <td>{{ totalFinal | currency: "S/" }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </ng-container>
+    </section>
+
+    <section class="container-table">
+      <app-table *ngIf="isCargado" [listaElementos]="listaElementos" [columnas]="colsProductosVentaVisibles"
+        [filas]="10" [listaElementosAFiltrar]="['descripcion']" [isMostrarAcciones]="false"
+        [isMostrarMasOpciones]="true" [acciones]="acciones" [isSorting]="false" [isSubtitulo]="false"
+        (eventoAccion)="eventoAccion($event)" scrollHeight="flex" [anchoColumna]="'70px'"  [isMostrarExportacion]="false"></app-table>
+    </section>
+  </section>
+  <br />
+  <div class="container-opciones">
+    <app-button [label]="'Cancelar'" [router]="'/ventas'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    </app-button>
+    <app-button [label]="'Pagar'" [icono]="'pi pi-dollar'" [isDisabled]="items.controls.length == 0"
+      (eventoClick)="pagarVenta()">
+    </app-button>
+  </div>
+
+</form>
+
+<!-- #MODAL BUSCAR Cliente -->
+<form (ngSubmit)="guardarVenta($event)" [formGroup]="ventaForm">
+  <p-dialog header="Venta" [(visible)]="isMostrarVenta" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false"
+    [resizable]="false">
+    <br />
+    <section class="t-col-1" class="dialog-venta">
+      <div id="formCliente" class="form">
+        <span class="form-text">Cliente:</span>
+        <div class="t-col-2 t-col-sm-1 t-gap-sm">
+          <div class="md:col-4">
+            <div class="p-inputgroup">
+              <div class="form" style="width: 200px">
+                <input id="numCliente" type="text" formControlName="numCliente" (keydown)="buscarCliente($event)"
+                  pInputText numbersOnly />
+
+                <div class="validation" *ngIf="numCliente?.dirty || numCliente?.touched">
+                  <small *ngIf="numCliente?.errors?.['required']" class="p-error">Código es obligatorio</small>
+                </div>
+                <div class="validation">
+                  <small *ngIf="isClienteInvalid" class="p-error">Código no
+                    existe</small>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <input id="cliente" type="text" formControlName="cliente" style="width: 100%;" pInputText />
+        </div>
+      </div>
+
+      <div class="t-col-2">
+        <div id="formTipoPago" class="form">
+          <span class="form-text">Tipo de Pago:</span>
+          <p-dropdown [options]="listaTipoPago" formControlName="tipoPago" optionLabel="tipo" placeholder="Seleccione"
+            appendTo="body">
+          </p-dropdown>
+          <div class="validation" *ngIf="
+              tipoPago?.invalid &&
+              (tipoPago?.dirty || tipoPago?.touched)
+            ">
+            <small *ngIf="tipoPago?.errors?.['required']" class="p-error">Tipo de Pago es
+              obligatorio</small>
+          </div>
+        </div>
+
+        <div id="formTipoMoneda" class="form">
+          <span class="form-text">Tipo de Moneda:</span>
+          <p-selectButton [options]="listaTipoMoneda" formControlName="tipoMoneda" optionLabel="tipo"
+            optionValue="tipo">
+          </p-selectButton>
+        </div>
+      </div>
+
+      <div class="t-col-2">
+        <div id="formTipoComprobante" class="form">
+          <span class="form-text">Tipo de Comprobante:</span>
+          <p-dropdown [options]="listaTipoComprobante" formControlName="tipoComprobante" optionLabel="tipo"
+            placeholder="Seleccione" (onChange)="getSerieYNumero()" appendTo="body"></p-dropdown>
+          <div class="validation" *ngIf="
+            tipoComprobante?.invalid &&
+            (tipoComprobante?.dirty || tipoComprobante?.touched)
+          ">
+            <small *ngIf="tipoComprobante?.errors?.['required']" class="p-error">Tipo de Comprobante es
+              obligatorio</small>
+          </div>
+        </div>
+
+        <div class="t-col-2">
+          <div id="formSerie" class="form">
+            <span class="form-text">Serie:</span>
+            <input style="width: 200px" id="serieCompro" type="text" formControlName="serieCompro" pInputText />
+            <div class="validation" *ngIf="serieCompro?.invalid && (serieCompro?.dirty || serieCompro?.touched)">
+              <small *ngIf="serieCompro?.errors?.['required']" class="p-error">Serie es obligatorio</small>
+            </div>
+          </div>
+          <div id="formNumero" class="form">
+            <span class="form-text">Número:</span>
+            <input id="numCompro" type="text" formControlName="numCompro" pInputText numbersOnly />
+            <div class="validation" *ngIf="numCompro?.invalid && (numCompro?.dirty || numCompro?.touched)">
+              <small *ngIf="numCompro?.errors?.['required']" class="p-error">Número es obligatorio</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-col-2">
+        <div id="formCantidadPago" class="form">
+          <span class="form-text">Efectivo Recibido:</span>
+            <p-inputNumber formControlName="cantidadPago" placeholder="0" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" (onInput)="calcularVuelto($event)"></p-inputNumber>
+          <div class="validation" *ngIf="cantidadPago?.invalid && (cantidadPago?.dirty || cantidadPago?.touched) || isValorAPagarInvalid">
+            <small *ngIf="cantidadPago?.errors?.['required']" class="p-error">Efectivo Recibido es obligatorio</small>
+            <small [hidden]="!isValorAPagarInvalid" class="p-error">Monto debe ser mayor o igual al total</small>
+          </div>
+
+
+        </div>
+
+        <div id="formVuelto" class="form">
+          <span class="form-text">Vuelto:</span>
+          <input id="vuelto" type="text" formControlName="vuelto" pInputText/>
+        </div>
+      </div>
+    </section>
+
+    <ng-template pTemplate="footer">
+      <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [isDisabled]="ventaForm.invalid || isValorAPagarInvalid" [tipo]="'submit'">
+      </app-button>
+    </ng-template>
+  </p-dialog>
+</form>
+
+<!-- #END MODAL BUSCAR Cliente -->

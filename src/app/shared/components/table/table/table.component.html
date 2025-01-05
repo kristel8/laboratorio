@@ -1,0 +1,105 @@
+<p-table #dt styleClass="p-datatable-striped" [id]="dt" [value]="listaElementos" [columns]="columnas" [rows]="filas" [paginator]="isPaginador"
+  [globalFilterFields]="listaElementosAFiltrar" [responsiveLayout]="tipoResponsivo ? 'stack' : 'scroll'"
+  scrollHeight="flex" [rowHover]="isHoverAFila" dataKey="id" [scrollable]="true"  [style]="{width: '100%', height: 'calc(100vh - 270px)'}" [showCurrentPageReport]="isCantidadElementos">
+  <ng-template pTemplate="caption">
+    <div class="caption">
+      <span class="caption__search">
+        <ng-container *ngIf="isMostrarBuscador">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..." />
+        </ng-container>
+      </span>
+      <ng-container *ngIf="isMostrarExportacion">
+        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+          class="p-button-success mr-2" pTooltip="XLS" tooltipPosition="bottom"></button>
+      </ng-container>
+    </div>
+
+  </ng-template>
+
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngIf="isMostrarAcciones" [ngStyle]="{'min-width': anchoColumna}" style="text-align: center; justify-content: center;">Acciones</th>
+      <th *ngIf="isMostrarMasOpciones" [ngStyle]="{'min-width': anchoColumna}" style="text-align: center; justify-content: center;">Opciones</th>
+      <th style="text-align: center; justify-content: center;" *ngFor="let col of columns" pSortableColumn="{{ col.field }}">
+        {{ col.header }} <p-sortIcon *ngIf="isSorting" field="{{ col.field }}"></p-sortIcon>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td *ngIf="isMostrarAcciones" class="t-flex-start" style="justify-content: center;">
+        <app-button *ngIf="isOpcionEditar" [icono]="'pi pi-pencil'" [estiloBoton]="'rounded'"
+          (eventoClick)="esUnaAccion('editar', rowData)"></app-button>
+        <app-button *ngIf="isOpcionEliminar" [icono]="'pi pi-trash'" [estiloBoton]="'rounded-danger'"
+          (eventoClick)="esUnaAccion('eliminar', rowData)"></app-button>
+      </td>
+
+      <td *ngIf="isMostrarMasOpciones" class="t-flex-start" [ngStyle]="{'min-width': anchoColumna}" style="justify-content: center;">
+        <ng-container *ngFor="let x of acciones">
+          <app-button *ngIf="x.estado" [icono]="x.icono" [estiloBoton]="x.clase"
+          (eventoClick)="esUnaAccion( x.evento, rowData, $event)" [isDisabled]="x.isDisabled" [tooltip]="x.tooltip">
+        </app-button>
+        </ng-container>
+
+      </td>
+      <td style="min-width: 120px; word-break: break-all; text-align: center; justify-content: center;"*ngFor="let col of columns">
+        <span *ngIf="isSubtitulo" class="p-column-title">{{ col.header }}</span>
+
+        <div [ngSwitch]="col.field">
+          <div *ngSwitchCase="'estado'">
+            <div [ngClass]="
+                  rowData[col.field]
+                      ? 'estadoActivo'
+                      : 'estadoInactivo'
+                  ">
+              {{ rowData[col.field] | flags: col.field }}
+            </div>
+
+
+          </div>
+
+          <div *ngSwitchCase="'estadoCompra'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] }}
+          </div>
+
+          <div *ngSwitchCase="'estadostocks'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] }}
+          </div>
+
+          <div *ngSwitchCase="'estadoStocks'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] }}
+          </div>
+
+          <div *ngSwitchCase="'isparavender'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] | flags: col.field }}
+          </div>
+
+          <div *ngSwitchCase="'estadoEnvio'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] }}
+          </div>
+
+          <div *ngSwitchCase="'estadoVenta'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] }}
+          </div>
+
+          <div *ngSwitchCase="'isCaja'" [value]="rowData[col.field]" appStyleEstado>
+            {{ rowData[col.field] | flags: col.field }}
+          </div>
+
+          <div style="word-break: break-all;" *ngSwitchDefault>
+            {{ !col.subField && !col.subField2 ? rowData[col.field] :
+            !col.subField2 ? rowData[col.field][col.subField] :
+            rowData[col.field][col.subField][col.subField2] }}
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+    En total hay {{ listaElementos ? listaElementos.length : 0 }} registros.
+  </ng-template>
+</p-table>

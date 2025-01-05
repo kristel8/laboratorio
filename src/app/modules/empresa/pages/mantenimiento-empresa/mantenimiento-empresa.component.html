@@ -1,0 +1,40 @@
+<form (ngSubmit)="guardarEmpresa()" [formGroup]="empresaForm">
+  <h2>{{titulo}}</h2>
+  <br>
+  <section class="container-form t-col-2 t-col-sm-1">
+
+    <div class="form">
+      <span class="form-text">Razón Social:</span>
+      <input id="razonSocial" type="text" formControlName="razonSocial" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="razonSocial?.invalid && (razonSocial?.dirty || razonSocial?.touched)">
+        <small *ngIf="razonSocial?.errors?.['required']" class="p-error">Razón social es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">RUC:</span>
+      <input id="ruc" type="text" formControlName="ruc" autocomplete="off" pInputText numbersOnly/>
+      <div class="validation" *ngIf="ruc?.invalid && (ruc?.dirty || ruc?.touched)">
+        <small *ngIf="ruc?.errors?.['required']" class="p-error">RUC es obligatorio</small>
+        <small *ngIf="ruc?.errors?.['minlength'] || ruc?.errors?.['maxlength']" class="p-error">RUC debe tener 11 dígitos</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Dirección:</span>
+      <input id="direccion" type="text" formControlName="direccion" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
+        <small *ngIf="direccion?.errors?.['required']" class="p-error">Dirección es obligatorio</small>
+      </div>
+    </div>
+
+  </section>
+
+  <br>
+  <div class="container-opciones">
+    <app-button [label]="'Cancelar'" [router]="'/empresas'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    </app-button>
+    <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="!empresaForm.valid">
+    </app-button>
+  </div>
+</form>

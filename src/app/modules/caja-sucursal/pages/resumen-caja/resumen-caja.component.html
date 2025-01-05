@@ -1,0 +1,51 @@
+
+
+<div class="titulo-resumen">
+  <h2>{{ titulo }}</h2>
+  <p-calendar [formControl]="fecha" [showIcon]="true" inputId="icon" (onSelect)="getResumenCaja()" dateFormat="dd-mm-yy"></p-calendar>
+</div>
+<br>
+<img src="assets/images/svg/search.svg" style="width: 50em" alt="" *ngIf="response.length === 0">
+<section class="container-card" *ngIf="response.length != 0">
+  <section class="card-1">
+    <section class="container-card-1">
+      <div class="card card-nomSucursal">
+        <span>Nombre de Sucursal:</span>
+        <span>{{resumen.nombreSucur}}</span>
+      </div>
+    </section>
+    <div class="card card-imagen">
+      <img src="assets/images/svg/sell-caja.svg" alt="" srcset="">
+    </div>
+  </section>
+  <section class="card-2">
+    <div class="card card-estado">
+      <span>Estado de caja</span>
+      <p-selectButton [options]="listaEstados" (onChange)="onChangeEstado($event)"
+        [formControl]="estado" optionLabel="tipo" optionValue="value" >
+      </p-selectButton>
+    </div>
+
+
+    <div class="card card-ventaCaja">
+      <span>Total de Venta + Movimientos de Caja</span>
+      <span>{{+resumen.totalVenta + +resumen.totalMovCaja}}</span>
+    </div>
+
+    <section class="container-card-2">
+      <div class="card card-movCaja">
+        <span>Total de movimientos de caja</span>
+        <span>{{resumen.totalMovCaja}}</span>
+      </div>
+      <div class="card card-venta">
+        <span>Total de ventas</span>
+        <span>{{resumen.totalVenta}}</span>
+      </div>
+    </section>
+
+    <div class="card card-anulado">
+      <span>Ventas anuladas</span>
+      <span>{{resumen.ventaAnuladas}}</span>
+    </div>
+  </section>
+</section>

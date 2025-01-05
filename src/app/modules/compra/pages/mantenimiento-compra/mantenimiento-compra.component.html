@@ -1,0 +1,258 @@
+  <form (ngSubmit)="guardarCompra($event)" [formGroup]="compraForm">
+  <h2>{{titulo}}</h2>
+  <section class="container-form t-col-2 t-col-sm-1">
+    <div id="formProveedor" class="form">
+      <span class="form-text">Proveedor:</span>
+      <div class="t-col-auto-2 t-col-sm-1 t-gap-sm">
+        <div class="md:col-4">
+          <div class="p-inputgroup">
+            <button pButton (click)="showBuscadorDeProveedor($event)" type="button" icon="pi pi-search"></button>
+            <div class="form" style="width: 200px">
+              <input id="numProveedor" type="text" formControlName="numProveedor" (keydown)="buscarProveedor($event)"
+                autocomplete="off" pInputText numbersOnly />
+
+              <div class="validation" *ngIf="numProveedor?.dirty || numProveedor?.touched">
+                <small *ngIf="numProveedor?.errors?.['required']" class="p-error">Código es obligatorio</small>
+              </div>
+              <div class="validation">
+                <small *ngIf="isProveedorInvalid" class="p-error">Código no
+                  existe</small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <input id="proveedor" type="text" formControlName="proveedor" autocomplete="off" pInputText />
+      </div>
+    </div>
+
+    <div class="t-col-2">
+      <div id="formTipoPago" class="form">
+        <span class="form-text">Tipo de Pago:</span>
+        <p-dropdown [options]="listaTipoPago" formControlName="tipoPago" optionLabel="tipo" placeholder="Seleccione">
+        </p-dropdown>
+        <div class="validation" *ngIf="
+            tipoPago?.invalid &&
+            (tipoPago?.dirty || tipoPago?.touched)
+          ">
+          <small *ngIf="tipoPago?.errors?.['required']" class="p-error">Tipo de Pago es
+            obligatorio</small>
+        </div>
+      </div>
+
+      <div id="formTipoMoneda" class="form">
+        <span class="form-text">Tipo de Moneda:</span>
+        <p-selectButton [options]="listaTipoMoneda" (onChange)="onChangeTipoDeMoneda($event)"
+          formControlName="tipoMoneda" optionLabel="tipo" optionValue="tipo">
+        </p-selectButton>
+      </div>
+    </div>
+
+    <div class="t-col-2">
+      <div id="formFecha" class="form">
+        <span class="form-text">Fecha:</span>
+        <p-calendar formControlName="fecha" dateFormat="yy-mm-dd" inputId="dateformat" appendTo="body"
+          [readonlyInput]="true"></p-calendar>
+        <div class="validation" *ngIf="fecha?.invalid && (fecha?.dirty || fecha?.touched)">
+          <small *ngIf="fecha?.errors?.['required']" class="p-error">Fecha es obligatorio</small>
+        </div>
+      </div>
+
+      <div id="formTipoDeComprobante" class="form">
+        <span class="form-text">Tipo de Comprobante:</span>
+        <p-dropdown [options]="listaTipoComprobante" formControlName="tipoDeComprobante" optionLabel="tipo"
+          placeholder="Seleccione"></p-dropdown>
+        <div class="validation" *ngIf="
+          tipoDeComprobante?.invalid &&
+          (tipoDeComprobante?.dirty || tipoDeComprobante?.touched)
+        ">
+          <small *ngIf="tipoDeComprobante?.errors?.['required']" class="p-error">Tipo de Comprobante es
+            obligatorio</small>
+        </div>
+      </div>
+    </div>
+    <div class="t-col-auto-2">
+      <div id="formSerie" class="form">
+        <span class="form-text">Serie:</span>
+        <input style="width: 200px" id="serie" type="text" formControlName="serie" autocomplete="off" pInputText />
+        <div class="validation" *ngIf="serie?.invalid && (serie?.dirty || serie?.touched)">
+          <small *ngIf="serie?.errors?.['required']" class="p-error">Serie es obligatorio</small>
+        </div>
+      </div>
+      <div id="formNumero" class="form">
+        <span class="form-text">Número:</span>
+        <input id="numero" type="text" formControlName="numero" autocomplete="off" pInputText numbersOnly />
+        <div class="validation" *ngIf="numero?.invalid && (numero?.dirty || numero?.touched)">
+          <small *ngIf="numero?.errors?.['required']" class="p-error">Número es obligatorio</small>
+        </div>
+      </div>
+    </div>
+
+    <div id="formAsunto" class="form">
+      <span class="form-text">Asunto:</span>
+      <input id="asunto" type="text" formControlName="asunto" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="asunto?.invalid && (asunto?.dirty || asunto?.touched)">
+        <small *ngIf="asunto?.errors?.['required']" class="p-error">Asunto es obligatorio</small>
+      </div>
+    </div>
+
+    <div id="formDescripcion" class="form">
+      <span class="form-text">Descripción:</span>
+      <input id="descripcion" type="text" formControlName="descripcion" autocomplete="off" pInputText />
+      <div class="validation" *ngIf="
+          descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)
+        ">
+        <small *ngIf="descripcion?.errors?.['required']" class="p-error">Descripción es obligatorio</small>
+      </div>
+    </div>
+
+    <button *ngIf="!isEditar" pButton (click)="showBuscadorDeProducto()" type="button" label="Agregar Articulo"
+      icon="pi pi-plus"></button>
+  </section>
+  <br />
+
+  <section class="container-table" [formGroup]="itemsForm">
+    <ng-container formArrayName="items">
+
+      <p-table styleClass="p-datatable-striped" [columns]="colsItemCompraVisibles" [scrollable]="true" scrollHeight="400px" [value]="items.controls"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngIf="!isEditar" style="max-width: 100px; justify-content: center;">Acciones</th>
+            <th *ngFor="let col of columns" style="min-width: 100px; justify-content: center;">
+              {{ col.header }}
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-controls let-i="rowIndex">
+          <tr [formGroupName]="i" style="display: flex; justify-items: center;">
+            <td *ngIf="!isEditar" style="max-width: 100px;">
+              <app-button [icono]="'pi pi-times'" [estiloBoton]="'rounded'"
+                (eventoClick)="deleteItemCompra(i, controls)">
+              </app-button>
+            </td>
+            <td>
+              {{controls.value.descripcion}}
+            </td>
+            <td>
+              <input id="cantidad" type="text" placeholder="0" formControlName="cantidad"
+                (keydown)="calcularSubTotal( controls )" autocomplete="off" pInputText numbersOnly />
+            </td>
+            <td>
+              {{tipoDeMoneda}}
+              <input id="precioCompra" type="text" placeholder="0" formControlName="precioCompra"
+                (keyup)="calcularSubTotal( controls )" autocomplete="off" pInputText />
+            </td>
+            <td>
+              <input id="codigo" type="text" formControlName="codigo" pInputText />
+            </td>
+            <td>
+              {{tipoDeMoneda}}
+              {{controls.value.subTotal}}
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+          En total hay {{tipoDeMoneda}} {{ totalFinal ? totalFinal : 0 }}.
+        </ng-template>
+      </p-table>
+    </ng-container>
+  </section>
+  <div class="container-opciones">
+    <app-button [label]="'Cancelar'" [router]="'/compras'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    </app-button>
+    <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'"
+      [isDisabled]="!compraForm.valid || !itemsForm.valid">
+    </app-button>
+  </div>
+
+</form>
+
+<!-- #MODAL BUSCAR PROVEEDOR -->
+<p-dialog header="Lista de Proveedores" [(visible)]="isBuscadorDeProveedor" [modal]="true" [style]="{ width: '50vw' }"
+  [draggable]="false" [resizable]="false">
+  <span><b>Seleccione un proveedor:</b></span>
+  <br />
+  <p-table styleClass="p-datatable-striped" #tbProveedor [columns]="colsProveedores" selectionMode="single" [value]="listaProveedores" dataKey="numDocumento"
+    [rows]="6" [paginator]="true" [globalFilterFields]="[
+      'razonSocial',
+      'numDocumento',
+      'tipoDocumento',
+      'rubro'
+    ]" [rowHover]="true" [scrollable]="true" responsiveLayout="scroll" (onRowSelect)="onRowProveedorSelected($event)">
+    <ng-template pTemplate="caption">
+      <div class="caption">
+        <span class="caption__search">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="tbProveedor.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData" (dblclick)="putProveedorSeleccionado()">
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="putProveedorSeleccionado()" label="Seleccionar" styleClass="p-button-text">
+    </p-button>
+  </ng-template>
+</p-dialog>
+<!-- #END MODAL BUSCAR PROVEEDOR -->
+
+<!-- #MODAL BUSCAR ARTICULO -->
+<p-dialog styleClass="p-datatable-striped" header="Lista de Artículos" [(visible)]="isBuscadorDeProducto" [modal]="true" [style]="{ width: '80vw' }"
+  [draggable]="false" [resizable]="false">
+  <p-table #tbCompra class="tabla-productos" [columns]="colsProductos" selectionMode="single" [value]="listaProductos" dataKey="codigo" [rows]="6"
+    [paginator]="true" [globalFilterFields]="['codigo', 'descripcion', 'subCategoria', 'categoria', 'unidadMedida']" [rowHover]="true"
+    [scrollable]="true" responsiveLayout="scroll">
+    <ng-template pTemplate="caption">
+      <div class="caption">
+        <span class="caption__search">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="tbCompra.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th>Acción</th>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td>
+          <app-button [icono]="'pi pi-plus'" [estiloBoton]="'rounded'" (eventoClick)="putProductoSeleccionado(rowData)">
+          </app-button>
+        </td>
+        <td *ngFor="let col of columns">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-times" (click)="isBuscadorDeProducto = false" label="Cerrar" styleClass="p-button-text">
+    </p-button>
+  </ng-template>
+</p-dialog>
+<!-- #END MODAL BUSCAR PROVEEDOR -->
