@@ -283,7 +283,7 @@
 .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token {
   padding: 0.375rem 0.75rem;
   margin-right: 0.5rem;
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
   border-radius: 6px;
 }
@@ -323,7 +323,7 @@ p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
   padding: 0.75rem 1.25rem;
@@ -429,7 +429,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker table td > span.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-datepicker table td > span:focus {
   outline: 0 none;
@@ -443,7 +443,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker table td.p-datepicker-today > span.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-datepicker .p-datepicker-buttonbar {
   padding: 1rem 0;
@@ -497,7 +497,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker .p-monthpicker .p-monthpicker-month.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-datepicker .p-yearpicker {
   margin: 0.5rem 0;
@@ -509,7 +509,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
   border-left: 1px solid #dee2e6;
@@ -618,7 +618,7 @@ p-calendar.ng-dirty.ng-invalid > .p-calendar > .p-inputtext {
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:not(.p-highlight):not(.p-disabled):hover {
   color: #495057;
@@ -715,7 +715,7 @@ p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
 .p-chips .p-chips-multiple-container .p-chips-token {
   padding: 0.375rem 0.75rem;
   margin-right: 0.5rem;
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
   border-radius: 6px;
 }
@@ -838,7 +838,7 @@ p-chips.ng-dirty.ng-invalid > .p-chips > .p-inputtext {
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
   color: #495057;
@@ -1236,7 +1236,7 @@ p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
 }
 .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-listbox .p-listbox-list .p-listbox-item:focus {
   outline: 0 none;
@@ -1292,7 +1292,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.375rem 0.75rem;
   margin-right: 0.5rem;
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
   border-radius: 6px;
 }
@@ -1374,7 +1374,7 @@ p-listbox.ng-dirty.ng-invalid > .p-listbox {
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
   color: #495057;
@@ -2306,7 +2306,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #adb5bd;
 }
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 
@@ -2363,7 +2363,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   min-width: 1.143rem;
   line-height: 1.143rem;
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
   margin-left: 0.5rem;
 }
 .p-datatable .p-sortable-column:not(.p-highlight):hover {
@@ -2374,14 +2374,14 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #343a40;
 }
 .p-datatable .p-sortable-column.p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
   color: var(--primary-dark-color);
 }
 .p-datatable .p-sortable-column.p-highlight:hover {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon {
@@ -2438,14 +2438,14 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   outline-offset: 0.15rem;
 }
 .p-datatable .p-datatable-tbody > tr.p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-top > td {
-  box-shadow: inset 0 2px 0 0 #F5F3FF;
+  box-shadow: inset 0 2px 0 0 #fffaf3;
 }
 .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
-  box-shadow: inset 0 -2px 0 0 #F5F3FF;
+  box-shadow: inset 0 -2px 0 0 #fffaf3;
 }
 .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
   background: #e9ecef;
@@ -2490,7 +2490,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #fcfcfc;
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even).p-highlight .p-row-toggler {
@@ -2597,7 +2597,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #343a40;
 }
 .p-column-filter-menu-button.p-column-filter-menu-button-active, .p-column-filter-menu-button.p-column-filter-menu-button-active:hover {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-column-filter-menu-button:focus {
@@ -2648,7 +2648,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item:not(.p-highlight):not(.p-disabled):hover {
   color: #495057;
@@ -2979,7 +2979,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .fc.fc-theme-standard .fc-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 
 .p-orderlist .p-orderlist-controls {
@@ -3036,7 +3036,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-orderlist .p-orderlist-list .p-orderlist-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-orderlist .p-orderlist-list .p-orderlist-empty-message {
   padding: 0.75rem 1.25rem;
@@ -3061,7 +3061,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #495057;
 }
 .p-organizationchart .p-organizationchart-node-content.p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-organizationchart .p-organizationchart-node-content.p-highlight .p-node-toggler i {
@@ -3167,8 +3167,8 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   border-radius: 50%;
 }
 .p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  background: #F5F3FF;
-  border-color: #F5F3FF;
+  background: #fffaf3;
+  border-color: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-paginator .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
@@ -3231,7 +3231,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-picklist .p-picklist-list .p-picklist-item.p-highlight {
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-picklist .p-picklist-list .p-picklist-empty-message {
   padding: 0.75rem 1.25rem;
@@ -3327,7 +3327,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   box-shadow: inset 0 0 0 0.15rem var(--primary-light-color);
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler,
@@ -3375,7 +3375,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   transition: box-shadow 0.2s;
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight {
-  background-color: #F5F3FF;
+  background-color: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-tree.p-tree-horizontal .p-treenode .p-treenode-content.p-highlight .p-treenode-icon {
@@ -3461,7 +3461,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   min-width: 1.143rem;
   line-height: 1.143rem;
   color: var(--primary-dark-color);
-  background: #F5F3FF;
+  background: #fffaf3;
   margin-left: 0.5rem;
 }
 .p-treetable .p-sortable-column:not(.p-highlight):hover {
@@ -3472,7 +3472,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   color: #343a40;
 }
 .p-treetable .p-sortable-column.p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-treetable .p-sortable-column.p-highlight .p-sortable-column-icon {
@@ -3520,7 +3520,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   outline-offset: -0.15rem;
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-treetable .p-treetable-tbody > tr.p-highlight .p-treetable-toggler {
@@ -4255,7 +4255,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   margin: 0;
 }
 .p-contextmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-contextmenu .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
   color: var(--primary-dark-color);
@@ -4375,7 +4375,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link,
 .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text,
 .p-megamenu .p-megamenu-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
@@ -4453,7 +4453,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   margin: 0;
 }
 .p-megamenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-megamenu .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
   color: var(--primary-dark-color);
@@ -4617,7 +4617,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link,
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text,
 .p-menubar .p-menubar-root-list > .p-menuitem.p-menuitem-active > .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
@@ -4652,7 +4652,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   margin: 0;
 }
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-menubar .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
   color: var(--primary-dark-color);
@@ -4933,7 +4933,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-slidemenu .p-slidemenu.p-slidemenu-active > .p-slidemenu-link .p-slidemenu-text {
   color: var(--primary-dark-color);
@@ -4980,7 +4980,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   box-shadow: 0 0 0 0.2rem var(--primary-light-color);
 }
 .p-steps .p-steps-item.p-highlight .p-steps-number {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-steps .p-steps-item.p-highlight .p-steps-title {
@@ -5098,7 +5098,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   margin: 0;
 }
 .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link {
-  background: #F5F3FF;
+  background: #fffaf3;
 }
 .p-tieredmenu .p-menuitem.p-menuitem-active > .p-menuitem-link .p-menuitem-text {
   color: var(--primary-dark-color);
@@ -5383,7 +5383,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: #adb5bd;
 }
 .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-galleria.p-galleria-indicators-bottom .p-galleria-indicator, .p-galleria.p-galleria-indicators-top .p-galleria-indicator {
@@ -5402,7 +5402,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   background: rgba(255, 255, 255, 0.6);
 }
 .p-galleria.p-galleria-indicator-onitem .p-galleria-indicators .p-galleria-indicator.p-highlight button {
-  background: #F5F3FF;
+  background: #fffaf3;
   color: var(--primary-dark-color);
 }
 .p-galleria .p-galleria-thumbnail-container {
@@ -5699,7 +5699,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
 }
 
 .p-button:focus {
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #c5aefb, 0 1px 2px 0 black;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #fcca95, 0 1px 2px 0 black;
 }
 .p-button.p-button-secondary:enabled:focus {
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #b0b9c6, 0 1px 2px 0 black;
