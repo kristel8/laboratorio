@@ -13,8 +13,9 @@
   .logo-container {
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 10px;
     width: 100%;
+    column-gap: 12px;
 
     .logo {
       background: #fff;
