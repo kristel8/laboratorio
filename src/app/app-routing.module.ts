@@ -33,24 +33,6 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'subcategorias',
-        loadChildren: () => import('./modules/sub-categoria/sub-categoria.module').then(m => m.SubCategoriaModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'proveedores',
-        loadChildren: () => import('./modules/proveedor/proveedor.module').then(m => m.ProveedorModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'compras',
-        loadChildren: () => import('./modules/compra/compra.module').then(m => m.CompraModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
         path: 'productos',
         loadChildren: () => import('./modules/producto/producto.module').then(m => m.ProductoModule),
         //canLoad: [AuthGuard],
@@ -69,26 +51,8 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'sucursales',
-        loadChildren: () => import('./modules/sucursal/sucursal.module').then(m => m.SucursalModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'ventas',
-        loadChildren: () => import('./modules/venta/venta.module').then(m => m.VentaModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
         path: 'almacen-central',
         loadChildren: () => import('./modules/almacen-central/almacen-central.module').then(m => m.AlmacenCentralModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'envio-sucursal',
-        loadChildren: () => import('./modules/envio-sucursal/envio-sucursal.module').then(m => m.EnvioSucursalModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
       },
@@ -99,20 +63,8 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'usuarios',
-        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
         path: 'clientes',
         loadChildren: () => import('./modules/cliente/cliente.module').then(m => m.ClienteModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'recepcion',
-        loadChildren: () => import('./modules/recepcion/recepcion.module').then(m => m.RecepcionModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
       },

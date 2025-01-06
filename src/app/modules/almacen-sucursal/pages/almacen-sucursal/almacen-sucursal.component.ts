@@ -44,19 +44,7 @@ export class AlmacenSucursalComponent implements OnInit {
   }
 
   getElementos() {
-    const obs = new Observable<boolean>((observer) => {
-      this.almacenSucursalService.getReporteAlmacenSucursalProducto(String(this.authService.usuario.idSucursal)).subscribe((resp) => {
-        this.listaElementos = resp;
-        observer.next(true);
-      });
-    });
 
-    obs.subscribe((res) => {
-      if (res) {
-        this.isCargado = res;
-        this.getColumnasTabla();
-      }
-    });
   }
 
   getColumnasTabla() {
