@@ -16,6 +16,15 @@
         </p>
       </a>
     </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/paciente']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Paciente
+        </p>
+      </a>
+    </li>
     <li class="sidenav-nav-item" *ngFor="let item of menu">
       <a class="sidenav-nav-link" *ngIf="item.ruta != ''" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
         <i class="sidenav-link-icon" [class]="item.imagen"></i>
