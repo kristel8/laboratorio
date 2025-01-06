@@ -40,22 +40,24 @@ export class LoginComponent implements OnInit {
 
 
   iniciarSesion() {
-    this.loadingService.mostrarLoading();
+    // this.loadingService.mostrarLoading();
     const header = this.loginForm.value;
-    this.authService.login(header).subscribe((res) => {
-     if(res.usuario.length > 0){
-        this.router.navigate(['./dashboard']);
-        this.loadingService.ocultarLoading();
-     } else {
-      this.servicioMensajesSwal.mensajeAdvertencia('Verifique usuario y contraseña');
-      this.loadingService.ocultarLoading();
-      this.loginForm.reset();
-     }
-    }, (error) => {
-      this.servicioMensajesSwal.mensajeError(error);
-      this.loadingService.ocultarLoading();
-      this.loginForm.reset();
-    } );
+    this.router.navigate(['./dashboard']);
+
+    // this.authService.login(header).subscribe((res) => {
+    //  if(res.usuario.length > 0){
+    //     this.router.navigate(['./dashboard']);
+    //     this.loadingService.ocultarLoading();
+    //  } else {
+    //   this.servicioMensajesSwal.mensajeAdvertencia('Verifique usuario y contraseña');
+    //   this.loadingService.ocultarLoading();
+    //   this.loginForm.reset();
+    //  }
+    // }, (error) => {
+    //   this.servicioMensajesSwal.mensajeError(error);
+    //   this.loadingService.ocultarLoading();
+    //   this.loginForm.reset();
+    // } );
   }
 
   viewPassword(input:any) {
