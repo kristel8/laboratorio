@@ -29,8 +29,8 @@ export class TableComponent implements OnInit {
   @Input() tituloCaption: string = '';
   @Input() isMostrarBuscador: boolean = true;
   @Input() isMostrarAcciones: boolean = true;
-  @Input() isMostrarExportacion: boolean = true;
-  @Input() isOpcionEliminar: boolean = true;
+  @Input() isMostrarExportacion: boolean = false;
+  @Input() isOpcionEliminar: boolean = false;
   @Input() isOpcionEditar: boolean = true;
 
   @Input() isMostrarMasOpciones: boolean = false;
