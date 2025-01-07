@@ -18,6 +18,7 @@ import { RecepcionModule } from './recepcion/recepcion.module';
 import { MessageService } from 'primeng/api';
 import { CajaSucursalModule } from './caja-sucursal/caja-sucursal.module';
 import { PacienteModule } from './paciente/paciente.module';
+import { ExamenesModule } from './examenes/examenes/examenes.module';
 @NgModule({
   declarations: [
   ],
@@ -37,7 +38,8 @@ import { PacienteModule } from './paciente/paciente.module';
     UsuarioModule,
     RecepcionModule,
     CajaSucursalModule,
-    PacienteModule
+    PacienteModule,
+    ExamenesModule
   ],
   exports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { PacienteModule } from './paciente/paciente.module';
     UsuarioModule,
     RecepcionModule,
     CajaSucursalModule,
-    PacienteModule
+    PacienteModule,
+    ExamenesModule
   ],
   providers: [MessageService]
 })
