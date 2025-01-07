@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ProductoRoutingModule } from './producto-routing.module';
 import { ProductoComponent } from './pages/producto/producto.component';
-import { MantenimientoProductoComponent } from './pages/mantenimiento-producto/mantenimiento-producto.component';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -18,7 +17,6 @@ import {InputNumberModule} from 'primeng/inputnumber';
 @NgModule({
   declarations: [
     ProductoComponent,
-    MantenimientoProductoComponent
   ],
   imports: [
     CommonModule,

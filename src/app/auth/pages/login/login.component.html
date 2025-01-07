@@ -1,7 +1,8 @@
 <section class="login">
+  
   <form (ngSubmit)="iniciarSesion()" [formGroup]="loginForm">
-    <img src="assets/images/calicel2.png" alt="logo" class="logo">
-    <h2>Iniciar Sesión</h2>
+
+    <h1>Iniciar Sesión</h1>
     <br>
 
     <div class="form">
@@ -27,7 +28,13 @@
     </div>
     <br>
     <br>
-    <p-button [style]="{'width':'100%'}" styleClass="p-button-lg" label="Ingresar" icon="pi pi-arrow-right"
-      iconPos="right" [type]="'submit'" [disabled]="!loginForm.valid"></p-button>
+    <p-button [style]="{'width':'60%'}" styleClass="p-button-lg" label="Ingresar" 
+       [type]="'submit'" [disabled]="!loginForm.valid"></p-button>
+
+       
   </form>
+
+
+
+  
 </section>
