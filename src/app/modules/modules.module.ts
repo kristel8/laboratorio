@@ -20,15 +20,8 @@ import { ExamenesModule } from './examenes/examenes/examenes.module';
     CategoriaModule,
     AlmacenCentralModule,
     EmpleadoModule,
-<<<<<<< HEAD
-    UsuarioModule,
-    RecepcionModule,
-    CajaSucursalModule,
     PacienteModule,
     ExamenesModule
-=======
-    PacienteModule
->>>>>>> 59bc8b2bf38e010a770f2a5927996807bd615762
   ],
   exports: [
     CommonModule,
@@ -38,15 +31,8 @@ import { ExamenesModule } from './examenes/examenes/examenes.module';
     CategoriaModule,
     AlmacenCentralModule,
     EmpleadoModule,
-<<<<<<< HEAD
-    UsuarioModule,
-    RecepcionModule,
-    CajaSucursalModule,
     PacienteModule,
     ExamenesModule
-=======
-    PacienteModule
->>>>>>> 59bc8b2bf38e010a770f2a5927996807bd615762
   ],
   providers: [MessageService]
 })

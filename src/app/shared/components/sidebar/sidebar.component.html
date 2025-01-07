@@ -21,10 +21,8 @@
 
     </div>
   </nav>
-  
-  <ul class="sidenav-nav">
 
-   
+  <ul class="sidenav-nav">
 
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/dashboard']" routerLinkActive="active"
@@ -45,11 +43,6 @@
       </a>
     </li>
     <li class="sidenav-nav-item">
-<<<<<<< HEAD
-      <a class="sidenav-nav-link" [routerLink]="['/examenes']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
-=======
       <a class="sidenav-nav-link" [routerLink]="['/paciente']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <i class="icons2" [class]="'fa-regular fa-address-book'"></i>
@@ -62,14 +55,11 @@
       <a class="sidenav-nav-link" [routerLink]="['/examenes']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <i class="icons2" [class]="'fa-regular fa-file'"></i>
->>>>>>> 59bc8b2bf38e010a770f2a5927996807bd615762
         <p class="sidenav-link-text" *ngIf="collapsed">
           Examenes
         </p>
       </a>
     </li>
-<<<<<<< HEAD
-=======
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/resultados']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
@@ -79,8 +69,7 @@
         </p>
       </a>
     </li>
-    
->>>>>>> 59bc8b2bf38e010a770f2a5927996807bd615762
+
     <li class="sidenav-nav-item" *ngFor="let item of menu">
       <a class="sidenav-nav-link" *ngIf="item.ruta != ''" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
         <i class="sidenav-link-icon" [class]="item.imagen"></i>
