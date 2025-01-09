@@ -91,6 +91,18 @@ const routes: Routes = [
         loadChildren: () => import('./modules/examenes/examenes/examenes.module').then(m => m.ExamenesModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
+      },
+      {
+        path: 'doctor',
+        loadChildren: () => import('./modules/doctor/doctor/doctor.module').then(m => m.DoctorModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
+      },
+      {
+        path: 'caja',
+        loadChildren: () => import('./modules/caja/caja.module').then(m => m.CajaModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
       }
     ]
   }
