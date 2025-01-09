@@ -21,10 +21,8 @@
 
     </div>
   </nav>
-  
-  <ul class="sidenav-nav">
 
-   
+  <ul class="sidenav-nav">
 
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/dashboard']" routerLinkActive="active"
@@ -71,6 +69,7 @@
         </p>
       </a>
     </li>
+<<<<<<< HEAD
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/doctor']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
@@ -90,6 +89,9 @@
       </a>
     </li>
     
+=======
+
+>>>>>>> bed18392faef754900a43c01a053bc1149ad0240
     <li class="sidenav-nav-item" *ngFor="let item of menu">
       <a class="sidenav-nav-link" *ngIf="item.ruta != ''" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
         <i class="sidenav-link-icon" [class]="item.imagen"></i>

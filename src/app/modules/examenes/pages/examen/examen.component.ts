@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IExamen } from '../../../models/examenes';
+import { IExamen } from '../../models/examenes';
 
 @Component({
   selector: 'app-examen',
