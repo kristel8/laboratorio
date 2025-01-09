@@ -88,7 +88,13 @@ const routes: Routes = [
       },
       {
         path: 'examenes',
-        loadChildren: () => import('./modules/examenes/examenes/examenes.module').then(m => m.ExamenesModule),
+        loadChildren: () => import('./modules/examenes/examenes.module').then(m => m.ExamenesModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
       }

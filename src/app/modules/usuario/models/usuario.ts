@@ -1,5 +1,6 @@
 
 import { IEmpleado } from "../../empleado/models/empleado"
+import { ISucursal } from "../../sucursal/models/sucursal"
 
 export interface IUsuario {
   empleado: string,
@@ -7,6 +8,7 @@ export interface IUsuario {
   idEmpleado: IEmpleado,
   estado: boolean,
   idUsuario: number,
+  idSucursal: ISucursal,
   idCaja: number,
   isCaja: boolean,
   idConfigDocumentoImpreso: number,

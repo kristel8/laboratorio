@@ -8,7 +8,8 @@ import { AlmacenCentralModule } from './almacen-central/almacen-central.module';
 import { EmpleadoModule } from './empleado/empleado.module';
 import { MessageService } from 'primeng/api';
 import { PacienteModule } from './paciente/paciente.module';
-import { ExamenesModule } from './examenes/examenes/examenes.module';
+import { ExamenesModule } from './examenes/examenes.module';
+import { UsuarioModule } from './usuario/usuario.module';
 @NgModule({
   declarations: [
   ],
@@ -21,6 +22,7 @@ import { ExamenesModule } from './examenes/examenes/examenes.module';
     AlmacenCentralModule,
     EmpleadoModule,
     PacienteModule,
+    UsuarioModule,
     ExamenesModule
   ],
   exports: [
@@ -32,6 +34,7 @@ import { ExamenesModule } from './examenes/examenes/examenes.module';
     AlmacenCentralModule,
     EmpleadoModule,
     PacienteModule,
+    UsuarioModule,
     ExamenesModule
   ],
   providers: [MessageService]
