@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IPaciente } from '../../models/paciente';
+import { IAtencion } from '../../models/atencion';
+
 
 @Component({
-  selector: 'app-paciente',
-  templateUrl: './paciente.component.html',
-  styleUrls: ['./paciente.component.scss'],
+  selector: 'app-atencion',
+  templateUrl: './atencion.component.html',
+  styleUrls: ['./atencion.component.scss'],
 })
-export class PacienteComponent implements OnInit {
-  listaPacientes: IPaciente[] = [
+export class AtencionComponent implements OnInit {
+  listaAtencion: IAtencion[] = [
     {
-      idProducto: 1
+      idResultado: 1,
     }
   ];
 
@@ -33,12 +34,11 @@ export class PacienteComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
-      {  field: 'id',  header: 'ID',  visibility: true,  formatoFecha: ''   },
-      {  field: 'apellidoPaterno',  header: 'Apellido Paterno',  visibility: true,  formatoFecha: '' },
-      { field: 'apellidoMaterno', header: 'Apellido Materno', visibility: true, formatoFecha: '' },
-      { field: 'nombres', header: 'Nombres', visibility: true, formatoFecha: '' },
+      {  field: 'nrOrden',  header: 'Nr Orden',  visibility: true,  formatoFecha: ''   },
+      { field: 'apellidosyNombres', header: 'Apellidos y Nombres', visibility: true, formatoFecha: '' },
       { field: 'dni', header: 'DNI', visibility: true, formatoFecha: '' },
-      { field: 'fechaInscrito', header: 'Fecha Inscrito', visibility: true, formatoFecha: '' },
+      { field: 'fechaCreacion', header: 'Fecha Creacion', visibility: true, formatoFecha: '' },
+      
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);

@@ -109,6 +109,18 @@ const routes: Routes = [
         loadChildren: () => import('./modules/caja/caja.module').then(m => m.CajaModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
+      },
+      {
+        path: 'resultado',
+        loadChildren: () => import('./modules/resultado/resultado.module').then(m => m.ResultadoModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
+      },
+      {
+        path: 'atencion',
+        loadChildren: () => import('./modules/atencion/atencion.module').then(m => m.AtencionModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
       }
     ]
   }

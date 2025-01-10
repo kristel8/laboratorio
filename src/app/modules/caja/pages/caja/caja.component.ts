@@ -39,7 +39,7 @@ listaCaja: ICaja[] = [
       {  field: 'apellidoNombre',  header: 'Apellidos y Nombres',  visibility: true,  formatoFecha: '' },
       { field: 'examen', header: 'Exámen', visibility: true, formatoFecha: '' },
       { field: 'costoTotal', header: 'Costo Total', visibility: true, formatoFecha: '' },
-      { field: 'opciones', header: 'Opciones', visibility: true, formatoFecha: '' },
+    
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
