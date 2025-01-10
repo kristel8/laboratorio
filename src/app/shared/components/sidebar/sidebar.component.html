@@ -69,6 +69,24 @@
         </p>
       </a>
     </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/doctor']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="icons2" [class]="'fa-regular fa-folder'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Doctor
+        </p>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/caja']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="icons2" [class]="'fa-regular fa-folder'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Caja
+        </p>
+      </a>
+    </li>
 
     <li class="sidenav-nav-item" *ngFor="let item of menu">
       <a class="sidenav-nav-link" *ngIf="item.ruta != ''" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ExamenesRoutingModule } from './examenes-routing.module';
-import { ExamenComponent } from './pages/examenes/examen/examen.component';
+import { DoctorRoutingModule } from './doctor-routing.module';
+import { DoctoresComponent } from './pages/doctores/doctores.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -14,11 +13,11 @@ import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
-    ExamenComponent
+    DoctoresComponent
   ],
   imports: [
     CommonModule,
-    ExamenesRoutingModule,
+    DoctorRoutingModule,
     SharedModule,
     InputTextModule,
     ButtonModule,
@@ -30,4 +29,4 @@ import { TableModule } from 'primeng/table';
     InputNumberModule,
   ],
 })
-export class ExamenesModule {}
+export class DoctorModule {}

@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { IDoctor } from '../../models/doctor';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IExamen } from '../../../models/examenes';
 
 @Component({
-  selector: 'app-examen',
-  templateUrl: './examen.component.html',
-  styleUrls: ['./examen.component.scss'],
+  selector: 'app-doctores',
+  templateUrl: './doctores.component.html',
+  styleUrls: ['./doctores.component.scss']
 })
-export class ExamenComponent implements OnInit {
-  listaExamenes: IExamen[] = [
-    {
-      idProducto: 1,
-    },
-  ];
+export class DoctoresComponent implements OnInit {
+
+    listaDoctores: IDoctor[] = [
+      {
+        idProducto: 1,
+      },
+    ];
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
 
   isCargado: boolean = false;
 
-  constructor() {}
+
+  constructor() { }
 
   ngOnInit(): void {
     this.getItems();
@@ -33,17 +35,16 @@ export class ExamenComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
-      {  field: 'idExamen',  header: 'ID Examen',  visibility: true,  formatoFecha: ''   },
-      {  field: 'nombre',  header: 'Nombre',  visibility: true,  formatoFecha: '' },
-      { field: 'descripcion', header: 'Descripción', visibility: true, formatoFecha: '' },
-      { field: 'precio', header: 'Precio', visibility: true, formatoFecha: '' },
+      {  field: 'idDoctor',  header: 'ID Doctor',  visibility: true,  formatoFecha: ''   },
+      {  field: 'apellidoNombre',  header: 'Apellidos y Nombres',  visibility: true,  formatoFecha: '' },
+      { field: 'usuariosReferidos', header: 'Usuarios referidos', visibility: true, formatoFecha: '' },
+      { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
       { field: 'opciones', header: 'Opciones', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
   }
 
-  
   eventoAccion(datos: any) {
     const { tipo, data } = datos;
     switch (tipo) {
@@ -56,4 +57,5 @@ export class ExamenComponent implements OnInit {
         break;
     }
   }
+
 }

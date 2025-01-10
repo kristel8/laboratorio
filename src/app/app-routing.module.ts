@@ -88,7 +88,25 @@ const routes: Routes = [
       },
       {
         path: 'examenes',
-        loadChildren: () => import('./modules/examenes/examenes/examenes.module').then(m => m.ExamenesModule),
+        loadChildren: () => import('./modules/examenes/examenes.module').then(m => m.ExamenesModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
+      },
+      {
+        path: 'usuarios',
+        loadChildren: () => import('./modules/usuario/usuario.module').then(m => m.UsuarioModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
+      },
+      {
+        path: 'doctor',
+        loadChildren: () => import('./modules/doctor/doctor/doctor.module').then(m => m.DoctorModule),
+        //canLoad: [AuthGuard],
+        //canActivate: [AuthGuard]
+      },
+      {
+        path: 'caja',
+        loadChildren: () => import('./modules/caja/caja.module').then(m => m.CajaModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
       }
