@@ -33,13 +33,13 @@ export class PacienteComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
-      {  field: 'idProducto',  header: 'ID Producto',  visibility: true,  formatoFecha: ''   },
-      {  field: 'codigo',  header: 'Codigo',  visibility: true,  formatoFecha: '' },
-      { field: 'descripcion', header: 'Descripción', visibility: true, formatoFecha: '' },
-      { field: 'detalle', header: 'Detalle', visibility: true, formatoFecha: '' },
-      { field: 'categoria', header: 'Categoria', visibility: true, formatoFecha: '' },
-      { field: 'subCategoria', header: 'Sub Categoria', visibility: true, formatoFecha: '' },
-      { field: 'estado', header: 'Estado', visibility: true, formatoFecha: '' },
+      {  field: 'id',  header: 'ID',  visibility: true,  formatoFecha: ''   },
+      {  field: 'apellidoPaterno',  header: 'Apellido Paterno',  visibility: true,  formatoFecha: '' },
+      { field: 'apellidoMaterno', header: 'Apellido Materno', visibility: true, formatoFecha: '' },
+      { field: 'nombres', header: 'Nombres', visibility: true, formatoFecha: '' },
+      { field: 'dni', header: 'DNI', visibility: true, formatoFecha: '' },
+      { field: 'fechaInscrito', header: 'Fecha Inscrito', visibility: true, formatoFecha: '' },
+      { field: 'opciones', header: 'Opciones', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
