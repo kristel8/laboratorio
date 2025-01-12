@@ -12,9 +12,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DetalleResultadosComponent } from './pages/detalle-resultados/detalle-resultados.component';
+import { AgregarResultadosComponent } from './pages/agregar-resultados/agregar-resultados.component';
 
 @NgModule({
-  declarations: [ResultadosComponent, DetalleResultadosComponent],
+  declarations: [ResultadosComponent, DetalleResultadosComponent, AgregarResultadosComponent],
   imports: [
     CommonModule,
     ResultadoRoutingModule,
