@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IAtencion } from '../../models/atencion';
+import { IButton } from 'src/app/shared/components/table/models/table';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,10 +19,12 @@ export class AtencionComponent implements OnInit {
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
-
+  acciones: IButton [] = [];
   isCargado: boolean = false;
 
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getItems();

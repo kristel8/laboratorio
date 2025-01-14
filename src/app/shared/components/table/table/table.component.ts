@@ -30,7 +30,7 @@ export class TableComponent implements OnInit {
   @Input() isMostrarBuscador: boolean = true;
   @Input() isMostrarAcciones: boolean = true;
   @Input() isMostrarExportacion: boolean = false;
-  @Input() isOpcionEliminar: boolean = false;
+  @Input() isOpcionEliminar: boolean = true;
   @Input() isOpcionEditar: boolean = true;
 
   @Input() isMostrarMasOpciones: boolean = false;

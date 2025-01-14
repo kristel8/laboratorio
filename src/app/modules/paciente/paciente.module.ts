@@ -11,11 +11,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { PacienteComponent } from './pages/paciente/paciente.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { EditarPacienteComponent } from './pages/editar-paciente/editar-paciente.component';
+import { CrearPacienteComponent } from './pages/crear-paciente/crear-paciente.component';
 
 
 @NgModule({
   declarations: [
-    PacienteComponent
+    PacienteComponent,
+    EditarPacienteComponent,
+    CrearPacienteComponent
   ],
   imports: [
     CommonModule,

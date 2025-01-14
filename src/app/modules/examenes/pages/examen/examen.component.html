@@ -2,7 +2,7 @@
     <h2>Lista de Examenes</h2>
     <app-button
       [label]="'Agregar'"
-      [router]="'./examenes/examen'"
+      [router]="'./agregar-examenes'"
       [icono]="'pi pi-plus'"
     ></app-button>
   </div>
@@ -15,6 +15,7 @@
       [filas]="5"
       [listaElementosAFiltrar]="['descripcion']"
       (eventoAccion)="eventoAccion($event)"
+ 
     ></app-table>
   </section>
   

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IExamen } from '../../models/examenes';
+import { IButton } from 'src/app/shared/components/table/models/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-examen',
@@ -16,13 +18,17 @@ export class ExamenComponent implements OnInit {
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
-
+  acciones: IButton [] = [];
   isCargado: boolean = false;
 
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getItems();
+
+    
   }
 
   getItems(): void {
@@ -47,12 +53,17 @@ export class ExamenComponent implements OnInit {
     const { tipo, data } = datos;
     switch (tipo) {
       case 'editar':
-        //this.editarProducto(data);
+        this.navigateEditarExamen(data);
         break;
 
       default:
         console.log('Acción no aplicada');
         break;
     }
+  }
+
+  navigateEditarExamen(data: any): void {
+    console.log('navegar a editar examen');
+    this.router.navigateByUrl(`examenes/editar-examen`);
   }
 }

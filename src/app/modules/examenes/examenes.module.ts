@@ -12,10 +12,14 @@ import { TableModule } from 'primeng/table';
 import { ExamenComponent } from './pages/examen/examen.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AgregarExamenesComponent } from './pages/examen/agregar-examenes/agregar-examenes.component';
+import { EditarExamenComponent } from './pages/examen/editar-examen/editar-examen.component';
 
 @NgModule({
   declarations: [
-    ExamenComponent
+    ExamenComponent,
+    AgregarExamenesComponent,
+    EditarExamenComponent
   ],
   imports: [
     CommonModule,

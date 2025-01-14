@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IPaciente } from '../../models/paciente';
+import { IButton } from 'src/app/shared/components/table/models/table';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paciente',
@@ -16,10 +18,12 @@ export class PacienteComponent implements OnInit {
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
-
+  acciones: IButton [] = [];
   isCargado: boolean = false;
 
-  constructor() {}
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getItems();
@@ -49,12 +53,18 @@ export class PacienteComponent implements OnInit {
     const { tipo, data } = datos;
     switch (tipo) {
       case 'editar':
-        //this.editarProducto(data);
+        this.navigateEditarPaciente(data);
         break;
 
       default:
         console.log('Acción no aplicada');
         break;
     }
+  }
+
+  navigateEditarPaciente(data: any):  void {
+    console.log('navegando a editar')
+    this.router.navigateByUrl(`paciente/editar-paciente`);
+     
   }
 }
