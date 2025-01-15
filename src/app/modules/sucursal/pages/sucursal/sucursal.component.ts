@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IListaCompra } from 'src/app/modules/compra/models/compra';
 import { IButton } from 'src/app/shared/components/table/models/table';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';

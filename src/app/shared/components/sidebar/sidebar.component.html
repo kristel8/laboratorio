@@ -34,6 +34,24 @@
       </a>
     </li>
     <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/empleados']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Empleados
+        </p>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/usuarios']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Usuarios
+        </p>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/atencion']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <i class="icons2" [class]="'fa-solid fa-book'"></i>

@@ -2,7 +2,7 @@
     <h2>Lista de pacientes</h2>
     <app-button
       [label]="'Agregar'"
-      [router]="'./mantenimiento-producto'"
+      [router]="'./mantenimiento-paciente'"
       [icono]="'pi pi-plus'"
     ></app-button>
   </div>
@@ -10,11 +10,11 @@
     <section class="container-table">
     <app-table
       *ngIf="isCargado"
-      [listaElementos]="listaPacientes"
+      [listaElementos]="listaElementos"
       [columnas]="colsVisibles"
       [filas]="10"
       [listaElementosAFiltrar]="['descripcion']"
       (eventoAccion)="eventoAccion($event)"
     ></app-table>
   </section>
-  
+

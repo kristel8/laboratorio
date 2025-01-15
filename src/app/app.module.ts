@@ -10,7 +10,8 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,13 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [ MessageService ],
+  providers: [ MessageService,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ResponseInterceptor,
+        multi: true
+      }
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

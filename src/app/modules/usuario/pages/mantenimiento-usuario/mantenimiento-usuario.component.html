@@ -32,15 +32,6 @@
     </div>
 
     <div class="form">
-      <span class="form-text">Sucursal:</span>
-      <p-dropdown [options]="listaSucursal" formControlName="sucursal" optionLabel="nombreSucur"
-        placeholder="Seleccione"></p-dropdown>
-      <div class="validation" *ngIf="sucursal?.invalid && (sucursal?.dirty || sucursal?.touched)">
-        <small *ngIf="sucursal?.errors?.['required']" class="p-error">Sucursal es obligatorio</small>
-      </div>
-    </div>
-
-    <div class="form">
       <span class="form-text">Empleado:</span>
       <div class="t-col-auto-2 t-col-sm-1 t-gap-sm">
         <div class="md:col-4">
@@ -63,15 +54,6 @@
           </div>
         </div>
         <input id="datosEmpleado" type="text" formControlName="datosEmpleado" pInputText />
-      </div>
-    </div>
-
-    <div class="form">
-      <span class="form-text">Caja:</span>
-      <p-toggleButton onLabel="Caja creada" offLabel="Crear caja"
-            onIcon="pi pi-check" offIcon="pi pi-plus" iconPos="right" formControlName="caja" [disabled]="caja?.value" ></p-toggleButton>
-      <div class="validation" *ngIf="caja?.invalid && (caja?.dirty || caja?.touched)">
-        <small *ngIf="caja?.errors?.['required']" class="p-error">Caja es obligatorio</small>
       </div>
     </div>
   </section>
@@ -104,16 +86,14 @@
 <!-- #MODAL BUSCAR EMPÑLEADO -->
 <p-dialog header="Lista de Empleados" [(visible)]="isBuscadorDeEmpleado" [modal]="true" [style]="{ width: '50vw' }"
   [draggable]="false" [resizable]="false">
-  <span><b>Seleccione un empleado:</b></span>
-  <br />
+  <p><b>Seleccione un empleado:</b></p>
+  <br>
   <p-table #dt [columns]="colsEmpleado" selectionMode="single" [value]="listaEmpleados" dataKey="numDocumento"
     [rows]="6" [paginator]="true" [globalFilterFields]="[
       'nombre',
       'numDocumento',
       'tipoDocumento',
-      'area',
       'cargo',
-      'sueldo',
       'apellido'
     ]" [rowHover]="true" [scrollable]="true" responsiveLayout="scroll" (onRowSelect)="onRowEmpleadoSelected($event)">
     <ng-template pTemplate="caption">

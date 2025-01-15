@@ -3,29 +3,16 @@ import { IEmpleado } from "../../empleado/models/empleado"
 import { ISucursal } from "../../sucursal/models/sucursal"
 
 export interface IUsuario {
-  empleado: string,
-  contrasena: string,
-  idEmpleado: IEmpleado,
-  estado: boolean,
-  idUsuario: number,
-  idSucursal: ISucursal,
-  idCaja: number,
-  isCaja: boolean,
-  idConfigDocumentoImpreso: number,
-  tipoUsuario: string,
-  usuario: string
+  idUsuario?: number,
+  usuario: string;
+  contrasena: string;
+  tipoUsuario: string;
+  estado?: boolean,
+  idEmpleado: number,
+  apellidoYNombre?: string;
+  idGenerado?: number;
 }
 
-export interface IUsuarioSave {
-  contrasena: string,
-  estado: boolean,
-  idEmpleado: number,
-  idSucursal: number,
-  idUsuario: number,
-  isCaja: boolean,
-  tipoUsuario: string,
-  usuario: string
-}
 
 export interface ITipoUsuario {
   tipoUsuario: string,
@@ -40,7 +27,6 @@ export interface IMenu {
 }
 
 export interface IDetallePermiso {
-  idDetallePermisos: number,
   idMenu: number,
   idUsuario: number
 }

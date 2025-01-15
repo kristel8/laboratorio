@@ -46,6 +46,7 @@ html {
 
 .t-col-3 {
   @include threeColumn(1fr, 1fr, 1fr);
+  @include gapColumn(10px);
 }
 
 .t-col-auto-3 {
@@ -112,13 +113,11 @@ html {
     }
     .p-inputtext {
       width: 100%;
-      height: 46px;
     }
   }
 
   .p-inputtext {
     width: 100%;
-    height: 46px;
   }
 }
 
@@ -137,6 +136,7 @@ html {
 .t-flex-start {
   display: flex;
   column-gap: 20px;
+  align-items: center;
 }
 
 .t-gap-sm {

@@ -75,12 +75,6 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'caja-sucursal',
-        loadChildren: () => import('./modules/caja-sucursal/caja-sucursal.module').then(m => m.CajaSucursalModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
         path: 'paciente',
         loadChildren: () => import('./modules/paciente/paciente.module').then(m => m.PacienteModule),
         //canLoad: [AuthGuard],

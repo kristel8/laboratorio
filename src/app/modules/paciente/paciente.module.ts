@@ -11,11 +11,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { PacienteComponent } from './pages/paciente/paciente.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MantenimientoPacienteComponent } from './pages/mantenimiento-paciente/mantenimiento-paciente.component';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 @NgModule({
   declarations: [
-    PacienteComponent
+    PacienteComponent,
+    MantenimientoPacienteComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     FormsModule,
     HttpClientModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    CalendarModule,
+    InputTextareaModule
   ]
 })
 export class PacienteModule { }
