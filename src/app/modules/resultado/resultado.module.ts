@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ExamenesRoutingModule } from './examenes-routing.module';
+import { ResultadoRoutingModule } from './resultado-routing.module';
+import { ResultadosComponent } from './pages/resultados/resultados.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -9,21 +10,15 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { ExamenComponent } from './pages/examen/examen.component';
-
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AgregarExamenesComponent } from './pages/examen/agregar-examenes/agregar-examenes.component';
-import { EditarExamenComponent } from './pages/examen/editar-examen/editar-examen.component';
+import { DetalleResultadosComponent } from './pages/detalle-resultados/detalle-resultados.component';
+import { AgregarResultadosComponent } from './pages/agregar-resultados/agregar-resultados.component';
 
 @NgModule({
-  declarations: [
-    ExamenComponent,
-    AgregarExamenesComponent,
-    EditarExamenComponent
-  ],
+  declarations: [ResultadosComponent, DetalleResultadosComponent, AgregarResultadosComponent],
   imports: [
     CommonModule,
-    ExamenesRoutingModule,
+    ResultadoRoutingModule,
     SharedModule,
     InputTextModule,
     ButtonModule,
@@ -35,4 +30,4 @@ import { EditarExamenComponent } from './pages/examen/editar-examen/editar-exame
     InputNumberModule,
   ],
 })
-export class ExamenesModule {}
+export class ResultadoModule {}

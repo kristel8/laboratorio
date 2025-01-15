@@ -1,11 +1,16 @@
 <div class="t-flex-start">
-    <h2>Caja</h2>
+    <h2>Atenciones</h2>
+    <app-button
+      [label]="'Agregar'"
+      [router]="'./crear-atencion'"
+      [icono]="'pi pi-plus'"
+    ></app-button>
   </div>
   <br>
     <section class="container-table">
     <app-table
       *ngIf="isCargado"
-      [listaElementos]="listaCaja"
+      [listaElementos]="listaAtencion"
       [columnas]="colsVisibles"
       [filas]="5"
       [listaElementosAFiltrar]="['descripcion']"

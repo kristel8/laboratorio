@@ -15,7 +15,6 @@ export class PacienteComponent implements OnInit {
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
-
   isCargado: boolean = false;
 
   constructor(

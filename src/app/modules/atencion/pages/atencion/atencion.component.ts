@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IExamen } from '../../models/examenes';
+import { IAtencion } from '../../models/atencion';
 import { IButton } from 'src/app/shared/components/table/models/table';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-examen',
-  templateUrl: './examen.component.html',
-  styleUrls: ['./examen.component.scss'],
+  selector: 'app-atencion',
+  templateUrl: './atencion.component.html',
+  styleUrls: ['./atencion.component.scss'],
 })
-export class ExamenComponent implements OnInit {
-  listaExamenes: IExamen[] = [
+export class AtencionComponent implements OnInit {
+  listaAtencion: IAtencion[] = [
     {
-      idProducto: 1,
-    },
+      idResultado: 1,
+    }
   ];
 
   cols: IColumnasTabla[] = [];
@@ -27,8 +28,6 @@ export class ExamenComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItems();
-
-    
   }
 
   getItems(): void {
@@ -39,10 +38,11 @@ export class ExamenComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
-      {  field: 'idExamen',  header: 'ID Examen',  visibility: true,  formatoFecha: ''   },
-      {  field: 'nombre',  header: 'Nombre',  visibility: true,  formatoFecha: '' },
-      { field: 'descripcion', header: 'Descripción', visibility: true, formatoFecha: '' },
-      { field: 'precio', header: 'Precio', visibility: true, formatoFecha: '' },
+      {  field: 'nrOrden',  header: 'Nr Orden',  visibility: true,  formatoFecha: ''   },
+      { field: 'apellidosyNombres', header: 'Apellidos y Nombres', visibility: true, formatoFecha: '' },
+      { field: 'dni', header: 'DNI', visibility: true, formatoFecha: '' },
+      { field: 'fechaCreacion', header: 'Fecha Creacion', visibility: true, formatoFecha: '' },
+      
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
@@ -53,17 +53,12 @@ export class ExamenComponent implements OnInit {
     const { tipo, data } = datos;
     switch (tipo) {
       case 'editar':
-        this.navigateEditarExamen(data);
+        //this.editarProducto(data);
         break;
 
       default:
         console.log('Acción no aplicada');
         break;
     }
-  }
-
-  navigateEditarExamen(data: any): void {
-    console.log('navegar a editar examen');
-    this.router.navigateByUrl(`examenes/editar-examen`);
   }
 }

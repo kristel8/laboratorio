@@ -1,0 +1,50 @@
+<h3>Datos de orden</h3>
+<br />
+<form [formGroup]="detalleResultadoForm">
+  <section class="container-form t-col-3 t-col-sm-1">
+    <div class="form">
+      <span class="form-text">Nro Orden:</span>
+      <input id="nroOrden" type="text" formControlName="nroOrden" pInputText />
+    </div>
+
+    <div class="form">
+      <span class="form-text">Apellidos y Nombres:</span>
+      <input
+        id="apellidosyNombres"
+        type="text"
+        formControlName="apellidosyNombres"
+        pInputText
+      />
+    </div>
+
+    <div class="form">
+      <span class="form-text">Fecha:</span>
+      <input id="fecha" type="text" formControlName="fecha" pInputText />
+    </div>
+  </section>
+</form>
+
+<br />
+
+<h3>Lista de examenes</h3>
+<section class="container-table">
+  <app-table
+    *ngIf="isCargado"
+    [listaElementos]="listaDetalleResultado"
+    [columnas]="colsVisibles"
+    [filas]="5"
+    [listaElementosAFiltrar]="['descripcion']"
+    [isMostrarAcciones]="false"
+    [isMostrarMasOpciones]="true"
+    [acciones]="acciones"
+    (eventoAccion)="eventoAccion($event)"
+  ></app-table>
+</section>
+
+<br>
+
+<app-button
+      [label]="'Regresar'"
+      [router]="''"
+      [icono]="'pi pi-arrow'"
+    ></app-button>

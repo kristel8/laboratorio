@@ -1,0 +1,31 @@
+<h3>Editar Examen</h3>
+ <br>
+<form [formGroup]="editarExamenForm">
+    <section class="container-form t-col-3 t-col-sm-1">
+        <div class="form">
+          <span class="form-text">Nombre</span>
+          <input id="nombre" type="text" formControlName="nombre" pInputText />
+        </div>
+    
+        <div class="form">
+          <span class="form-text">Descripcion</span>
+          <input
+            id="descripcion"
+            type="text"
+            formControlName="descripcion"
+            pInputText
+          />
+        </div>
+    
+        <div class="form">
+          <span class="form-text">Precio</span>
+          <input id="precio" type="text" formControlName="precio" pInputText />
+        </div>
+      </section>
+</form>
+
+<br>
+
+<h3>Plantilla de resultados</h3>
+
+

@@ -39,7 +39,7 @@ export class DoctoresComponent implements OnInit {
       {  field: 'apellidoNombre',  header: 'Apellidos y Nombres',  visibility: true,  formatoFecha: '' },
       { field: 'usuariosReferidos', header: 'Usuarios referidos', visibility: true, formatoFecha: '' },
       { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
-      { field: 'opciones', header: 'Opciones', visibility: true, formatoFecha: '' },
+    
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ExamenesRoutingModule } from './examenes-routing.module';
+import { AtencionRoutingModule } from './atencion-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -9,21 +9,23 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
-import { ExamenComponent } from './pages/examen/examen.component';
-
+import { AtencionComponent } from './pages/atencion/atencion.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { AgregarExamenesComponent } from './pages/examen/agregar-examenes/agregar-examenes.component';
-import { EditarExamenComponent } from './pages/examen/editar-examen/editar-examen.component';
+import { CrearAtencionComponent } from './pages/crear-atencion/crear-atencion.component';
+
+
+
+
+
 
 @NgModule({
   declarations: [
-    ExamenComponent,
-    AgregarExamenesComponent,
-    EditarExamenComponent
+    AtencionComponent,
+    CrearAtencionComponent
   ],
   imports: [
     CommonModule,
-    ExamenesRoutingModule,
+    AtencionRoutingModule,
     SharedModule,
     InputTextModule,
     ButtonModule,
@@ -35,4 +37,4 @@ import { EditarExamenComponent } from './pages/examen/editar-examen/editar-exame
     InputNumberModule,
   ],
 })
-export class ExamenesModule {}
+export class AtencionModule {}

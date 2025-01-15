@@ -1,0 +1,34 @@
+<h3>Datos de orden</h3>
+<br />
+<form [formGroup]="agregarResultadoForm">
+  <section class="container-form t-col-3 t-col-sm-2">
+    <div class="form">
+      <span class="form-text">Nro Orden:</span>
+      <input id="nroOrden" type="text" formControlName="nroOrden" pInputText />
+    </div>
+
+    <div class="form">
+      <span class="form-text">Apellidos y Nombres:</span>
+      <input
+        id="apellidosyNombres"
+        type="text"
+        formControlName="apellidosyNombres"
+        pInputText
+      />
+    </div>
+
+    <div class="form">
+        <span class="form-text">Examen:</span>
+        <input id="examen" type="text" formControlName="examen" pInputText />
+      </div>
+
+    <div class="form">
+      <span class="form-text">Fecha:</span>
+      <input id="fecha" type="text" formControlName="fecha" pInputText />
+    </div>
+  </section>
+</form>
+
+<br>
+
+<h3>Detalle de examen</h3>
