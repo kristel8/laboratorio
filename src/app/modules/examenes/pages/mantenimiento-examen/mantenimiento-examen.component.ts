@@ -6,6 +6,7 @@ import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IDetalleExamen } from '../../models/detalle-examen';
 import { IExamen } from '../../models/examenes';
 import { PlantillaExamenService } from '../../services/plantilla-examen.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mantenimiento-examen',
@@ -17,7 +18,6 @@ export class MantenimientoExamenComponent implements OnInit {
   titulo: string = 'Crear Exámen';
   id!: string;
   isEditar: boolean = false;
-  listaElementos: IDetalleExamen[] = [];
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
@@ -25,6 +25,7 @@ export class MantenimientoExamenComponent implements OnInit {
   examenesForm: FormGroup;
 
   idAnalisisCreado!: number;
+
   constructor(
     private fb: FormBuilder,
     private service: ExamenService,
@@ -45,7 +46,7 @@ export class MantenimientoExamenComponent implements OnInit {
 
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.titulo = 'Editar Empleado';
+      this.titulo = 'Editar Exámen';
       this.id = id;
       this.isEditar = true;
       this.buscarIdElemento();
@@ -69,10 +70,18 @@ export class MantenimientoExamenComponent implements OnInit {
   }
 
 
-  buscarIdElemento() {
-    this.service.getFindById(+this.id).subscribe((res) => {
-      const resultado = res[0];
-      this.mostrarValoresInput(resultado);
+  buscarIdElemento(): void {
+    this.service.getFindById(+this.id).pipe(
+      switchMap((analisis) => {
+        const resultado = analisis[0];
+        this.mostrarValoresInput(resultado);
+        return this.servicePlantilla.getFindById(resultado.idAnalisis as number)
+      })
+    ).subscribe((plantilla) => {
+      console.log('plantilla', plantilla);
+      plantilla.forEach((item) => {
+        this.agregarFila(item);
+      })
     });
   }
 
@@ -83,17 +92,26 @@ export class MantenimientoExamenComponent implements OnInit {
       descripcion: resultado.descripcion,
       precio: resultado.precio
     });
+
+    this.idAnalisisCreado = resultado.idAnalisis;
+
+
+
   }
+
   // Otras funciones como buscarIdElemento, agregarFila, borrarFila, etc.
-  agregarFila(): void {
+  agregarFila(data?: IDetalleExamen): void {
+
     const nuevaFila = this.fb.group({
-      descripcion: [null, Validators.required],
-      unidad: [null, Validators.required],
-      valorReferencial: [null, Validators.required],
+      idPlantillaAnalisis: [data?.idPlantillaAnalisis || null],
+      descripcion: [data?.descripcion || null, Validators.required],
+      unidad: [data?.unidad || null, Validators.required],
+      valorReferencia: [data?.valorReferencia || null, Validators.required],
       estado: [true]
     });
     this.elementos.push(nuevaFila);
     console.log('Elementos:', this.elementos.value); // Verificar estructura
+    return;
   }
 
   borrarFila(index: number) {
@@ -101,22 +119,8 @@ export class MantenimientoExamenComponent implements OnInit {
   }
 
   guardar(): void {
-    if (this.idAnalisisCreado) {
-      const listadoPlantilla = this.elementos.getRawValue();
-
-      listadoPlantilla.map((item) => ({
-        ...item,
-        idAnalisis: this.idAnalisisCreado
-      }))
-      this.servicePlantilla.insert(listadoPlantilla).subscribe(response => {
-        this.router.navigateByUrl('/examenes');
-        return;
-      });
-    }
-
     const { nombre, descripcion, precio } = this.examenesForm.value;
 
-    console.log('guardar');
     const params: IExamen = {
       nombre,
       descripcion,
@@ -124,14 +128,54 @@ export class MantenimientoExamenComponent implements OnInit {
       estado: true,
     };
 
+    if (this.isEditar) {
+      this.editarElemento(params);
+      return;
+    } else {
+      this.crearElemento(params);
+      return;
+    }
+  }
+
+  crearElemento(params: IExamen): void {
+    if (this.idAnalisisCreado) {
+      const listadoPlantilla = this.elementos.getRawValue();
+      const request = listadoPlantilla.map((item) => ({
+        ...item,
+        idAnalisis: this.idAnalisisCreado
+      }))
+
+      this.servicePlantilla.insert(request).subscribe(response => {
+        this.router.navigateByUrl('/examenes');
+      });
+
+      return;
+    }
+
     this.service.insert(params).subscribe((response) => {
       this.idAnalisisCreado = response.idGenerado;
       this.nombre?.disable();
       this.descripcion?.disable();
       this.precio?.disable();
-      this.agregarFila(); // Agregar una fila inicial al cargar el componente
-
+      this.agregarFila();
     });
+  }
+
+  editarElemento(params: IExamen): void {
+    this.service.update(+this.id, params).pipe(
+      switchMap(() => {
+        const listadoPlantilla = this.elementos.getRawValue();
+        const request = listadoPlantilla.map((item) => ({
+          ...item,
+          idAnalisis: this.id
+        }))
+
+        return this.servicePlantilla.update(+this.id, request);
+
+      })
+    ).subscribe(() => {
+      this.router.navigateByUrl('/examenes');
+    })
   }
 
 }

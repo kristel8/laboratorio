@@ -34,15 +34,15 @@
         <th>Opción</th>
         <th>Descripción</th>
         <th>Unidad</th>
-        <th>Valor Referencial</th>
+        <th>Valor Referencia</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-i="rowIndex">
       <ng-container  formArrayName="elementos">
       <tr [formGroupName]="i">
         <td class="t-flex-start" style="justify-content: center; column-gap: 10px;">
-          <button pButton (click)="agregarFila()" icon="pi pi-plus" class="p-button-rounded"></button>
-          <button pButton (click)="borrarFila(i)" [disabled]="elementos.length <= 1" icon="pi pi-minus" class="p-button-rounded p-button-danger"></button>
+          <button pButton (click)="agregarFila()" type="button" icon="pi pi-plus" class="p-button-rounded"></button>
+          <button pButton (click)="borrarFila(i)" type="button" [disabled]="elementos.length <= 1" icon="pi pi-minus" class="p-button-rounded p-button-danger"></button>
         </td>
         <td>
           <input type="text" formControlName="descripcion" pInputText/>
@@ -51,7 +51,7 @@
           <input type="text" formControlName="unidad" pInputText/>
         </td>
         <td>
-          <input type="number" formControlName="valorReferencial" pInputText/>
+          <input type="number" formControlName="valorReferencia" pInputText/>
         </td>
       </tr>
     </ng-container>

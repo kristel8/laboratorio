@@ -19,10 +19,10 @@ export class PlantillaExamenService {
   }
 
   getFindById(id: number):Observable<IPlantillaExamen[]> {
-    return this.httpClient.get<IPlantillaExamen[]>(`${this.URLServicio}analisis/findById/${id}`)
+    return this.httpClient.get<IPlantillaExamen[]>(`${this.URLServicio}plantillaanalisis/findByIdAnalisis/${id}`)
   }
 
-  update(id: number, header: IPlantillaExamen):Observable<IPlantillaExamenResponse> {
+  update(id: number, header: IPlantillaExamen[]):Observable<IPlantillaExamenResponse> {
     return this.httpClient.put<IPlantillaExamenResponse>(`${this.URLServicio}plantillaanalisis/update/${id}`, header);
   }
 
