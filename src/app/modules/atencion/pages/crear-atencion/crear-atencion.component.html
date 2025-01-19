@@ -1,1 +1,138 @@
-<h3>Crear atencion</h3>
+<form (ngSubmit)="guardarElemento()" [formGroup]="atencionForm">
+    <h2>Crear atencion</h2>
+    <br>
+  
+    <section class="container-form">
+      <h3>Buscar paciente</h3>
+        <br>
+      <div class="t-flex-start">
+        <!-- <div class="form">
+          <span class="form-text">Tipo Documento:</span>
+          <p-dropdown [options]="tipoDocumentos" formControlName="tipoDocumento" optionLabel="tipo"
+            placeholder="Seleccione"></p-dropdown>
+        </div> -->
+      
+        <span><b>DNI:</b></span>
+        <div class="form">
+  
+          <input id="numDocumento" type="text" formControlName="numDocumento" pInputText numbersOnly />
+          <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
+            <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
+            <small *ngIf="numDocumento?.errors?.['maxlength']" class="p-error">Nro de Documento debe tener 11
+              dígitos</small>
+          </div>
+        </div>
+        <button pButton type="button" label="Nuevo paciente" *ngIf="!isEditar"></button> 
+        
+  
+      </div>
+      <br>
+      <br>
+      <hr>
+      <br>
+      <div class="t-col-3 t-col-sm-1">
+        <div class="form">
+          <span class="form-text">Apellidos:</span>
+          <input id="apellidos" type="text" formControlName="apellidos" pInputText />
+          <div class="validation" *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)">
+            <small *ngIf="apellidos?.errors?.['required']" class="p-error">Apellidos es obligatorio</small>
+          </div>
+        </div>
+  
+        <div class="form">
+          <span class="form-text">Nombres:</span>
+          <input id="nombres" type="text" formControlName="nombres" autocomplete="off" pInputText />
+          <div class="validation" *ngIf="nombres?.invalid && (nombres?.dirty || nombres?.touched)">
+            <small *ngIf="nombres?.errors?.['required']" class="p-error">Nombres es obligatorio</small>
+          </div>
+        </div>
+  
+        <div class="form">
+          <span class="form-text">Género:</span>
+          <p-dropdown [options]="generos" formControlName="genero" optionLabel="tipo"
+            placeholder="Seleccione"></p-dropdown>
+          <div class="validation" *ngIf="genero?.invalid && (genero?.dirty || genero?.touched)">
+            <small *ngIf="genero?.errors?.['required']" class="p-error">Género es obligatorio</small>
+          </div>
+        </div>
+      </div>
+  
+      <br>
+  
+      <div class="t-col-3 t-col-sm-1">
+        <div class="form">
+          <span class="form-text">Fecha de Nacimiento:</span>
+          <p-calendar formControlName="fechaNacimiento" dateFormat="dd-mm-yy" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
+            [readonlyInput]="true"></p-calendar>
+          <div class="validation"
+            *ngIf="fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)">
+            <small *ngIf="fechaNacimiento?.errors?.['required']" class="p-error">Fecha Nacimiento es obligatorio</small>
+          </div>
+        </div>
+  
+        <div class="form">
+          <span class="form-text">Email:</span>
+          <input id="email" type="email" formControlName="email" autocomplete="off" pInputText />
+          <div class="validation" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <small *ngIf="email?.errors?.['required']" class="p-error">Correo es obligatorio</small>
+          </div>
+        </div>
+  
+        <div class="form">
+          <span class="form-text">Celular:</span>
+          <input id="celular" type="text" formControlName="celular" autocomplete="off" pInputText numbersOnly />
+          <div class="validation" *ngIf="celular?.invalid && (celular?.dirty || celular?.touched)">
+            <small *ngIf="celular?.errors?.['required']" class="p-error">Celular es obligatorio</small>
+          </div>
+        </div>
+  
+      </div>
+  
+      <br>
+  
+      <div class="t-col-3 t-col-sm-1">
+        <div class="form">
+          <span class="form-text">Edad:</span>
+          <input id="edad" type="text" formControlName="edad" autocomplete="off" pInputText />
+          <div class="validation" *ngIf="edad?.invalid && (edad?.dirty || edad?.touched)">
+            <small *ngIf="edad?.errors?.['required']" class="p-error">Edad es obligatorio</small>
+          </div>
+        </div>
+  
+        <div class="form">
+          <span class="form-text">Antecedentes:</span>
+          <textarea id="antecedentes" rows="1" cols="30" formControlName="antecedentes" autocomplete="off"
+            pInputTextarea></textarea>
+          <div class="validation" *ngIf="antecedentes?.invalid && (antecedentes?.dirty || antecedentes?.touched)">
+            <small *ngIf="antecedentes?.errors?.['required']" class="p-error">Antecedentes es obligatorio</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <br>
+
+    <section class="container-form">
+     <h3>Referencia</h3>
+     <br>
+     <div class="form">
+      <span class="form-text">Doctor:</span>
+    
+      <p-dropdown class="refer" [options]="referencias" formControlName="referencia" optionLabel="tipo"
+        placeholder="Seleccione"></p-dropdown>
+        
+      <div class="validation" *ngIf="referencia?.invalid && (referencia?.dirty || referencia?.touched)">
+        <small *ngIf="referencia?.errors?.['required']" class="p-error">Seleccione una referencia</small>
+      </div>
+    </div>
+
+    </section>
+
+    <br>
+    <div class="container-opciones">
+      <app-button [label]="'Inicio'" [router]="'/atencion'" [estiloBoton]="'outlined'">
+      </app-button>
+      <app-button [label]="'Siguiente'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="atencionForm.invalid">
+      </app-button>
+    </div>
+  </form>

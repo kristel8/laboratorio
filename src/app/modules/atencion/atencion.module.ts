@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { AtencionComponent } from './pages/atencion/atencion.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CrearAtencionComponent } from './pages/crear-atencion/crear-atencion.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
@@ -35,6 +36,8 @@ import { CrearAtencionComponent } from './pages/crear-atencion/crear-atencion.co
     HttpClientModule,
     DropdownModule,
     InputNumberModule,
+    CalendarModule,
+    InputTextModule
   ],
 })
 export class AtencionModule {}
