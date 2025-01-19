@@ -1,0 +1,17 @@
+.container-dialog {
+    .form {
+      width: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr;
+
+      .form-text {
+        padding-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .p-inputtext {
+        width: 100%;
+        height: 46px;
+      }
+    }
+  }

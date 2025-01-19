@@ -100,7 +100,7 @@ const routes: Routes = [
       },
       {
         path: 'doctor',
-        loadChildren: () => import('./modules/doctor/doctor/doctor.module').then(m => m.DoctorModule),
+        loadChildren: () => import('./modules/doctor/doctor.module').then(m => m.DoctorModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
       },

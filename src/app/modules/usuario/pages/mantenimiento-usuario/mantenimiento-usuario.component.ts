@@ -40,7 +40,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
   idUsuario!: number;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, //inicializa el form
     private serviceUsuario: UsuarioService,
     private serviceSucursal: SucursalService,
     private serviceEmpleado: EmpleadoService,

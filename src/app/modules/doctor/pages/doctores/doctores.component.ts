@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { IDoctor } from '../../models/doctor';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { ICaja } from '../../models/caja';
-import { IButton } from 'src/app/shared/components/table/models/table';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-caja',
-  templateUrl: './caja.component.html',
-  styleUrls: ['./caja.component.scss'],
+  selector: 'app-doctores',
+  templateUrl: './doctores.component.html',
+  styleUrls: ['./doctores.component.scss'],
 })
-export class CajaComponent implements OnInit {
-  listaCaja: ICaja[] = [
+export class DoctoresComponent implements OnInit {
+  listaDoctores: IDoctor[] = [
     {
       idProducto: 1,
     },
@@ -19,23 +19,22 @@ export class CajaComponent implements OnInit {
   colsVisibles: IColumnasTabla[] = [];
 
   isCargado: boolean = false;
+  cualquiera: boolean = false;
 
-  acciones: IButton[] = [];
+  constructor(
+    private fb: FormBuilder //inicializa el form
+  ) {}
 
-  constructor() {}
+  doctoresForm = this.fb.group({
+    codigo: [null, [Validators.required, Validators.maxLength(20)]],
+  });
+
+  get codigo() {
+    return this.doctoresForm.get('codigo');
+  }
 
   ngOnInit(): void {
     this.getItems();
-
-    this.acciones = [
-      {
-        icono: 'pi pi-money-bill',
-        clase: 'rounded',
-        evento: 'pagar',
-        estado: true,
-        tooltip: 'Pagar'
-      },
-    ]
   }
 
   getItems(): void {
@@ -47,8 +46,8 @@ export class CajaComponent implements OnInit {
   getColumnasTabla(): void {
     this.cols = [
       {
-        field: 'idOrden',
-        header: 'Nro Orden',
+        field: 'idDoctor',
+        header: 'ID Doctor',
         visibility: true,
         formatoFecha: '',
       },
@@ -58,13 +57,13 @@ export class CajaComponent implements OnInit {
         visibility: true,
         formatoFecha: '',
       },
-      { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
       {
-        field: 'costoTotal',
-        header: 'Costo Total',
+        field: 'usuariosReferidos',
+        header: 'Usuarios referidos',
         visibility: true,
         formatoFecha: '',
       },
+      { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
       {
         field: 'opciones',
         header: 'Opciones',
@@ -79,8 +78,8 @@ export class CajaComponent implements OnInit {
   eventoAccion(datos: any) {
     const { tipo, data } = datos;
     switch (tipo) {
-      case 'pagar':
-        this.openModalPagar(data)
+      case 'editar':
+        //this.editarProducto(data);
         break;
 
       default:
@@ -89,8 +88,13 @@ export class CajaComponent implements OnInit {
     }
   }
 
-  openModalPagar(data: any): void {
-    //Aqui levanto el modal de Pagar
-    console.log('Estoy ejecutando el modal')
+  openModalDoctor(): void {
+    console.log('hola, me estoy ejecutando');
+    this.cualquiera = true;
+  }
+
+  guardar(): void {
+    this.cualquiera = false;
+    this.doctoresForm.reset();
   }
 }

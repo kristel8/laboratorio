@@ -5,10 +5,9 @@
     <div class="form">
       <span class="form-text">Usuario:</span>
       <input id="usuario" type="text" formControlName="usuario" pInputText />
+      
       <div class="validation" *ngIf="usuario?.invalid && (usuario?.dirty || usuario?.touched)">
         <small *ngIf="usuario?.errors?.['required']" class="p-error">Usuario es obligatorio</small>
-        <small *ngIf="usuario?.errors?.['minlength'] || usuario?.errors?.['maxlength']" class="p-error">Usuario debe
-          tener máximo 20 dígitos</small>
       </div>
     </div>
 

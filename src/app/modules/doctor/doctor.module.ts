@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TableModule } from 'primeng/table';
     HttpClientModule,
     DropdownModule,
     InputNumberModule,
+    DialogModule
   ],
 })
 export class DoctorModule {}
