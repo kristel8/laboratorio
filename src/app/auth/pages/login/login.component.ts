@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingService } from 'src/app/shared/services/loading.service';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -12,13 +11,12 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent implements OnInit {
   iconEye: string = 'pi pi-eye';
-
+  isLoading = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private readonly servicioMensajesSwal: MensajesSwalService,
-    private loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {+
@@ -42,7 +40,11 @@ export class LoginComponent implements OnInit {
   iniciarSesion() {
     // this.loadingService.mostrarLoading();
     const header = this.loginForm.value;
-    this.router.navigate(['./dashboard']);
+    this.isLoading = true;
+    setTimeout(() => {
+      this.router.navigate(['./dashboard']);
+    this.isLoading = false;
+    }, 2000);
 
     // this.authService.login(header).subscribe((res) => {
     //  if(res.usuario.length > 0){

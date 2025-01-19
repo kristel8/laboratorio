@@ -103,4 +103,11 @@
   <ng-template pTemplate="summary">
     En total hay {{ listaElementos ? listaElementos.length : 0 }} registros.
   </ng-template>
+
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="6">{{mesajeNotItems}}</td>
+    </tr>
+  </ng-template>
 </p-table>

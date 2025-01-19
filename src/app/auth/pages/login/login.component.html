@@ -1,5 +1,5 @@
 <section class="login">
-  
+
   <form (ngSubmit)="iniciarSesion()" [formGroup]="loginForm">
 
     <h1>Iniciar Sesión</h1>
@@ -28,13 +28,16 @@
     </div>
     <br>
     <br>
-    <p-button [style]="{'width':'60%'}" styleClass="p-button-lg" label="Ingresar" 
+    <p-button [style]="{'width':'60%'}" styleClass="p-button-lg" label="Ingresar"
        [type]="'submit'" [disabled]="!loginForm.valid"></p-button>
 
-       
+
   </form>
 
 
 
-  
+
 </section>
+
+
+<app-loading *ngIf="isLoading"></app-loading>

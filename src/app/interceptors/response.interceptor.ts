@@ -33,6 +33,12 @@ export class ResponseInterceptor implements HttpInterceptor {
 
               return event;
             }
+
+            if (req.url.includes('getAllActive')) {
+              if (!body.data) {
+                return event.clone({ body: [] });
+              }
+            }
             console.log(body);
             if (body.data) {
               return event.clone({ body: body.data });
