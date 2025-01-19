@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IEmpleado } from 'src/app/modules/empleado/models/empleado';
 import { EmpleadoService } from 'src/app/modules/empleado/services/empleado.service';
-import { ISucursal } from 'src/app/modules/sucursal/models/sucursal';
-import { SucursalService } from 'src/app/modules/sucursal/services/sucursal.service';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IDetallePermiso, IMenu, ITipoUsuario, IUsuario } from '../../models/usuario';
@@ -24,7 +22,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
   isEditar: boolean = false;
 
   listaTipoUsuario: ITipoUsuario[] = [];
-  listaSucursal: ISucursal[] = [];
   isDNIEmpleadoInvalid: boolean = false;
   isBuscadorDeEmpleado: boolean = false;
 
@@ -42,7 +39,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private serviceUsuario: UsuarioService,
-    private serviceSucursal: SucursalService,
     private serviceEmpleado: EmpleadoService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,

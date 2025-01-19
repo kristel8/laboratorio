@@ -1,7 +1,4 @@
 
-import { IEmpleado } from "../../empleado/models/empleado"
-import { ISucursal } from "../../sucursal/models/sucursal"
-
 export interface IUsuario {
   idUsuario?: number,
   usuario: string;

@@ -2335,7 +2335,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   font-weight: 700;
 }
 .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: center;
   padding: 1rem 1rem;
   border: 1px solid #dee2e6;
   border-width: 0 0 1px 0;
@@ -2397,7 +2397,7 @@ p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
   transition: box-shadow 0.2s;
 }
 .p-datatable .p-datatable-tbody > tr > td {
-  text-align: left;
+  text-align: center;
   border: 1px solid #dee2e6;
   border-width: 0 0 1px 0;
   padding: 1rem 1rem;

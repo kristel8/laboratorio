@@ -21,8 +21,8 @@ export class PacienteService {
     return this.httpClient.post<IPaciente>(`${this.URLServicio}paciente/insert/paciente`, header);
   }
 
-  getFindById(id: number):Observable<IPaciente[]> {
-    return this.httpClient.get<IPaciente[]>(`${this.URLServicio}paciente/findById/${id}`)
+  getFindById(id: number):Observable<IPaciente> {
+    return this.httpClient.get<IPaciente>(`${this.URLServicio}paciente/findById/${id}`)
   }
 
   update(id: number, header: IPaciente):Observable<IResponse> {
@@ -33,3 +33,4 @@ export class PacienteService {
     return this.httpClient.put<IResponse>(`${this.URLServicio}paciente/setInactive/${id}`, id);
   }
 }
+

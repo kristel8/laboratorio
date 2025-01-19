@@ -27,7 +27,7 @@ export class MantenimientoPacienteComponent implements OnInit {
     private fb: FormBuilder,
     private service: PacienteService,
     private router: Router,
-    private _ActivatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private readonly servicioMensajesSwal: MensajesSwalService,
     private readonly formatoFecha: DatePipe,
 
@@ -91,7 +91,7 @@ export class MantenimientoPacienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this._ActivatedRoute.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.titulo = 'Editar Paciente';
       this.id = id;
@@ -121,7 +121,7 @@ export class MantenimientoPacienteComponent implements OnInit {
     ]
   }
 
-  guardarElemento() {
+  guardarElemento(): void {
     const {
       tipoDocumento,
       numDocumento,
@@ -136,7 +136,7 @@ export class MantenimientoPacienteComponent implements OnInit {
     } = this.pacienteForm.value;
 
     const params: IPaciente = {
-      tipoDocumento: tipoDocumento,
+      tipoDocumento,
       numDocumento,
       apellidos,
       nombre: nombres,
@@ -172,9 +172,8 @@ export class MantenimientoPacienteComponent implements OnInit {
     });
   }
 
-  buscarIdElemento() {
-    this.service.getFindById(+this.id).subscribe((res) => {
-      const resultado = res[0];
+  buscarIdElemento(): void {
+    this.service.getFindById(+this.id).subscribe((resultado) => {
       this.mostrarValoresInput(resultado);
     });
   }

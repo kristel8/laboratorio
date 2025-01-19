@@ -21,12 +21,6 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'empresas',
-        loadChildren: () => import('./modules/empresa/empresa.module').then(m => m.EmpresaModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
         path: 'categorias',
         loadChildren: () => import('./modules/categoria/categoria.module').then(m => m.CategoriaModule),
         //canLoad: [AuthGuard],

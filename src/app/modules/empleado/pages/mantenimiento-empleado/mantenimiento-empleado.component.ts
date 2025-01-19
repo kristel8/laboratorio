@@ -33,7 +33,6 @@ export class MantenimientoEmpleadoComponent implements OnInit {
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
     private readonly servicioMensajesSwal: MensajesSwalService
-
   ) { }
 
   empleadoForm = this.fb.group({

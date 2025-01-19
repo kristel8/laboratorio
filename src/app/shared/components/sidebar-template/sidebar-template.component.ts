@@ -16,15 +16,15 @@ export class SidebarTemplateComponent implements OnInit {
   constructor(  private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getUsuario();
+    //this.getUsuario();
     this.getMenu();
   }
 
-  getUsuario () {
-    this.usuario = this.authService.usuario;
-  }
+  // getUsuario () {
+  //   this.usuario = this.authService.usuario;
+  // }
 
   getMenu () {
-   this.menu = this.authService.permisos;
+   //this.menu = this.authService.permisos;
   }
 }

@@ -2,7 +2,7 @@
     <h2>Lista de Examenes</h2>
     <app-button
       [label]="'Agregar'"
-      [router]="'./agregar-examenes'"
+      [router]="'./mantenimiento-examen'"
       [icono]="'pi pi-plus'"
     ></app-button>
   </div>
@@ -10,12 +10,12 @@
     <section class="container-table">
     <app-table
       *ngIf="isCargado"
-      [listaElementos]="listaExamenes"
+      [listaElementos]="listaElementos"
       [columnas]="colsVisibles"
       [filas]="5"
       [listaElementosAFiltrar]="['descripcion']"
       (eventoAccion)="eventoAccion($event)"
- 
+
     ></app-table>
   </section>
-  
+
