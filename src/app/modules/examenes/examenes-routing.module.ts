@@ -5,7 +5,8 @@ import { MantenimientoExamenComponent } from './pages/mantenimiento-examen/mante
 
 const routes: Routes = [
   { path: '', component: ExamenComponent },
-  { path: 'mantenimiento-examen', component: MantenimientoExamenComponent}
+  { path: 'mantenimiento-examen', component: MantenimientoExamenComponent },
+  { path: 'mantenimiento-examen/:id', component: MantenimientoExamenComponent },
 ];
 
 @NgModule({

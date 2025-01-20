@@ -30,7 +30,7 @@ export class ExamenComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
-      { field: 'idExamen', header: 'ID Examen', visibility: true, formatoFecha: '' },
+      { field: 'idAnalisis', header: 'ID Examen', visibility: true, formatoFecha: '' },
       { field: 'nombre', header: 'Nombre', visibility: true, formatoFecha: '' },
       { field: 'descripcion', header: 'Descripción', visibility: true, formatoFecha: '' },
       { field: 'precio', header: 'Precio', visibility: true, formatoFecha: '' },
@@ -60,7 +60,7 @@ export class ExamenComponent implements OnInit {
       .mensajePregunta('¿Está seguro de eliminar el registro?')
       .then((response) => {
         if (response.isConfirmed) {
-          this.service.setInactive(data.idEmpleado).subscribe((res) => {
+          this.service.setInactive(data.idAnalisis).subscribe((res) => {
             this.getAllActivosElementos();
             this.servicioMensajesSwal.mensajeRegistroEliminado();
           });
