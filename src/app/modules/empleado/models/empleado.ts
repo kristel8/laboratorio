@@ -1,14 +1,12 @@
 export interface IEmpleado {
-  nombre: string,
-  apellido: string,
-  area: string,
-  cargo: string,
-  celular: string,
-  direccion: string,
-  estado: true,
-  idEmpleado: number,
-  sueldo: number,
-  telefono: string,
-  tipoDocumento: string,
-  numDocumento: string,
+  idEmpleado?: number;
+  tipoDocumento: string;
+  numDocumento: string;
+  nombre: string;
+  apellido: string;
+  direccion: string;
+  telefono: string;
+  celular: string;
+  cargo: string;
+  estado?: boolean;
 }

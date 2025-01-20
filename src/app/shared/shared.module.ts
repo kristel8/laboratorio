@@ -24,6 +24,7 @@ import { MessageService } from 'primeng/api';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BodyComponent } from './components/body/body.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     StyleEstadoDirective,
     LoadingComponent,
     BodyComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SidebarTemplateComponent,
     LoadingComponent,
     StyleButtonDirective,
-    NumbersOnlyDirective
+    NumbersOnlyDirective,
+    LoaderComponent
   ],
   providers: [MessageService]
 })

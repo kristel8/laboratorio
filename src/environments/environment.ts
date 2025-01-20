@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   //URLTienda: 'http://52.201.250.69:8092/',
-  URLTienda: 'http://3.82.16.217:8092/',
+  URLTienda: 'http://192.168.0.128:8080/',
   Version: '1.0.0'
 };
 

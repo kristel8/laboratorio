@@ -4,11 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IEmpleado } from 'src/app/modules/empleado/models/empleado';
 import { EmpleadoService } from 'src/app/modules/empleado/services/empleado.service';
-import { ISucursal } from 'src/app/modules/sucursal/models/sucursal';
-import { SucursalService } from 'src/app/modules/sucursal/services/sucursal.service';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
-import { IDetallePermiso, IMenu, ITipoUsuario, IUsuario, IUsuarioSave } from '../../models/usuario';
+import { IDetallePermiso, IMenu, ITipoUsuario, IUsuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
@@ -23,18 +21,17 @@ export class MantenimientoUsuarioComponent implements OnInit {
   id!: string;
   isEditar: boolean = false;
 
-  listaTipoUsuario: ITipoUsuario [] = [];
-  listaSucursal: ISucursal [] = [];
+  listaTipoUsuario: ITipoUsuario[] = [];
   isDNIEmpleadoInvalid: boolean = false;
   isBuscadorDeEmpleado: boolean = false;
 
-  colsEmpleado: IColumnasTabla [] = [];
-  colsEmpleadoVisibles: IColumnasTabla [] = [];
-  listaEmpleados: IEmpleado [] = [];
+  colsEmpleado: IColumnasTabla[] = [];
+  colsEmpleadoVisibles: IColumnasTabla[] = [];
+  listaEmpleados: IEmpleado[] = [];
   rowSeleccionado!: IEmpleado;
 
-  listaPorAsignar: IMenu [] = [];
-  listaAsignados: IMenu [] = [];
+  listaPorAsignar: IMenu[] = [];
+  listaAsignados: IMenu[] = [];
 
   disabledCaja: boolean = false;
   idUsuario!: number;
@@ -42,7 +39,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
   constructor(
     private fb: FormBuilder, //inicializa el form
     private serviceUsuario: UsuarioService,
-    private serviceSucursal: SucursalService,
     private serviceEmpleado: EmpleadoService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
@@ -51,12 +47,10 @@ export class MantenimientoUsuarioComponent implements OnInit {
   ) { }
 
   usuarioForm = this.fb.group({
-    usuario: [null, [Validators.required,  Validators.maxLength(20)]],
-    contrasena: [null, [Validators.required,  Validators.maxLength(20)]],
+    usuario: [null, [Validators.required, Validators.maxLength(20)]],
+    contrasena: [null, [Validators.required, Validators.maxLength(20)]],
     tipoUsuario: [null, [Validators.required]],
-    sucursal: [null, [Validators.required]],
     empleado: [null],
-    caja: [null, [Validators.required]],
     numEmpleado: [null, [Validators.required]],
     datosEmpleado: [{ value: null, disabled: true }],
   });
@@ -73,12 +67,12 @@ export class MantenimientoUsuarioComponent implements OnInit {
     }
 
     this.listaTipoUsuario = [
-      { tipoUsuario: 'ADMINISTRADOR'},
-      { tipoUsuario: 'VENDEDOR'}
+      { tipoUsuario: 'ADMINISTRADOR' },
+      { tipoUsuario: 'LABORATORISTA' }
     ]
 
-    this.getSucursal();
     this.getMenus();
+    this.getEmpleados();
   }
 
   get usuario() {
@@ -97,32 +91,17 @@ export class MantenimientoUsuarioComponent implements OnInit {
     return this.usuarioForm.get('descripcion');
   }
 
-  get sucursal() {
-    return this.usuarioForm.get('sucursal');
-  }
-
   get numEmpleado() {
     return this.usuarioForm.get('numEmpleado');
   }
 
-  get caja() {
-    return this.usuarioForm.get('caja');
-  }
-
-
-  getSucursal() {
-    this.serviceSucursal.getSucursalActivos().subscribe((res) => {
-      this.listaSucursal = res;
-    })
-  }
-
   getMenus() {
     this.serviceUsuario.getMenuAllActive().subscribe(res => {
-      if ( this.isEditar ) {
+      if (this.isEditar) {
         this.listaPorAsignar = res;
         this.buscarIdDetallePermiso().subscribe((resultado: any) => {
-          resultado.forEach((e:any) => {
-            this.listaPorAsignar = this.listaPorAsignar.filter(( el ) => el.idMenu != e.idMenu );
+          resultado.forEach((e: any) => {
+            this.listaPorAsignar = this.listaPorAsignar.filter((el) => el.idMenu != e.idMenu);
           });
         })
       } else {
@@ -132,36 +111,30 @@ export class MantenimientoUsuarioComponent implements OnInit {
   }
 
   guardarElemento() {
-    const { usuario, contrasena, caja, tipoUsuario, sucursal, empleado } = this.usuarioForm.value;
-    console.log(caja);
-    const params: IUsuarioSave = {
+    const { usuario, contrasena, tipoUsuario, empleado } = this.usuarioForm.value;
+    const params: IUsuario = {
       contrasena: contrasena,
       idEmpleado: empleado.idEmpleado,
-      idUsuario: 0,
-      idSucursal: sucursal.idSucursal,
-      isCaja: caja,
       tipoUsuario: tipoUsuario.tipoUsuario,
       usuario: usuario,
-      estado: true
     };
 
     if (this.isEditar) {
       this.editarElemento(params);
       this.guardarDetallePermiso(+this.id);
-
     } else {
-      this.crearElemento(params).subscribe((idUsuario:any) => {
+      this.crearElemento(params).subscribe((idUsuario: any) => {
+        console.log(idUsuario);
         this.guardarDetallePermiso(idUsuario);
       });
     }
   }
 
-  guardarDetallePermiso( idUsuario: number ) {
-    let listaDetallePermiso:IDetallePermiso[] = [];
+  guardarDetallePermiso(idUsuario: number) {
+    let listaDetallePermiso: IDetallePermiso[] = [];
 
     this.listaAsignados.forEach(res => {
       const detallePermiso: IDetallePermiso = {
-        idDetallePermisos: 0,
         idMenu: res.idMenu,
         idUsuario: idUsuario
       }
@@ -169,7 +142,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
       listaDetallePermiso.push(detallePermiso);
     });
 
-    if( this.isEditar ) {
+    if (this.isEditar) {
       this.editarDetallePermiso(listaDetallePermiso);
     } else {
       this.crearDetallePermiso(listaDetallePermiso);
@@ -177,34 +150,34 @@ export class MantenimientoUsuarioComponent implements OnInit {
 
   }
 
-  crearDetallePermiso(params: IDetallePermiso []) {
+  crearDetallePermiso(params: IDetallePermiso[]) {
     this.serviceUsuario.insertDetallePermiso(params).subscribe((res) => {
       this.router.navigateByUrl('/usuarios');
       this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
     });
   }
 
-  editarDetallePermiso(params: IDetallePermiso []) {
+  editarDetallePermiso(params: IDetallePermiso[]) {
     this.serviceUsuario.updateDetallePermiso(+this.id, params).subscribe((res) => {
       this.router.navigateByUrl('/usuarios');
     });
   }
 
 
-  crearElemento(params: IUsuarioSave) {
+  crearElemento(params: IUsuario) {
     const obs = new Observable((observer) => {
       this.serviceUsuario
-      .insert(params)
-      .subscribe((response: IUsuarioSave) => {
-        this.idUsuario = +response.idUsuario
-        observer.next(this.idUsuario);
-      });
+        .insert(params)
+        .subscribe((response: IUsuario) => {
+          this.idUsuario = response.idGenerado as number
+          observer.next(this.idUsuario);
+        });
     });
     return obs;
 
   }
 
-  editarElemento(params: IUsuarioSave) {
+  editarElemento(params: IUsuario) {
     this.serviceUsuario
       .update(+this.id, params)
       .subscribe(() => {
@@ -221,7 +194,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
   }
 
   buscarIdDetallePermiso() {
-    const  obs = new Observable((observer) => {
+    const obs = new Observable((observer) => {
       this.serviceUsuario.getFindByIdDetallePermiso(+this.id).subscribe((res) => {
         const resultado = res;
         observer.next(resultado);
@@ -255,10 +228,9 @@ export class MantenimientoUsuarioComponent implements OnInit {
 
 
 
-  showBuscadorDeEmpleado( event:any ) {
+  showBuscadorDeEmpleado(event: any) {
     this.isBuscadorDeEmpleado = true;
     this.getColumnasTablaEmpleado();
-    this.getEmpleados();
   }
 
 
@@ -271,9 +243,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
       { field: 'direccion', header: 'Dirección', visibility: true, formatoFecha: '' },
       { field: 'telefono', header: 'Telefono', visibility: true, formatoFecha: '' },
       { field: 'celular', header: 'Celular', visibility: true, formatoFecha: '' },
-      { field: 'sueldo', header: 'Sueldo', visibility: true, formatoFecha: '' },
-      { field: 'cargo', header: 'Cargo', visibility: true, formatoFecha: '' },
-      { field: 'area', header: 'Área', visibility: true, formatoFecha: '' },
     ];
 
     this.colsEmpleadoVisibles = this.colsEmpleado.filter(
@@ -287,7 +256,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
     })
   }
 
-  buscarEmpleado( event: any ) {
+  buscarEmpleado(event: any) {
     this.isDNIEmpleadoInvalid = false;
     const valorActual = this.usuarioForm.value.numEmpleado;
     if (valorActual && valorActual.length != 9) {
@@ -299,7 +268,12 @@ export class MantenimientoUsuarioComponent implements OnInit {
         (x) => x.numDocumento === valorActual
       );
       if (valorEncontrado) {
-        this.usuarioForm.patchValue({ datosEmpleado: ` ${valorEncontrado.nombre} ${valorEncontrado.apellido}` });
+        console.log(valorEncontrado);
+        this.usuarioForm.patchValue(
+          {
+            datosEmpleado: ` ${valorEncontrado.nombre} ${valorEncontrado.apellido}`,
+            empleado: valorEncontrado
+          });
       } else {
         this.isDNIEmpleadoInvalid = true;
         this.usuarioForm.controls['datosEmpleado'].reset();
@@ -314,6 +288,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
   putEmpleadoSeleccionado() {
     if (this.rowSeleccionado) {
       const { numDocumento, nombre, apellido } = this.rowSeleccionado;
+      console.log(this.rowSeleccionado);
       this.usuarioForm.patchValue({
         numEmpleado: numDocumento,
         datosEmpleado: `${nombre}  ${apellido}`,

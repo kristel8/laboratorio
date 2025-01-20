@@ -4,6 +4,7 @@ import { IButton, ITable, ITableCaption, ITableHeader } from '../models/table';
 import autoTable, { UserOptions } from 'jspdf-autotable'
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
+import { MensajesGlobales } from 'src/app/global/mensajes';
 
 @Component({
   selector: 'app-table',
@@ -30,7 +31,7 @@ export class TableComponent implements OnInit {
   @Input() isMostrarBuscador: boolean = true;
   @Input() isMostrarAcciones: boolean = true;
   @Input() isMostrarExportacion: boolean = false;
-  @Input() isOpcionEliminar: boolean = false;
+  @Input() isOpcionEliminar: boolean = true;
   @Input() isOpcionEditar: boolean = true;
 
   @Input() isMostrarMasOpciones: boolean = false;
@@ -40,6 +41,7 @@ export class TableComponent implements OnInit {
   @Input() anchoColumna: string = 'auto';
   @Input() tamañoAlto: string  = 'calc(100vh - 270px)';
   @Output() eventoAccion = new EventEmitter<any>();
+  mesajeNotItems = MensajesGlobales._MENSAJE_NOT_ITEMS;
 
   constructor() {}
 

@@ -6,6 +6,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { ButtonDirective } from 'primeng/button';
 
 @Component({
   selector: 'app-button',

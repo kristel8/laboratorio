@@ -9,10 +9,9 @@ import { EmpleadoService } from '../../services/empleado.service';
 @Component({
   selector: 'app-empleados',
   templateUrl: './empleados.component.html',
-  styleUrls: ['./empleados.component.scss']
+  styleUrls: ['./empleados.component.scss'],
 })
 export class EmpleadosComponent implements OnInit {
-
   listaElementos: IEmpleado[] = [];
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
@@ -30,17 +29,44 @@ export class EmpleadosComponent implements OnInit {
 
   getColumnasTabla() {
     this.cols = [
-      { field: 'tipoDocumento', header: 'Tipo de Documento', visibility: true, formatoFecha: '' },
-      { field: 'numDocumento', header: 'Número de Documento', visibility: true, formatoFecha: '' },
+      {
+        field: 'tipoDocumento',
+        header: 'Tipo de Documento',
+        visibility: true,
+        formatoFecha: '',
+      },
+      {
+        field: 'numDocumento',
+        header: 'Número de Documento',
+        visibility: true,
+        formatoFecha: '',
+      },
       { field: 'nombre', header: 'Nombre', visibility: true, formatoFecha: '' },
-      { field: 'apellido', header: 'Apellidos', visibility: true, formatoFecha: '' },
-      { field: 'direccion', header: 'Dirección', visibility: true, formatoFecha: '' },
-      { field: 'telefono', header: 'Telefono', visibility: true, formatoFecha: '' },
-      { field: 'celular', header: 'Celular', visibility: true, formatoFecha: '' },
-      { field: 'sueldo', header: 'Sueldo', visibility: true, formatoFecha: '' },
+      {
+        field: 'apellido',
+        header: 'Apellidos',
+        visibility: true,
+        formatoFecha: '',
+      },
+      {
+        field: 'direccion',
+        header: 'Dirección',
+        visibility: true,
+        formatoFecha: '',
+      },
+      {
+        field: 'telefono',
+        header: 'Telefono',
+        visibility: true,
+        formatoFecha: '',
+      },
+      {
+        field: 'celular',
+        header: 'Celular',
+        visibility: true,
+        formatoFecha: '',
+      },
       { field: 'cargo', header: 'Cargo', visibility: true, formatoFecha: '' },
-      { field: 'area', header: 'Área', visibility: true, formatoFecha: '' },
-      { field: 'estado', header: 'Estado', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
@@ -67,16 +93,13 @@ export class EmpleadosComponent implements OnInit {
       .mensajePregunta('¿Está seguro de eliminar el registro?')
       .then((response) => {
         if (response.isConfirmed) {
-          this.empleadoService
-            .setInactive(data.idEmpleado)
-            .subscribe((res) => {
-              this.getAllActivosElementos();
-              this.servicioMensajesSwal.mensajeRegistroEliminado();
-            });
+          this.empleadoService.setInactive(data.idEmpleado).subscribe((res) => {
+            this.getAllActivosElementos();
+            this.servicioMensajesSwal.mensajeRegistroEliminado();
+          });
         }
       });
   }
-
 
   eventoAccion(datos: any) {
     const { tipo, data } = datos;
@@ -88,7 +111,6 @@ export class EmpleadosComponent implements OnInit {
       case 'eliminar':
         this.eliminarElemento(data);
         break;
-
 
       default:
         console.log('Acción no aplicada');

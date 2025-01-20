@@ -98,12 +98,12 @@ export class SidebarComponent implements OnInit {
 
 
   getUsuario() {
-    this.usuario = this.authService.usuario.usuario[0];
+    //this.usuario = this.authService.usuario.usuario[0];
   }
 
   getMenu() {
     this.menu = [];
-    this.menu = this.authService.permisos;
+    //this.menu = this.authService.permisos;
     console.log(this.menu);
   };
 

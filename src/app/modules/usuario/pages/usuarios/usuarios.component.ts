@@ -34,10 +34,7 @@ export class UsuariosComponent implements OnInit {
       { field: 'usuario', header: 'Usuario', visibility: true, formatoFecha: '' },
       { field: 'contrasena', header: 'Contraseña', visibility: true, formatoFecha: '' },
       { field: 'tipoUsuario', header: 'Tipo Usuario', visibility: true, formatoFecha: '' },
-      { field: 'sucursal', subField: 'nombreSucur', header: 'Sucursal', visibility: true, formatoFecha: '' },
-      { field: 'empleado', subField: 'apellido', header: 'Empleado Apellidos', visibility: true, formatoFecha: '' },
-      { field: 'empleado', subField: 'nombre', header: 'Empleado nombre', visibility: true, formatoFecha: '' },
-      { field: 'isCaja', header: 'Estado de Caja', visibility: true, formatoFecha: '' },
+      { field: 'apellidoYNombre', header: 'Apellidos y Nombres', visibility: true, formatoFecha: '' },
       { field: 'estado', header: 'Estado', visibility: true, formatoFecha: '' },
     ];
 

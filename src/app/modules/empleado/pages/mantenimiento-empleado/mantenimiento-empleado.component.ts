@@ -33,7 +33,6 @@ export class MantenimientoEmpleadoComponent implements OnInit {
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
     private readonly servicioMensajesSwal: MensajesSwalService
-
   ) { }
 
   empleadoForm = this.fb.group({
@@ -44,9 +43,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
     direccion: [null, [Validators.required]],
     telefono: [null, [Validators.required,  Validators.maxLength(6)]],
     celular: [null, [Validators.required,  Validators.maxLength(9)]],
-    sueldo:  [null, [Validators.required,  Validators.maxLength(20)]],
     cargo: [null, [Validators.required]],
-    area:  [null, [Validators.required]],
   });
 
   ngOnInit(): void {
@@ -90,16 +87,8 @@ export class MantenimientoEmpleadoComponent implements OnInit {
     return this.empleadoForm.get('celular');
   }
 
-  get sueldo() {
-    return this.empleadoForm.get('sueldo');
-  }
-
   get cargo() {
     return this.empleadoForm.get('cargo');
-  }
-
-  get area() {
-    return this.empleadoForm.get('area');
   }
 
   listarDropdown() {
@@ -114,17 +103,6 @@ export class MantenimientoEmpleadoComponent implements OnInit {
         tipo: 'CARNET DE EXTRANJERIA',
       },
     ];
-
-
-    this.serviceEmpleado.getCargo().subscribe(res => {
-      this.listaCargos = res;
-      console.log(this.listaCargos)
-    });
-
-
-    this.serviceEmpleado.getArea().subscribe(res => {
-      this.listaAreas = res;
-    });
   }
 
   guardarElemento() {
@@ -136,13 +114,10 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       direccion,
       telefono,
       celular,
-      sueldo,
       cargo,
-      area
      } = this.empleadoForm.value;
 
     const params: IEmpleado = {
-      idEmpleado: 0,
       tipoDocumento: tipoDocumento.tipo,
       numDocumento: numDocumento,
       nombre: nombre,
@@ -150,10 +125,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       direccion: direccion,
       telefono: telefono,
       celular: celular,
-      sueldo: sueldo,
-      cargo: cargo.descripcion,
-      area: area.descripcion,
-      estado: true,
+      cargo: cargo,
     };
 
     if (this.isEditar) {
@@ -168,22 +140,22 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       .insert(params)
       .subscribe((response: IEmpleado) => {
         this.router.navigateByUrl('/empleados');
-        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        //this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
       });
   }
 
   editarElemento(params: IEmpleado) {
     this.serviceEmpleado
       .update(+this.id, params)
-      .subscribe((response: IEmpleado) => {
+      .subscribe(() => {
         this.router.navigateByUrl('/empleados');
-        this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+        //this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
       });
   }
 
   buscarIdElemento() {
     this.serviceEmpleado.getFindById(+this.id).subscribe((res) => {
-      const resultado = res;
+      const resultado = res[0];
       this.mostrarValoresInput(resultado);
     });
   }
@@ -191,8 +163,6 @@ export class MantenimientoEmpleadoComponent implements OnInit {
 
   mostrarValoresInput(resultado: any ) {
     const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
-    const cargo = this.listaCargos.find((e) => e.descripcion === resultado.cargo);
-    const area = this.listaAreas.find((e) => e.descripcion === resultado.area);
 
     this.empleadoForm.patchValue({
       tipoDocumento: tipoDocumento,
@@ -202,9 +172,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       direccion: resultado.direccion,
       telefono: resultado.telefono,
       celular: resultado.celular,
-      sueldo: resultado.sueldo,
-      cargo: cargo,
-      area: area,
+      cargo: resultado.cargo,
     });
   }
 }

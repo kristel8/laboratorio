@@ -34,6 +34,24 @@
       </a>
     </li>
     <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/empleados']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Empleados
+        </p>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link" [routerLink]="['/usuarios']" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
+        <p class="sidenav-link-text" *ngIf="collapsed">
+          Usuarios
+        </p>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/atencion']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
         <i class="icons2" [class]="'fa-solid fa-book'"></i>
@@ -61,9 +79,9 @@
       </a>
     </li>
     <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/resultados']" routerLinkActive="active"
+      <a class="sidenav-nav-link" [routerLink]="['/resultado']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-regular fa-folder'"></i>
+        <i class="icons2" [class]="'fa-solid fa-square-poll-vertical'"></i>
         <p class="sidenav-link-text" *ngIf="collapsed">
           Resultados
         </p>
@@ -72,7 +90,7 @@
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/doctor']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-regular fa-folder'"></i>
+        <i class="icons2" [class]="'fa-solid fa-user-doctor'"></i>
         <p class="sidenav-link-text" *ngIf="collapsed">
           Doctor
         </p>
@@ -81,7 +99,7 @@
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/caja']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-regular fa-folder'"></i>
+        <i class="icons2" [class]="'fa-solid fa-money-check-dollar'"></i>
         <p class="sidenav-link-text" *ngIf="collapsed">
           Caja
         </p>

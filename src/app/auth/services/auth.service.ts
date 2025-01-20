@@ -20,9 +20,9 @@ export class AuthService {
       : JSON.parse(localStorage.getItem('token')!);
   }
 
-  get permisos() {
-    return this.auth.permisos;
-  }
+  // get permisos() {
+  //   return this.auth.permisos;
+  // }
 
   get usuario() {
     return this.auth.usuario[0];

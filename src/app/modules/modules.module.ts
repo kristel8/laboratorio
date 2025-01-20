@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { EmpresaModule } from './empresa/empresa.module';
 import { RouterModule } from '@angular/router';
 import { CategoriaModule } from './categoria/categoria.module';
 import { AlmacenCentralModule } from './almacen-central/almacen-central.module';
@@ -16,7 +15,6 @@ import { UsuarioModule } from './usuario/usuario.module';
   imports: [
     CommonModule,
     DashboardModule,
-    EmpresaModule,
     RouterModule,
     CategoriaModule,
     AlmacenCentralModule,
@@ -28,7 +26,6 @@ import { UsuarioModule } from './usuario/usuario.module';
   exports: [
     CommonModule,
     DashboardModule,
-    EmpresaModule,
     RouterModule,
     CategoriaModule,
     AlmacenCentralModule,

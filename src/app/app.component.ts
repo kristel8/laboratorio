@@ -1,5 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { LoadingService } from './shared/services/loading.service';
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,8 +6,7 @@ import { LoadingService } from './shared/services/loading.service';
 })
 export class AppComponent {
   title = 'tienda';
-  isLoading = this.loadingService.$isCargando;
 
-  constructor( public loadingService: LoadingService) {}
+  constructor( ) {}
 
 }

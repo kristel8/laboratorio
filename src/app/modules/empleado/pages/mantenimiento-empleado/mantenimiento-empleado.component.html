@@ -21,7 +21,7 @@
 
 
     <div class="form">
-      <span class="form-text">Nomnbre:</span>
+      <span class="form-text">Nombre:</span>
       <input id="descripcion" type="text" formControlName="nombre" pInputText />
       <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
         <small *ngIf="nombre?.errors?.['required']" class="p-error">Nomnbre es obligatorio</small>
@@ -65,33 +65,13 @@
 
 
     <div class="form">
-      <span class="form-text">Sueldo:</span>
-      <p-inputNumber formControlName="sueldo"  inputId="currency-us" mode="currency" currency="PEN" locale="en-US">
-      </p-inputNumber>
-      <div class="validation" *ngIf="sueldo?.invalid && (sueldo?.dirty || sueldo?.touched)">
-        <small *ngIf="sueldo?.errors?.['required']" class="p-error">Sueldo es obligatorio</small>
-        <small *ngIf="sueldo?.errors?.['minlength'] || sueldo?.errors?.['maxlength']" class="p-error">Sueldo debe tener 6 dígitos</small>
-      </div>
-    </div>
-
-
-    <div class="form">
       <span class="form-text">Cargo:</span>
-      <p-dropdown [options]="listaCargos" formControlName="cargo" optionLabel="descripcion" placeholder="Seleccione"></p-dropdown>
+      <input id="cargo" type="text" formControlName="cargo" pInputText />
       <div class="validation" *ngIf="cargo?.invalid && (cargo?.dirty || cargo?.touched)">
         <small *ngIf="cargo?.errors?.['required']" class="p-error">Cargo es obligatorio</small>
       </div>
+
     </div>
-
-
-    <div class="form">
-      <span class="form-text">Áreas:</span>
-      <p-dropdown [options]="listaAreas" formControlName="area" optionLabel="descripcion" placeholder="Seleccione"></p-dropdown>
-      <div class="validation" *ngIf="area?.invalid && (area?.dirty || area?.touched)">
-        <small *ngIf="area?.errors?.['required']" class="p-error">Area es obligatorio</small>
-      </div>
-    </div>
-
   </section>
 
   <br>

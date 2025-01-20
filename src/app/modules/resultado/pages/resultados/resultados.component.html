@@ -1,0 +1,18 @@
+<div class="t-flex-start">
+    <h2>Resultados</h2>
+  </div>
+  <br>
+    <section class="container-table">
+    <app-table
+      *ngIf="isCargado"
+      [listaElementos]="listaResultados"
+      [columnas]="colsVisibles"
+      [filas]="5"
+      [listaElementosAFiltrar]="['descripcion']"
+      [isMostrarAcciones]="false"
+      [isMostrarMasOpciones]="true"
+      [acciones]="acciones"
+      (eventoAccion)="eventoAccion($event)"
+    ></app-table>
+  </section>
+  

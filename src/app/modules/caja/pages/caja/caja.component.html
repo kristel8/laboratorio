@@ -1,4 +1,5 @@
 <div class="t-flex-start">
+<<<<<<< HEAD
   <h2>Caja</h2>
 </div>
 <br />
@@ -16,3 +17,19 @@
   ></app-table>
 </section>
 
+=======
+    <h2>Caja</h2>
+  </div>
+  <br>
+    <section class="container-table">
+    <app-table
+      *ngIf="isCargado"
+      [listaElementos]="listaCaja"
+      [columnas]="colsVisibles"
+      [filas]="5"
+      [listaElementosAFiltrar]="['descripcion']"
+      (eventoAccion)="eventoAccion($event)"
+    ></app-table>
+  </section>
+  
+>>>>>>> 3d0bc9c57438a3104e713faaae9e63e88d64c3a3

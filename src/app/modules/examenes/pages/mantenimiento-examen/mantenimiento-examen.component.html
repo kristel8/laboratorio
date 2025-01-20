@@ -1,0 +1,73 @@
+<form [formGroup]="examenesForm" (ngSubmit)="guardar()">
+  <h2>{{titulo}}</h2>
+  <br>
+  <section class="container-form t-col-3 t-col-sm-1">
+    <div class="form">
+      <span class="form-text">Nombre</span>
+      <input id="nombre" type="text" formControlName="nombre" pInputText />
+      <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+        <small *ngIf="nombre?.errors?.['required']" class="p-error">Nombre es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Descripcion</span>
+      <input id="descripcion" type="text" formControlName="descripcion" pInputText />
+      <div class="validation" *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)">
+        <small *ngIf="descripcion?.errors?.['required']" class="p-error">Descripcion es obligatorio</small>
+      </div>
+    </div>
+
+    <div class="form">
+      <span class="form-text">Precio</span>
+      <p-inputNumber inputId="precio" formControlName="precio" mode="currency" currency="PEN" locale="es-PE">
+      </p-inputNumber>
+      <div class="validation" *ngIf="precio?.invalid && (precio?.dirty || precio?.touched)">
+        <small *ngIf="precio?.errors?.['required']" class="p-error">Precio es obligatorio</small>
+      </div>
+    </div>
+  </section>
+
+  <p-table [value]="elementos.controls" *ngIf="idAnalisisCreado">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Opción</th>
+        <th>Descripción</th>
+        <th>Unidad</th>
+        <th>Valor Referencial</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+      <ng-container  formArrayName="elementos">
+      <tr [formGroupName]="i">
+        <td class="t-flex-start" style="justify-content: center; column-gap: 10px;">
+          <button pButton (click)="agregarFila()" icon="pi pi-plus" class="p-button-rounded"></button>
+          <button pButton (click)="borrarFila(i)" [disabled]="elementos.length <= 1" icon="pi pi-minus" class="p-button-rounded p-button-danger"></button>
+        </td>
+        <td>
+          <input type="text" formControlName="descripcion" pInputText/>
+        </td>
+        <td>
+          <input type="text" formControlName="unidad" pInputText/>
+        </td>
+        <td>
+          <input type="number" formControlName="valorReferencial" pInputText/>
+        </td>
+      </tr>
+    </ng-container>
+
+    </ng-template>
+  </p-table>
+
+<br>
+
+<div class="container-opciones">
+  <app-button [label]="'Cancelar'" [router]="'/examenes'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+  </app-button>
+  <app-button [label]="'Guardar'" [tipo]="'submit'" [icono]="'pi pi-check'" [isDisabled]="!examenesForm.valid">
+  </app-button>
+</div>
+
+</form>
+
+

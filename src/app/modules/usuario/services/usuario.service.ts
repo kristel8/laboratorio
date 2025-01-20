@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IDetallePermiso, IMenu, IUsuario, IUsuarioSave } from '../models/usuario';
+import { IDetallePermiso, IMenu, IUsuario } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -14,19 +14,19 @@ export class UsuarioService {
   constructor( private httpClient:HttpClient) { }
 
   getAll():Observable<IUsuario[]> {
-    return this.httpClient.get<IUsuario[]>(`${this.URLServicio}usuario/getAll`);
+    return this.httpClient.get<IUsuario[]>(`${this.URLServicio}usuario/getAllActive`);
   }
 
-  insert(header: IUsuarioSave):Observable<IUsuarioSave> {
-    return this.httpClient.post<IUsuarioSave>(`${this.URLServicio}usuario/insert/usuario`, header);
+  insert(header: IUsuario):Observable<IUsuario> {
+    return this.httpClient.post<IUsuario>(`${this.URLServicio}usuario/insert/usuario`, header);
   }
 
   getFindById(id: number):Observable<IUsuario[]> {
     return this.httpClient.get<IUsuario[]>(`${this.URLServicio}usuario/findById/${id}`);
   }
 
-  update(id: number, header: IUsuarioSave):Observable<IUsuarioSave> {
-    return this.httpClient.put<IUsuarioSave>(`${this.URLServicio}usuario/update/${id}`, header);
+  update(id: number, header: IUsuario):Observable<IUsuario> {
+    return this.httpClient.put<IUsuario>(`${this.URLServicio}usuario/update/${id}`, header);
   }
 
   setInactive(id: number):Observable<any> {
@@ -38,15 +38,15 @@ export class UsuarioService {
   }
 
   insertDetallePermiso(header: IDetallePermiso[]):Observable<IDetallePermiso[]> {
-    return this.httpClient.post<IDetallePermiso[]>(`${this.URLServicio}detallepermisos/insert/detallepermisos`, header);
+    return this.httpClient.post<IDetallePermiso[]>(`${this.URLServicio}detallepermiso/insert/detallepermisos`, header);
   }
 
   getFindByIdDetallePermiso(id: number):Observable<IDetallePermiso[]> {
-    return this.httpClient.get<IDetallePermiso[]>(`${this.URLServicio}detallepermisos/findById/${id}`);
+    return this.httpClient.get<IDetallePermiso[]>(`${this.URLServicio}detallepermiso/findById/${id}`);
   }
 
   updateDetallePermiso(id: number, header: IDetallePermiso[]):Observable<IDetallePermiso> {
-    return this.httpClient.put<IDetallePermiso>(`${this.URLServicio}detallepermisos/update/${id}`, header);
+    return this.httpClient.put<IDetallePermiso>(`${this.URLServicio}detallepermiso/update/${id}`, header);
   }
 
 }

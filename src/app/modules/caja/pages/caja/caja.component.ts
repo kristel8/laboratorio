@@ -46,6 +46,7 @@ export class CajaComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
+<<<<<<< HEAD
       {
         field: 'idOrden',
         header: 'Nro Orden',
@@ -71,6 +72,13 @@ export class CajaComponent implements OnInit {
         visibility: true,
         formatoFecha: '',
       },
+=======
+      {  field: 'idOrden',  header: 'Nro Orden',  visibility: true,  formatoFecha: ''   },
+      {  field: 'apellidoNombre',  header: 'Apellidos y Nombres',  visibility: true,  formatoFecha: '' },
+      { field: 'examen', header: 'Exámen', visibility: true, formatoFecha: '' },
+      { field: 'costoTotal', header: 'Costo Total', visibility: true, formatoFecha: '' },
+    
+>>>>>>> 3d0bc9c57438a3104e713faaae9e63e88d64c3a3
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
