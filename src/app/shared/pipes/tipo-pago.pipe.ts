@@ -6,12 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TipoPagoIconPipe implements PipeTransform {
   transform(value: string): string {
     const icons: { [key: string]: string } = {
-      'EFECTIVO': `assets/images/caja/${value}.svg`,
-      'YAPE': `assets/images/caja/${value}.svg`,
-      'PLIN': `assets/images/caja/${value}.svg`,
-      'POS': `assets/images/caja/${value}.svg`
+      'efectivo': `assets/images/caja/${value}.svg`,
+      'yape': `assets/images/caja/${value}.svg`,
+      'plin': `assets/images/caja/${value}.svg`,
+      'pos': `assets/images/caja/${value}.svg`
     };
 
+    console.log(icons[value]);
     return icons[value];
   }
 }

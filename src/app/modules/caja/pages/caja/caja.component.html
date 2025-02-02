@@ -42,7 +42,7 @@
 <section class="container-table">
   <app-table *ngIf="isCargado" [listaElementos]="listaCaja" [columnas]="colsVisibles" [filas]="5"
     [listaElementosAFiltrar]="['descripcion']" [isMostrarAcciones]="false" [isMostrarMasOpciones]="true"
-    [acciones]="acciones" (eventoAccion)="eventoAccion($event)" [footer]="true"></app-table>
+    [acciones]="acciones" (eventoAccion)="eventoAccion($event)" [footer]="true" [total]="totalLista"></app-table>
 </section>
 
 <p-dialog header="{{tituloModal}}" [(visible)]="isOpenModal" [modal]="true" [style]="{ width: '45vw' }"
@@ -64,11 +64,6 @@
             <div *ngSwitchCase="'precio'">
               {{ rowData[col.field] | currency: "S/" }}
             </div>tipoPago
-
-            <div *ngSwitchCase="'tipoPago'">
-              <img [src]="rowData[col.field] | tipoPagoIcon" width="24" height="24" alt="{{ rowData[col.field] }}">
-              {{ rowData[col.field] }}
-            </div>
 
             <div *ngSwitchDefault>
               {{ rowData[col.field] }}

@@ -40,6 +40,8 @@ export class CajaComponent implements OnInit {
 
   hasDescuento: boolean = false;
 
+  totalLista: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private cajaService: CajaService,
@@ -64,7 +66,7 @@ export class CajaComponent implements OnInit {
   });
 
   options: any[] = [
-    { icon: 'cash', value: 'efectivo' },
+    { icon: 'efectivo', value: 'efectivo' },
     { icon: 'yape', value: 'yape' },
     { icon: 'plin', value: 'plin' },
     { icon: 'pos', value: 'pos' },
@@ -137,7 +139,7 @@ export class CajaComponent implements OnInit {
   listarDropdown(): void {
     this.tipoMedioDePago = [
       {
-        tipo: 'cash',
+        tipo: 'efectivo',
         nombre: 'EFECTIVO',
       },
       {
@@ -192,11 +194,14 @@ export class CajaComponent implements OnInit {
           this.isCargado = true;
 
           if (this.medioPago?.value) {
-            this.listaCaja = response.filter((item) => item.tipoPago === this.medioPago?.value);
+            this.listaCaja = response.filter((item) => item.tipoPago === this.medioPago?.value.tipo);
+            this.totalLista = response.reduce((acc, item) => acc + item.total, 0)
             return;
           }
 
           this.listaCaja = response;
+
+          this.totalLista = response.reduce((acc, item) => acc + item.total, 0)
         }
       })
     }

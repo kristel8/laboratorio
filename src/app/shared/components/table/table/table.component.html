@@ -99,6 +99,12 @@
             {{ rowData[col.field] | flags: col.field }}
           </div>
 
+          <div *ngSwitchCase="'tipoPago'" class="tipoPago">
+            <img [src]="rowData[col.field] | tipoPagoIcon" width="24" height="24" alt="{{ rowData[col.field] }}">
+            {{ rowData[col.field] | uppercase }}
+          </div>
+
+
           <div style="word-break: break-all;" *ngSwitchDefault>
             {{ !col.subField && !col.subField2 ? rowData[col.field] :
             !col.subField2 ? rowData[col.field][col.subField] :
