@@ -13,3 +13,9 @@ export class ConstanteGlobales {
   public static _FORMATO_FECHA_VISTA = 'dd-MM-yyyy';
 
 }
+
+export const MENU = {
+  Paciente: 1,
+  Antecedente: 2,
+  Examen: 3
+}

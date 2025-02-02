@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IDetalleResultado } from '../../models/resultado';
 import { IButton } from 'src/app/shared/components/table/models/table';
 import { Router } from '@angular/router';
+import { IDetalleAtencion } from '../../models/resultado';
+import { StorageService } from 'src/app/shared/services/storage.service';
+import { ResultadosService } from '../../services/resultados.service';
 
 @Component({
   selector: 'app-detalle-resultados',
@@ -11,22 +13,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./detalle-resultados.component.scss'],
 })
 export class DetalleResultadosComponent implements OnInit {
-  listaDetalleResultado: IDetalleResultado[] = [
-    {
-      idDetalleResultado: 1,
-    },
-  ];
+  titulo: string = 'Resultados > Exámenes';
+
+  listaDetalleResultado: IDetalleAtencion[] = [];
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
-  acciones: IButton [] = [];
+  acciones: IButton[] = [];
   isCargado: boolean = false;
+  atencionSelecionado: any;
 
-  
 
-  constructor (private fb: FormBuilder, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private resultadosService: ResultadosService,
+    private storageService: StorageService
+  ) { }
 
-    detalleResultadoForm = this.fb.group({
+  detalleResultadoForm = this.fb.group({
     nroOrden: [{ value: null, disabled: true }],
     apellidosyNombres: [{ value: null, disabled: true }],
     fecha: [{ value: null, disabled: true }],
@@ -34,30 +39,42 @@ export class DetalleResultadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItems();
-
-    this.acciones = [
-      {
-        icono: 'pi pi-plus',
-        clase: 'rounded',
-        evento: 'agregar',
-        estado: true,
-        tooltip: 'Agregar resultado'
-      },
-    ]
   }
 
   getItems(): void {
-    //servicio
-    this.isCargado = true;
-    this.getColumnasTabla();
+    this.validateAtencionSeleccionado();
+
+    this.resultadosService.getFindByIdAtencion(this.atencionSelecionado.idAtencion).subscribe((response) => {
+      if (response) {
+        this.isCargado = true;
+        this.getColumnasTabla();
+        this.listaDetalleResultado = response;
+      }
+    })
+  }
+
+  validateAtencionSeleccionado(): void {
+    const seleccionado = this.atencionSelecionado = this.storageService.getItem('atencion-datos', true);
+
+    if (seleccionado) {
+      this.detalleResultadoForm.patchValue({
+        nroOrden: seleccionado.idAtencion,
+        apellidosyNombres: seleccionado.apellidosYNombres,
+        fecha: seleccionado.fecha
+      })
+    } else {
+      this.router.navigateByUrl(`resultado`);
+    }
   }
 
   getColumnasTabla(): void {
     this.cols = [
-      { field: 'id', header: 'ID', visibility: true, formatoFecha: '' },
+      { field: 'idAnalisis', header: 'ID Exámen', visibility: true, formatoFecha: '' },
       { field: 'examen', header: 'Examen', visibility: true, formatoFecha: '' },
-      { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
-      { field: 'estado', header: 'Estado', visibility: true, formatoFecha: '' },
+      { field: 'fechaCreacion', header: 'Fecha de Creación', visibility: true, formatoFecha: '' },
+      { field: 'fechaModificacion', header: 'Fecha de Modificación', visibility: true, formatoFecha: '' },
+      { field: 'usuario', header: 'Usuario', visibility: true, formatoFecha: '' },
+      { field: 'estadoAtencionAnalisis', header: 'Estado', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
@@ -66,8 +83,8 @@ export class DetalleResultadosComponent implements OnInit {
   eventoAccion(datos: any) {
     const { tipo, data } = datos;
     switch (tipo) {
-      case 'agregar':
-        this.navigateAgregarResultado(data);
+      case 'editar':
+        this.agregarResultado(data);
         break;
 
       default:
@@ -75,8 +92,14 @@ export class DetalleResultadosComponent implements OnInit {
         break;
     }
   }
-  navigateAgregarResultado(data: any): void {
-    console.log('Agregando resultados');
+
+  agregarResultado(data: any): void {
+    this.storageService.setItem('examen-datos', data, true);
     this.router.navigateByUrl(`resultado/agregar-resultado`);
+  }
+
+  regresar(): void {
+    this.storageService.removeItem('atencion-datos');
+    this.router.navigateByUrl(`resultado`);
   }
 }

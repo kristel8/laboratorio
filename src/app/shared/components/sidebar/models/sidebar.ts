@@ -2,16 +2,10 @@
 export interface IItemMenu {
   nombre: string;
   ruta: string;
-  estado: string;
-  imagen?: string;
-  subMenu: IItemSubMenu[];
+  idMenu: number;
+  imagen: string;
 }
 
-export interface IItemSubMenu {
-  nombre: string;
-  ruta: string;
-  estado: string;
-}
 
 export interface IUserLogueado {
   imagen: string;

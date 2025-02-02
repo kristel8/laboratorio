@@ -60,6 +60,10 @@ export class ButtonComponent implements OnInit {
         this.clase = 'p-button-rounded p-button-help';
         break;
 
+      case 'rounded-success':
+        this.clase = 'p-button-rounded p-button-success';
+        break;
+
       case 'outlined-rounded-success':
         this.clase = 'p-button-outlined p-button-rounded p-button-success';
         break;
@@ -69,8 +73,12 @@ export class ButtonComponent implements OnInit {
         this.clase = 'p-button-outlined p-button-rounded p-button-danger';
         break;
 
-      default:
+      case '':
         this.clase = 'p-button';
+        break;
+
+      default:
+        this.clase = this.estiloBoton;
         break;
     }
   }

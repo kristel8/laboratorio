@@ -8,6 +8,7 @@ import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IDetallePermiso, IMenu, ITipoUsuario, IUsuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mantenimiento-usuario',
@@ -56,14 +57,26 @@ export class MantenimientoUsuarioComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.getMenus();
 
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.titulo = 'Editar Usuario';
       this.id = id;
       this.isEditar = true;
-      this.buscarIdElemento();
-      this.buscarIdDetallePermiso();
+
+      this.serviceEmpleado.getAllActivos().pipe(
+        switchMap((res: IEmpleado[]) => {
+          this.listaEmpleados = res;
+          console.log('listaEmpleados',this.listaEmpleados);
+          return this.serviceUsuario.getFindById(+this.id)
+        })
+      ).subscribe((resultado) => {
+        this.mostrarValoresInput(resultado[0]);
+      });
+
+      this.buscarIdDetallePermiso().subscribe();
+
     }
 
     this.listaTipoUsuario = [
@@ -71,8 +84,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
       { tipoUsuario: 'LABORATORISTA' }
     ]
 
-    this.getMenus();
-    this.getEmpleados();
   }
 
   get usuario() {
@@ -96,6 +107,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
   }
 
   getMenus() {
+    this.getEmpleados();
     this.serviceUsuario.getMenuAllActive().subscribe(res => {
       if (this.isEditar) {
         this.listaPorAsignar = res;
@@ -118,6 +130,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
       tipoUsuario: tipoUsuario.tipoUsuario,
       usuario: usuario,
     };
+
 
     if (this.isEditar) {
       this.editarElemento(params);
@@ -189,7 +202,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
   buscarIdElemento() {
     this.serviceUsuario.getFindById(+this.id).subscribe((res) => {
       const resultado = res;
-      this.mostrarValoresInput(resultado);
+      this.mostrarValoresInput(resultado[0]);
     });
   }
 
@@ -208,17 +221,15 @@ export class MantenimientoUsuarioComponent implements OnInit {
 
   mostrarValoresInput(resultado: any) {
     const tipoUsuario = this.listaTipoUsuario.find((e => e.tipoUsuario === resultado.tipoUsuario));
+    const empleado = this.listaEmpleados.find((e => e.idEmpleado === resultado.idEmpleado)) as IEmpleado;
 
     this.usuarioForm.patchValue({
-      contrasena: resultado.contrasena,
-      numEmpleado: resultado.empleado.numDocumento,
-      datosEmpleado: `${resultado.empleado.nombre} ${resultado.empleado.apellido}`,
-      empleado: resultado.empleado,
-      sucursal: resultado.sucursal,
-      tipoUsuario: tipoUsuario,
-      caja: resultado.isCaja,
       usuario: resultado.usuario,
-      descripcion: resultado.descripcion
+      contrasena: resultado.contrasena,
+      tipoUsuario: tipoUsuario,
+      empleado: empleado,
+      numEmpleado: empleado?.numDocumento,
+      datosEmpleado: `${empleado?.nombre} ${empleado?.apellido}`,
     });
   }
 
@@ -250,7 +261,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
     );
   }
 
-  getEmpleados() {
+  getEmpleados(): void {
     this.serviceEmpleado.getAllActivos().subscribe((res) => {
       this.listaEmpleados = res;
     })

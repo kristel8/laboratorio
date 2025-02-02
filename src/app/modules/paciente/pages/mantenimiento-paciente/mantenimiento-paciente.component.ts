@@ -133,7 +133,7 @@ export class MantenimientoPacienteComponent implements OnInit {
       celular,
       direccion,
       antecedentes,
-    } = this.pacienteForm.value;
+    } = this.pacienteForm.getRawValue();
 
     const params: IPaciente = {
       tipoDocumento,
@@ -166,6 +166,7 @@ export class MantenimientoPacienteComponent implements OnInit {
   }
 
   editarElemento(params: IPaciente) {
+    console.log(params);
     this.service.update(+this.id, params).subscribe(() => {
       this.router.navigateByUrl('/paciente');
       //this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
@@ -179,12 +180,14 @@ export class MantenimientoPacienteComponent implements OnInit {
   }
 
 
-  mostrarValoresInput(resultado: any) {
+  mostrarValoresInput(item: any) {
+    const resultado = item[0];
     const genero = this.generos.find((e) => e.tipo === resultado.genero);
-    const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'dd-MM-yyyy')!;
+    const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
 
     this.numDocumento?.disable();
 
+    console.log('resultado', resultado);
     this.pacienteForm.patchValue({
       tipoDocumento: resultado.tipoDocumento,
       numDocumento: resultado.numDocumento,

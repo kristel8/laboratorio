@@ -9,6 +9,9 @@ import { MessageService } from 'primeng/api';
 import { PacienteModule } from './paciente/paciente.module';
 import { ExamenesModule } from './examenes/examenes.module';
 import { UsuarioModule } from './usuario/usuario.module';
+import { DoctorModule } from './doctor/doctor.module';
+import { AtencionModule } from './atencion/atencion.module';
+import { ResultadoModule } from './resultado/resultado.module';
 @NgModule({
   declarations: [
   ],
@@ -21,7 +24,10 @@ import { UsuarioModule } from './usuario/usuario.module';
     EmpleadoModule,
     PacienteModule,
     UsuarioModule,
-    ExamenesModule
+    ExamenesModule,
+    DoctorModule,
+    AtencionModule,
+    ResultadoModule
   ],
   exports: [
     CommonModule,
@@ -32,7 +38,10 @@ import { UsuarioModule } from './usuario/usuario.module';
     EmpleadoModule,
     PacienteModule,
     UsuarioModule,
-    ExamenesModule
+    ExamenesModule,
+    DoctorModule,
+    AtencionModule,
+    ResultadoModule
   ],
   providers: [MessageService]
 })

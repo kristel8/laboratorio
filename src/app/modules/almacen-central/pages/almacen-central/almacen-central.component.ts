@@ -43,7 +43,6 @@ export class AlmacenCentralComponent implements OnInit {
     const obs = new Observable<boolean>((observer) => {
       this.almacenCentralService.getAlmacenCentralActivos().subscribe((resp) => {
         this.listaElementos = resp;
-        console.log(this.listaElementos)
         observer.next(true);
       });
     });
@@ -74,10 +73,6 @@ export class AlmacenCentralComponent implements OnInit {
     switch (tipo) {
       case 'mostrar':
         this.mostrarDetalleAlmacenCentral(data);
-        break;
-
-      default:
-        console.log('Acción no aplicada');
         break;
     }
   }

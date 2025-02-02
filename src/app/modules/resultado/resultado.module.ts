@@ -13,6 +13,7 @@ import { TableModule } from 'primeng/table';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DetalleResultadosComponent } from './pages/detalle-resultados/detalle-resultados.component';
 import { AgregarResultadosComponent } from './pages/agregar-resultados/agregar-resultados.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [ResultadosComponent, DetalleResultadosComponent, AgregarResultadosComponent],
@@ -28,6 +29,7 @@ import { AgregarResultadosComponent } from './pages/agregar-resultados/agregar-r
     HttpClientModule,
     DropdownModule,
     InputNumberModule,
+    TooltipModule
   ],
 })
 export class ResultadoModule {}

@@ -19,8 +19,9 @@ export class LoginComponent implements OnInit {
     private readonly servicioMensajesSwal: MensajesSwalService,
   ) { }
 
-  ngOnInit(): void {+
-    this.loginForm.reset();
+  ngOnInit(): void {
+    +
+      this.loginForm.reset();
   }
 
   loginForm = this.fb.group({
@@ -38,32 +39,30 @@ export class LoginComponent implements OnInit {
 
 
   iniciarSesion() {
-    // this.loadingService.mostrarLoading();
     const header = this.loginForm.value;
-    this.isLoading = true;
-    setTimeout(() => {
-      this.router.navigate(['./dashboard']);
-    this.isLoading = false;
-    }, 2000);
 
-    // this.authService.login(header).subscribe((res) => {
-    //  if(res.usuario.length > 0){
-    //     this.router.navigate(['./dashboard']);
-    //     this.loadingService.ocultarLoading();
-    //  } else {
-    //   this.servicioMensajesSwal.mensajeAdvertencia('Verifique usuario y contraseña');
-    //   this.loadingService.ocultarLoading();
-    //   this.loginForm.reset();
-    //  }
-    // }, (error) => {
-    //   this.servicioMensajesSwal.mensajeError(error);
-    //   this.loadingService.ocultarLoading();
-    //   this.loginForm.reset();
-    // } );
+    this.authService.login(header).subscribe((res) => {
+      if (res[0].usuario) {
+        this.isLoading = true;
+        setTimeout(() => {
+          this.router.navigate(['./dashboard']);
+          this.isLoading = false;
+        }, 2000);
+
+      } else {
+        this.servicioMensajesSwal.mensajeAdvertencia('Verifique usuario y contraseña');
+        this.isLoading = false;
+        this.loginForm.reset();
+      }
+    }, (error) => {
+      this.servicioMensajesSwal.mensajeError(error);
+      this.isLoading = false;
+
+      this.loginForm.reset();
+    });
   }
 
-  viewPassword(input:any) {
-    console.log(input);
+  viewPassword(input: any) {
     input.type = input.type === 'password' ? 'text' : 'password';
     this.iconEye = input.type === 'password' ? 'pi pi-eye' : 'pi pi-eye-slash';
   }

@@ -1,35 +1,123 @@
 <div class="t-flex-start">
-<<<<<<< HEAD
   <h2>Caja</h2>
 </div>
 <br />
+<h3>Lista de atenciones</h3>
+<br>
+<form [formGroup]="cajaBuscadorForm">
+  <section class="container-form">
+    <div id="formFecha" class="t-flex-start">
+      <span class="form-text"><b>Fecha:</b></span>
+      <p-calendar formControlName="fecha" dateFormat="yy-mm-dd" inputId="dateformat" appendTo="body"
+        [readonlyInput]="true"></p-calendar>
+    </div>
+
+    <div class="form" class="t-flex-start">
+      <span class="form-text"><b>Medio de Pago:</b></span>
+      <p-dropdown [options]="tipoMedioDePago" formControlName="medioPago" optionLabel="nombre" [showClear]="true"
+        placeholder="Seleccione">
+        <ng-template pTemplate="selectedItem">
+          <div class="dropdown-item" *ngIf="medioPago">
+            <img [src]="'assets/images/caja/'+medioPago.value.tipo+'.svg'" style="width: 18px" />
+            <div>{{ medioPago.value.nombre }}</div>
+          </div>
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          <div class="dropdown-item">
+            <img [src]="'assets/images/caja/'+item.tipo+'.svg'" style="width: 18px" />
+            <div>{{ item.nombre }}</div>
+          </div>
+        </ng-template>
+      </p-dropdown>
+    </div>
+
+    <app-button [label]="'Buscar'" (eventoClick)="buscar()" [icono]="'pi pi-search'">
+    </app-button>
+
+    <app-button [label]="'Limpiar'" (eventoClick)="limpiar()" [estiloBoton]="'text'">
+    </app-button>
+  </section>
+</form>
+<br>
 <section class="container-table">
-  <app-table
-    *ngIf="isCargado"
-    [listaElementos]="listaCaja"
-    [columnas]="colsVisibles"
-    [filas]="5"
-    [listaElementosAFiltrar]="['descripcion']"
-    [isMostrarAcciones]="false"
-    [isMostrarMasOpciones]="true"
-    [acciones]="acciones"
-    (eventoAccion)="eventoAccion($event)"
-  ></app-table>
+  <app-table *ngIf="isCargado" [listaElementos]="listaCaja" [columnas]="colsVisibles" [filas]="5"
+    [listaElementosAFiltrar]="['descripcion']" [isMostrarAcciones]="false" [isMostrarMasOpciones]="true"
+    [acciones]="acciones" (eventoAccion)="eventoAccion($event)" [footer]="true"></app-table>
 </section>
 
-=======
-    <h2>Caja</h2>
-  </div>
+<p-dialog header="{{tituloModal}}" [(visible)]="isOpenModal" [modal]="true" [style]="{ width: '45vw' }"
+  [draggable]="true" [resizable]="true">
+  <p-table #dt [columns]="colsPagar" selectionMode="single" [value]="listaExamenes" dataKey="numDocumento" [rows]="6"
+    [scrollable]="true" responsiveLayout="scroll">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns">
+          <div [ngSwitch]="col.field">
+
+            <div *ngSwitchCase="'precio'">
+              {{ rowData[col.field] | currency: "S/" }}
+            </div>tipoPago
+
+            <div *ngSwitchCase="'tipoPago'">
+              <img [src]="rowData[col.field] | tipoPagoIcon" width="24" height="24" alt="{{ rowData[col.field] }}">
+              {{ rowData[col.field] }}
+            </div>
+
+            <div *ngSwitchDefault>
+              {{ rowData[col.field] }}
+            </div>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
   <br>
-    <section class="container-table">
-    <app-table
-      *ngIf="isCargado"
-      [listaElementos]="listaCaja"
-      [columnas]="colsVisibles"
-      [filas]="5"
-      [listaElementosAFiltrar]="['descripcion']"
-      (eventoAccion)="eventoAccion($event)"
-    ></app-table>
-  </section>
-  
->>>>>>> 3d0bc9c57438a3104e713faaae9e63e88d64c3a3
+  <form [formGroup]="cajaForm">
+    <section class="contain-total">
+      <div class="t-flex-start">
+        <span><b>Sub Total:</b></span>
+        <span>{{ subTotal.value| currency: "S/" }}</span>
+      </div>
+      <div class="t-flex-start">
+        <span><b>Descuento:</b></span>
+        <p-inputNumber inputId="descuentoTotal" formControlName="descuentoTotal" mode="currency" currency="PEN" [min]="0" [max]="subTotal.value - 1" (onBlur)="descuento()"
+          locale="es-PE" [disabled]="hasDescuento" >
+        </p-inputNumber>
+      </div>
+      <div class="t-flex-start">
+        <span><b>Total:</b></span>
+        <span>{{ total.value | currency: "S/" }}</span>
+      </div>
+    </section>
+    <br>
+    <hr>
+    <br>
+    <section class="contain-medio">
+      <div class="t-flex-start">
+        <span><b>A cuenta:</b></span>
+        <p-inputNumber inputId="acuenta" formControlName="acuenta" mode="currency" currency="PEN" [min]="0" [max]="subTotal.value" locale="es-PE" [disabled]="hasACuenta">
+        </p-inputNumber>
+      </div>
+      <div class="t-flex-start">
+        <span><b>Medio de Pago:</b></span>
+        <p-selectButton [options]="options" formControlName="tipoPago" optionLabel="icon" optionValue="value">
+          <ng-template let-item pTemplate>
+            <img [src]="'assets/images/caja/'+item.icon+'.svg'">
+          </ng-template>
+        </p-selectButton>
+      </div>
+    </section>
+
+    <br>
+    <br>
+    <p-button type="submit" (click)="pagar()" [label]="'Pagar ' + (acuenta.value ? ((total.value - acuenta.value) | currency: 'S/') : (total.value | currency: 'S/')) " class="button-pay" styleClass="p-button-secondary" [disabled]="cajaForm.invalid">
+    </p-button>
+  </form>
+</p-dialog>

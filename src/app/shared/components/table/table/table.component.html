@@ -1,6 +1,8 @@
-<p-table #dt styleClass="p-datatable-striped" [id]="dt" [value]="listaElementos" [columns]="columnas" [rows]="filas" [paginator]="isPaginador"
-  [globalFilterFields]="listaElementosAFiltrar" [responsiveLayout]="tipoResponsivo ? 'stack' : 'scroll'"
-  scrollHeight="flex" [rowHover]="isHoverAFila" dataKey="id" [scrollable]="true"  [style]="{width: '100%', height: 'calc(100vh - 270px)'}" [showCurrentPageReport]="isCantidadElementos">
+<p-table #dt styleClass="p-datatable-striped" [id]="dt" [value]="listaElementos" [columns]="columnas" [rows]="filas"
+  [paginator]="isPaginador" [globalFilterFields]="listaElementosAFiltrar"
+  [responsiveLayout]="tipoResponsivo ? 'stack' : 'scroll'" scrollHeight="flex" [rowHover]="isHoverAFila" dataKey="id"
+  [scrollable]="true" [style]="{width: '100%', height: 'calc(100vh - 270px)'}"
+  [showCurrentPageReport]="isCantidadElementos">
   <ng-template pTemplate="caption">
     <div class="caption">
       <ng-container *ngIf="isMostrarExportacion">
@@ -12,7 +14,8 @@
           Buscar
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+            <input pInputText type="text" toUpperCase
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
           </span>
         </ng-container>
       </span>
@@ -22,20 +25,40 @@
 
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th style="text-align: center; justify-content: center;" *ngFor="let col of columns" pSortableColumn="{{ col.field }}">
+      <th style="text-align: center; justify-content: center;" *ngFor="let col of columns"
+        pSortableColumn="{{ col.field }}">
         {{ col.header }} <p-sortIcon *ngIf="isSorting" field="{{ col.field }}"></p-sortIcon>
       </th>
-      <th *ngIf="isMostrarAcciones" [ngStyle]="{'min-width': anchoColumna}" style="text-align: center; justify-content: center;">Opciones</th>
-      <th *ngIf="isMostrarMasOpciones" [ngStyle]="{'min-width': anchoColumna}" style="text-align: center; justify-content: center;">Opciones</th>
+      <th *ngIf="isMostrarAcciones" [ngStyle]="{'min-width': anchoColumna}"
+        style="text-align: center; justify-content: center;">Opciones</th>
+      <th *ngIf="isMostrarMasOpciones" [ngStyle]="{'min-width': anchoColumna}"
+        style="text-align: center; justify-content: center;">Opciones</th>
     </tr>
   </ng-template>
 
   <ng-template pTemplate="body" let-rowData let-columns="columns">
     <tr [pSelectableRow]="rowData">
-      <td style="min-width: 120px; word-break: break-all; text-align: center; justify-content: center;"*ngFor="let col of columns">
+      <td style="min-width: 120px; word-break: break-all; text-align: center; justify-content: center;"
+        *ngFor="let col of columns">
         <span *ngIf="isSubtitulo" class="p-column-title">{{ col.header }}</span>
 
         <div [ngSwitch]="col.field">
+          <div *ngSwitchCase="'precio'">
+            {{ rowData[col.field] | currency: "S/" }}
+          </div>
+
+          <div *ngSwitchCase="'descuentoTotal'">
+            {{ rowData[col.field] | currency: "S/" }}
+          </div>
+
+          <div *ngSwitchCase="'total'">
+            {{ rowData[col.field] | currency: "S/" }}
+          </div>
+
+          <div *ngSwitchCase="'subTotal'">
+            {{ rowData[col.field] | currency: "S/" }}
+          </div>
+
           <div *ngSwitchCase="'estado'">
             <div [ngClass]="
                   rowData[col.field]
@@ -48,11 +71,11 @@
 
           </div>
 
-          <div *ngSwitchCase="'estadoCompra'" [value]="rowData[col.field]" appStyleEstado>
+          <div *ngSwitchCase="'estadoAtencionAnalisis'" [value]="rowData[col.field]" appStyleEstado>
             {{ rowData[col.field] }}
           </div>
 
-          <div *ngSwitchCase="'estadostocks'" [value]="rowData[col.field]" appStyleEstado>
+          <div *ngSwitchCase="'estadoPago'" [value]="rowData[col.field]" appStyleEstado>
             {{ rowData[col.field] }}
           </div>
 
@@ -90,11 +113,12 @@
           (eventoClick)="esUnaAccion('eliminar', rowData)"></app-button>
       </td>
 
-      <td *ngIf="isMostrarMasOpciones" class="t-flex-start" [ngStyle]="{'min-width': anchoColumna}" style="justify-content: center;">
+      <td *ngIf="isMostrarMasOpciones" class="t-flex-start" [ngStyle]="{'min-width': anchoColumna}"
+        style="justify-content: center;">
         <ng-container *ngFor="let x of acciones">
           <app-button *ngIf="x.estado" [icono]="x.icono" [estiloBoton]="x.clase"
-          (eventoClick)="esUnaAccion( x.evento, rowData, $event)" [isDisabled]="x.isDisabled" [tooltip]="x.tooltip">
-        </app-button>
+            (eventoClick)="esUnaAccion( x.evento, rowData, $event)" [isDisabled]="x.isDisabled" [tooltip]="x.tooltip">
+          </app-button>
         </ng-container>
       </td>
     </tr>
@@ -110,4 +134,13 @@
       <td colspan="6">{{mesajeNotItems}}</td>
     </tr>
   </ng-template>
+
+
+  <ng-template pTemplate="footer" *ngIf="footer">
+    <tr>
+      <td colspan="4" class="text-right">Total</td>
+      <td colspan="1" >{{total | currency: 'S/'}}</td>
+    </tr>
+  </ng-template>
+
 </p-table>

@@ -99,7 +99,7 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'resultado',
+        path: 'resultados',
         loadChildren: () => import('./modules/resultado/resultado.module').then(m => m.ResultadoModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]

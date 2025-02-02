@@ -7,7 +7,7 @@
 
     <div class="form">
       <span class="form-text">Usuario:</span>
-      <input id="usuario" type="text" formControlName="usuario" autocomplete="off" pInputText />
+      <input id="usuario" type="text" toUpperCase formControlName="usuario" autocomplete="off" pInputText />
       <div class="validation" *ngIf="usuario?.invalid && (usuario?.dirty || usuario?.touched)">
         <small *ngIf="usuario?.errors?.['required']" class="p-error">Usuario es obligatorio</small>
       </div>

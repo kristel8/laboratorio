@@ -65,16 +65,12 @@ export class AlmacenSucursalComponent implements OnInit {
       case 'mostrar':
         this.mostrarDetalleAlmacenSucursal(data);
         break;
-
-      default:
-        console.log('Acción no aplicada');
-        break;
     }
   }
 
-    mostrarDetalleAlmacenSucursal(data: any) {
-      const idProducto = data.idProducto;
-      this.router.navigateByUrl(`almacen-sucursal/detalle-almacen-sucursal/${idProducto}`);
-    }
+  mostrarDetalleAlmacenSucursal(data: any) {
+    const idProducto = data.idProducto;
+    this.router.navigateByUrl(`almacen-sucursal/detalle-almacen-sucursal/${idProducto}`);
+  }
 
 }

@@ -25,6 +25,8 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { BodyComponent } from './components/body/body.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './components/loader/loader.component';
+import { ToUpperCaseDirective } from './directives/toUpperCase.directive';
+import { TipoPagoIconPipe } from './pipes/tipo-pago.pipe';
 
 @NgModule({
   declarations: [
@@ -36,10 +38,12 @@ import { LoaderComponent } from './components/loader/loader.component';
     ButtonComponent,
     StyleButtonDirective,
     NumbersOnlyDirective,
+    ToUpperCaseDirective,
     SidebarTemplateComponent,
     NavbarTemplateComponent,
     FooterTemplateComponent,
     FlagsPipe,
+    TipoPagoIconPipe,
     StyleEstadoDirective,
     LoadingComponent,
     BodyComponent,
@@ -67,7 +71,9 @@ import { LoaderComponent } from './components/loader/loader.component';
     LoadingComponent,
     StyleButtonDirective,
     NumbersOnlyDirective,
-    LoaderComponent
+    ToUpperCaseDirective,
+    LoaderComponent,
+    TipoPagoIconPipe
   ],
   providers: [MessageService]
 })

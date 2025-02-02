@@ -10,11 +10,13 @@
     <section class="container-table">
     <app-table
       *ngIf="isCargado"
-      [listaElementos]="listaAtencion"
+      [listaElementos]="listaElementos"
       [columnas]="colsVisibles"
       [filas]="5"
       [listaElementosAFiltrar]="['descripcion']"
+      [isMostrarAcciones]="false"
+      [isMostrarMasOpciones]="true"
+      [acciones]="acciones"
       (eventoAccion)="eventoAccion($event)"
     ></app-table>
   </section>
-  

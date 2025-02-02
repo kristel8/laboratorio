@@ -42,7 +42,8 @@ export class SidebarComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
   menu: IItemMenu[] = [];
   screenWidth: number = 0;
-  usuario!: any;
+  usuario!: string;
+  cargo!: string;
   isFixed: boolean = true;
   collapsed: boolean = true;
   isSeleccionado!: string;
@@ -98,38 +99,13 @@ export class SidebarComponent implements OnInit {
 
 
   getUsuario() {
-    //this.usuario = this.authService.usuario.usuario[0];
+    this.usuario = `${this.authService.usuario.nombre} ${this.authService.usuario.apellido}`;
+    this.cargo = this.authService.usuario.tipoUsuario;
   }
 
   getMenu() {
     this.menu = [];
-    //this.menu = this.authService.permisos;
-    console.log(this.menu);
+    this.menu = this.authService.detallePermisos;
   };
 
-  eventoMostrarSubMenu(nombre: string, estado: string) {
-    this.menu.filter(res => res.nombre != nombre).map(el => { el.estado = '1' });
-    this.menu.filter(res => res.nombre === nombre).map(el => { el.estado = '0'; this.isSeleccionado = el.estado });
-
-    if (estado == '0') {
-      this.menu.filter(res => res.nombre === nombre).map(el => { el.estado = '1' });
-
-    }
-
-  }
-
-  eventoSeleccionado(nombre: string, estado: string) {
-    const primeraListaMenu = this.menu.filter(res => res.subMenu.length > 0);
-
-    primeraListaMenu.forEach(el => {
-      el.subMenu.forEach(res => {
-        res.estado = '1';
-      })
-    });
-
-    const listaMenu = this.menu.filter(res => res.subMenu.find((res) => res.nombre === nombre)
-    );
-
-    listaMenu[0].subMenu.filter(res => res.nombre === nombre).map(el => { el.estado = '0' });
-  }
 }

@@ -3,7 +3,6 @@
     <img src="assets/images/logo/logotipo.svg" alt="">
     <img src="assets/images/logo/logo-title.svg" alt="" @fadeInOut *ngIf="collapsed">
     <button class="btn-close" @rotate (click)="closeSidenav()" *ngIf="collapsed"><i class="fas fa-times"></i></button>
-
   </div>
 
   <nav class="sidenav-nav-item">
@@ -14,8 +13,8 @@
          </div>
 
          <div class="sidebar_info" *ngIf="collapsed">
-             <h3>Julissa</h3>
-             <span>Administrador</span>
+             <h3>{{usuario | titlecase }}</h3>
+             <span>{{cargo}}</span>
          </div>
       </div>
 
@@ -23,7 +22,6 @@
   </nav>
 
   <ul class="sidenav-nav">
-
     <li class="sidenav-nav-item">
       <a class="sidenav-nav-link" [routerLink]="['/dashboard']" routerLinkActive="active"
         [routerLinkActiveOptions]="{exact: true}">
@@ -33,105 +31,11 @@
         </p>
       </a>
     </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/empleados']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Empleados
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/usuarios']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="sidenav-link-icon" [class]="'fas fa-home'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Usuarios
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/atencion']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-solid fa-book'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Atencion
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/paciente']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-regular fa-address-book'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Pacientes
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/examenes']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-regular fa-file'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Examenes
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/resultado']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-solid fa-square-poll-vertical'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Resultados
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/doctor']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-solid fa-user-doctor'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Doctor
-        </p>
-      </a>
-    </li>
-    <li class="sidenav-nav-item">
-      <a class="sidenav-nav-link" [routerLink]="['/caja']" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}">
-        <i class="icons2" [class]="'fa-solid fa-money-check-dollar'"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">
-          Caja
-        </p>
-      </a>
-    </li>
-
     <li class="sidenav-nav-item" *ngFor="let item of menu">
-      <a class="sidenav-nav-link" *ngIf="item.ruta != ''" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
+      <a class="sidenav-nav-link" *ngIf="item.ruta != ''" [routerLink]="[item.ruta]" routerLinkActive="active">
         <i class="sidenav-link-icon" [class]="item.imagen"></i>
-        <p class="sidenav-link-text" *ngIf="collapsed">{{ item.nombre }}
-          <i class="fas fa-angle-down"></i>
-        </p>
+        <p class="sidenav-link-text" *ngIf="collapsed">{{ item.nombre }}</p>
       </a>
-
-
-      <a class="sidenav-nav-link" *ngIf="item.ruta == ''" [routerLink]="[item!.ruta]" routerLinkActive="active"
-        [routerLinkActiveOptions]="{exact: true}" (click)="eventoMostrarSubMenu(item.nombre, item.estado)">
-        <i class="sidenav-link-icon" [class]="item.imagen"></i>
-        <p class="sidenav-link-text" @fadeInOut *ngIf="collapsed">
-          {{ item.nombre }}
-        </p>
-      </a>
-
-      <ul class="sidenav-nav" @fadeInOut *ngIf="item.estado == '0' && collapsed">
-        <li class="sidenav-nav-subitem"  *ngFor="let subItem of item.subMenu"
-          [ngClass]="subItem.estado == '0' ? 'subItem-actived' : ''">
-          <a class="sidenav-nav-link" [routerLink]="[subItem.ruta]" (click)="eventoSeleccionado(subItem.nombre, '0')">
-            <i class="sidenav-link-icon-circle" [class]="'far fa-circle'"></i>
-            <p class="sidenav-link-text">{{ subItem.nombre }}</p>
-          </a>
-        </li>
-      </ul>
     </li>
   </ul>
 </aside>

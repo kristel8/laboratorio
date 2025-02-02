@@ -73,10 +73,6 @@ export class DetalleAlmacenSucursalComponent implements OnInit {
       case 'vender':
         this.cambiarParaVender(data);
         break;
-
-      default:
-        console.log('Acción no aplicada');
-        break;
     }
   }
 

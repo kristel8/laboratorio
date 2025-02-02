@@ -44,6 +44,7 @@ export class PacienteComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
+      { field: 'idPaciente', header: 'ID', visibility: true, formatoFecha: '' },
       { field: 'apellidos', header: 'Apellidos', visibility: true, formatoFecha: '' },
       { field: 'nombre', header: 'Nombres', visibility: true, formatoFecha: '' },
       { field: 'tipoDocumento', header: 'Tipo Documento', visibility: true, formatoFecha: '' },

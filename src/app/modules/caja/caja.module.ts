@@ -11,6 +11,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
+import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [CajaComponent],
@@ -26,6 +29,9 @@ import { TableModule } from 'primeng/table';
     HttpClientModule,
     DropdownModule,
     InputNumberModule,
+    CalendarModule,
+    DialogModule,
+    SelectButtonModule,
   ],
 })
 export class CajaModule {}

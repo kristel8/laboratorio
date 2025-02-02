@@ -19,7 +19,7 @@
 
     <div class="form">
       <span class="form-text">Nro Documento:</span>
-      <input id="numDocumento" type="text" formControlName="numDocumento" pInputText numbersOnly/>
+      <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly/>
       <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
         <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
         <small *ngIf="numDocumento?.errors?.['maxlength']" class="p-error">Número de Documento debe tener 11 dígitos</small>
@@ -28,7 +28,7 @@
 
     <div class="form">
       <span class="form-text">Razón Social:</span>
-      <input id="razonSocial" type="text" formControlName="razonSocial" pInputText />
+      <input id="razonSocial" type="text" toUpperCase formControlName="razonSocial" pInputText />
       <div class="validation" *ngIf="razonSocial?.invalid && (razonSocial?.dirty || razonSocial?.touched)">
         <small *ngIf="razonSocial?.errors?.['required']" class="p-error">Razón Social es obligatorio</small>
         <small *ngIf="razonSocial?.errors?.['maxlength']" class="p-error">Razón Social debe tener máximo 45 dígitos</small>
@@ -37,7 +37,7 @@
 
     <div class="form">
       <span class="form-text">Nombre:</span>
-      <input id="nombre" type="text" formControlName="nombre" pInputText />
+      <input id="nombre" type="text" toUpperCase formControlName="nombre" pInputText />
       <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
         <small *ngIf="nombre?.errors?.['required']" class="p-error">Nomnbre es obligatorio</small>
       </div>
@@ -45,7 +45,7 @@
 
     <div class="form">
       <span class="form-text">Apellido:</span>
-      <input id="apellido" type="text" formControlName="apellido" pInputText />
+      <input id="apellido" type="text" toUpperCase formControlName="apellido" pInputText />
       <div class="validation" *ngIf="apellido?.invalid && (apellido?.dirty || apellido?.touched)">
         <small *ngIf="apellido?.errors?.['required']" class="p-error">Apellido es obligatorio</small>
       </div>
@@ -53,7 +53,7 @@
 
     <div class="form">
       <span class="form-text">Dirección:</span>
-      <input id="direccion" type="text" formControlName="direccion" pInputText />
+      <input id="direccion" type="text" toUpperCase formControlName="direccion" pInputText />
       <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
         <small *ngIf="direccion?.errors?.['required']" class="p-error">Dirección es obligatorio</small>
       </div>
@@ -69,7 +69,7 @@
 
     <div class="form">
       <span class="form-text">Celular:</span>
-      <input id="numCel" type="text" formControlName="numCel" pInputText numbersOnly/>
+      <input id="numCel" type="text" toUpperCase formControlName="numCel" pInputText numbersOnly/>
       <div class="validation" *ngIf="numCel?.invalid && (numCel?.dirty || numCel?.touched)">
         <small *ngIf="numCel?.errors?.['required']" class="p-error">Celular es obligatorio</small>
         <small *ngIf="numCel?.errors?.['minlength'] || numCel?.errors?.['maxlength']" class="p-error">Celular debe tener 9 dígitos</small>
@@ -89,7 +89,7 @@
 
   <br>
   <div class="container-opciones">
-    <app-button [label]="'Cancelar'" [router]="'/clientes'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'" >
+    <app-button [label]="'Regresar'" [router]="'/clientes'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'" >
     </app-button>
     <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="!clienteForm.valid">
     </app-button>

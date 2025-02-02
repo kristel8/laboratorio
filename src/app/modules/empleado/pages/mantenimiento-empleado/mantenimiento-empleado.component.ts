@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IEmpleado } from '../../models/empleado';
 import { EmpleadoService } from '../../services/empleado.service';
+import { PATTERNS } from 'src/app/global/pattern';
 
 @Component({
   selector: 'app-mantenimiento-empleado',
@@ -23,16 +23,14 @@ export class MantenimientoEmpleadoComponent implements OnInit {
   listaElementos: IEmpleado [] = [];
 
   tipoDocumentos: any [] = [];
+  tipoCargos: any [] = [];
   listaCargos: any [] = [];
-  listaAreas: any [] = [];
-
 
   constructor(
     private fb: FormBuilder,
     private serviceEmpleado: EmpleadoService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
-    private readonly servicioMensajesSwal: MensajesSwalService
   ) { }
 
   empleadoForm = this.fb.group({
@@ -41,8 +39,8 @@ export class MantenimientoEmpleadoComponent implements OnInit {
     nombre: [null, [Validators.required]],
     apellido: [null, [Validators.required]],
     direccion: [null, [Validators.required]],
-    telefono: [null, [Validators.required,  Validators.maxLength(6)]],
-    celular: [null, [Validators.required,  Validators.maxLength(9)]],
+    telefono: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
+    celular: [null, [Validators.required, Validators.pattern(PATTERNS.CELULAR)]],
     cargo: [null, [Validators.required]],
   });
 
@@ -103,6 +101,21 @@ export class MantenimientoEmpleadoComponent implements OnInit {
         tipo: 'CARNET DE EXTRANJERIA',
       },
     ];
+
+    this.tipoCargos = [
+      {
+        tipo: 'Cajero',
+      },
+      {
+        tipo: 'Laboratorista',
+      },
+      {
+        tipo: 'Administrador',
+      },
+      {
+        tipo: 'Otros',
+      },
+    ];
   }
 
   guardarElemento() {
@@ -125,7 +138,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       direccion: direccion,
       telefono: telefono,
       celular: celular,
-      cargo: cargo,
+      cargo: cargo.tipo,
     };
 
     if (this.isEditar) {
@@ -163,6 +176,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
 
   mostrarValoresInput(resultado: any ) {
     const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
+    const cargo = this.tipoCargos.find((e) => e.tipo === resultado.cargo);
 
     this.empleadoForm.patchValue({
       tipoDocumento: tipoDocumento,
@@ -172,7 +186,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       direccion: resultado.direccion,
       telefono: resultado.telefono,
       celular: resultado.celular,
-      cargo: resultado.cargo,
+      cargo: cargo,
     });
   }
 }

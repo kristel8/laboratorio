@@ -4,8 +4,8 @@
   <section class="container-form t-col-2 t-col-sm-1">
     <div class="form">
       <span class="form-text">Usuario:</span>
-      <input id="usuario" type="text" formControlName="usuario" pInputText />
-      
+      <input id="usuario" type="text" toUpperCase formControlName="usuario" pInputText />
+
       <div class="validation" *ngIf="usuario?.invalid && (usuario?.dirty || usuario?.touched)">
         <small *ngIf="usuario?.errors?.['required']" class="p-error">Usuario es obligatorio</small>
       </div>
@@ -13,7 +13,7 @@
 
     <div class="form">
       <span class="form-text">Contraseña:</span>
-      <input id="contrasena" type="password" formControlName="contrasena" autocomplete="off" pInputText />
+      <input id="contrasena" type="text" formControlName="contrasena" autocomplete="off" pInputText toUpperCase />
       <div class="validation" *ngIf="contrasena?.invalid && (contrasena?.dirty || contrasena?.touched)">
         <small *ngIf="contrasena?.errors?.['required']" class="p-error">Contraseña es obligatorio</small>
         <small *ngIf="contrasena?.errors?.['minlength'] || contrasena?.errors?.['maxlength']" class="p-error">Contraseña
@@ -37,7 +37,7 @@
           <div class="p-inputgroup">
             <button pButton (click)="showBuscadorDeEmpleado($event)" type="button" icon="pi pi-search"></button>
             <div class="form" style="width: 200px">
-              <input id="numEmpleado" type="text" formControlName="numEmpleado" (keypress)="buscarEmpleado($event)"
+              <input id="numEmpleado" type="text" toUpperCase formControlName="numEmpleado" (keypress)="buscarEmpleado($event)"
                 pInputText numbersOnly />
 
               <div class="validation" *ngIf="numEmpleado?.dirty || numEmpleado?.touched">
@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <input id="datosEmpleado" type="text" formControlName="datosEmpleado" pInputText />
+        <input id="datosEmpleado" type="text" toUpperCase formControlName="datosEmpleado" pInputText />
       </div>
     </div>
   </section>
@@ -72,7 +72,7 @@
 
   <br>
   <div class="container-opciones">
-    <app-button [label]="'Cancelar'" [router]="'/usuarios'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    <app-button [label]="'Regresar'" [router]="'/usuarios'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
     </app-button>
     <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'"
       [isDisabled]="!usuarioForm.valid || listaAsignados.length === 0">
@@ -99,7 +99,7 @@
       <div class="caption">
         <span class="caption__search">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          <input pInputText type="text" toUpperCase (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Buscar..." />
         </span>
       </div>

@@ -1,56 +1,57 @@
 <div class="t-flex-start">
   <h2>Lista de Doctores</h2>
-  <app-button
-    [label]="'Agregar'"
-    [icono]="'pi pi-plus'"
-    (eventoClick)="openModalDoctor()"
-  ></app-button>
+  <app-button [label]="'Agregar'" [icono]="'pi pi-plus'" (eventoClick)="openModalDoctor()"></app-button>
 </div>
 <br />
 <section class="container-table">
-  <app-table
-    *ngIf="isCargado"
-    [listaElementos]="listaDoctores"
-    [columnas]="colsVisibles"
-    [filas]="5"
-    [listaElementosAFiltrar]="['descripcion']"
-    (eventoAccion)="eventoAccion($event)"
-  ></app-table>
+  <app-table *ngIf="isCargado" [listaElementos]="listaElementos" [columnas]="colsVisibles" [filas]="5"
+    [listaElementosAFiltrar]="['descripcion']" [isOpcionEditar]="false"
+    (eventoAccion)="eventoAccion($event)"></app-table>
 </section>
 
-<p-dialog header="Agregar Médico" [(visible)]="cualquiera" [modal]="true" [style]="{ width: '50vw' }"
+<p-dialog header="Agregar Médico" [(visible)]="isOpenModal" [modal]="true" [style]="{ width: '50vw' }"
   [draggable]="false" [resizable]="false">
-  <span><b>Seleccione un empleado:</b></span>
+  <p><b>Ingrese los datos del Médico:</b></p>
   <br />
-  <form [formGroup]="doctoresForm">
+  <form [formGroup]="doctoresForm" (ngSubmit)="guardar()">
     <section class="container-dialog t-col-2 t-col-sm-1">
 
       <div class="form">
         <span class="form-text">Código:</span>
-        <input id="codigo" type="text" formControlName="codigo" pInputText />
-        
+        <input id="codigo" type="text" toUpperCase formControlName="codigo" pInputText />
+
         <div class="validation" *ngIf="codigo?.invalid && (codigo?.dirty || codigo?.touched)">
-          <small *ngIf="codigo?.errors?.['required']" class="p-error">codigo es obligatorio</small>
+          <small *ngIf="codigo?.errors?.['required']" class="p-error">El campo es obligatorio</small>
         </div>
       </div>
       <div class="form">
-        <span class="form-text">Nombre completo:</span>
-        <input id="nombreCompleto" type="text" formControlName="nombreCompleto" pInputText />
-        
-        <div class="validation" *ngIf="codigo?.invalid && (codigo?.dirty || codigo?.touched)">
-          <small *ngIf="codigo?.errors?.['required']" class="p-error">El nombre completo es obligatorio</small>
+        <span class="form-text">Nombre:</span>
+        <input id="nombre" type="text" toUpperCase formControlName="nombre" pInputText />
+
+        <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
+          <small *ngIf="nombre?.errors?.['required']" class="p-error">El campo es obligatorio</small>
         </div>
       </div>
-  
+
+      <div class="form">
+        <span class="form-text">Apellidos:</span>
+        <input id="nombre" type="text" toUpperCase formControlName="apellidos" pInputText />
+
+        <div class="validation" *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)">
+          <small *ngIf="apellidos?.errors?.['required']" class="p-error">El campo es obligatorio</small>
+        </div>
+      </div>
+
     </section>
+    <br>
+
+    <div class="container-opciones">
+      <app-button [label]="'Regresar'" (eventoClick)="isOpenModal = false" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
+      </app-button>
+      <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="!doctoresForm.valid">
+      </app-button>
+    </div>
+
   </form>
 
-  <ng-template pTemplate="footer">
-    <app-button
-    [label]="'Guardar'"
-    [icono]="'pi pi-check'"
-    (eventoClick)="guardar()"
-    [isDisabled]="doctoresForm.invalid"
-  ></app-button>
-  </ng-template>
 </p-dialog>

@@ -43,6 +43,9 @@ export class TableComponent implements OnInit {
   @Output() eventoAccion = new EventEmitter<any>();
   mesajeNotItems = MensajesGlobales._MENSAJE_NOT_ITEMS;
 
+  @Input() footer: boolean = false;
+  @Input() total: number = 0;
+
   constructor() {}
 
   ngOnInit(): void {}

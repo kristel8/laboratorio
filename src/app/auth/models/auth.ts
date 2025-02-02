@@ -1,4 +1,4 @@
-import { IUsuario } from "src/app/modules/usuario/models/usuario"
+import { IUsuario, IUsuarioLogged } from "src/app/modules/usuario/models/usuario"
 import { IItemMenu } from "src/app/shared/components/sidebar/models/sidebar";
 
 export interface IAuth {
@@ -7,19 +7,19 @@ export interface IAuth {
 }
 
 export interface IAuthSuccess {
-  usuario: IUsuario[],
-  permisos: IItemMenu[],
+  usuario: IUsuarioLogged,
+  detallePermisos: IItemMenu[],
   mensaje: string
 }
 
 export class IAuthSuccessModel {
-  usuario: IUsuario[];
-  permisos: IItemMenu[];
+  usuario: IUsuarioLogged;
+  detallePermisos: IItemMenu[];
   mensaje: string;
 
   constructor(authSucces: IAuthSuccess) {
     this.usuario = authSucces.usuario;
-    this.permisos = authSucces.permisos;
+    this.detallePermisos = authSucces.detallePermisos;
     this.mensaje = authSucces.mensaje
   }
 }

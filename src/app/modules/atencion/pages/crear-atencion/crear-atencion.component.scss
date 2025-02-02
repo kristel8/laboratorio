@@ -1,5 +1,5 @@
-.form {
-    width: auto;
+.form-searcher {
+  width: 180px;
 }
 
 hr {
@@ -8,5 +8,13 @@ hr {
 }
 
 .container-form .form .refer {
-  width: 25%;
+  width: 30%;
+}
+
+.container-opciones {
+  justify-content: space-between;
+}
+
+.p-datatable .p-datatable-header {
+  justify-self: end;
 }

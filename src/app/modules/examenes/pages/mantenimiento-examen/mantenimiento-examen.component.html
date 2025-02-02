@@ -4,7 +4,7 @@
   <section class="container-form t-col-3 t-col-sm-1">
     <div class="form">
       <span class="form-text">Nombre</span>
-      <input id="nombre" type="text" formControlName="nombre" pInputText />
+      <input id="nombre" type="text" toUpperCase formControlName="nombre" pInputText />
       <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
         <small *ngIf="nombre?.errors?.['required']" class="p-error">Nombre es obligatorio</small>
       </div>
@@ -12,7 +12,7 @@
 
     <div class="form">
       <span class="form-text">Descripcion</span>
-      <input id="descripcion" type="text" formControlName="descripcion" pInputText />
+      <input id="descripcion" type="text" toUpperCase formControlName="descripcion" pInputText />
       <div class="validation" *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)">
         <small *ngIf="descripcion?.errors?.['required']" class="p-error">Descripcion es obligatorio</small>
       </div>
@@ -28,7 +28,7 @@
     </div>
   </section>
 
-  <p-table [value]="elementos.controls" *ngIf="idAnalisisCreado">
+  <p-table [value]="elementos.controls">
     <ng-template pTemplate="header">
       <tr>
         <th>Opción</th>
@@ -45,13 +45,13 @@
           <button pButton (click)="borrarFila(i)" type="button" [disabled]="elementos.length <= 1" icon="pi pi-minus" class="p-button-rounded p-button-danger"></button>
         </td>
         <td>
-          <input type="text" formControlName="descripcion" pInputText/>
+          <input type="text" toUpperCase formControlName="descripcion" pInputText/>
         </td>
         <td>
-          <input type="text" formControlName="unidad" pInputText/>
+          <input type="text" toUpperCase formControlName="unidad" pInputText/>
         </td>
         <td>
-          <input type="number" formControlName="valorReferencia" pInputText/>
+          <input type="text" formControlName="valorReferencia" pInputText/>
         </td>
       </tr>
     </ng-container>
@@ -62,7 +62,7 @@
 <br>
 
 <div class="container-opciones">
-  <app-button [label]="'Cancelar'" [router]="'/examenes'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+  <app-button [label]="'Regresar'" [router]="'/examenes'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
   </app-button>
   <app-button [label]="'Guardar'" [tipo]="'submit'" [icono]="'pi pi-check'" [isDisabled]="!examenesForm.valid">
   </app-button>

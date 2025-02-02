@@ -1,0 +1,78 @@
+.container-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+p-dropdown {
+  width: 180px;
+
+  .dropdown-item {
+    display: flex;
+    column-gap: 8px;
+  }
+}
+
+::ng-deep {
+  p-inputnumber input {
+    width: 100px;
+  }
+  p-selectbutton > div {
+    display: flex !important;
+  }
+
+  .button-pay {
+    button {
+      width: 100%;
+      font-size: 1.4rem;
+    }
+  }
+}
+
+.contain-total {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: space-between;
+  column-gap: 15px;
+
+  .t-flex-start {
+    .input-descuento {
+      display: flex;
+      align-items: center;
+      column-gap: 5px;
+    }
+
+    span {
+      width: max-content;
+    }
+
+  }
+
+  .t-flex-start:nth-child(3) {
+    text-align: end;
+    justify-self: end;
+    padding-right: 10px;
+    font-size: 1.25rem;
+  }
+}
+
+.contain-medio {
+  display: grid;
+  row-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+
+  .t-flex-start {
+    span {
+      width: max-content;
+      text-align: end;
+    }
+
+    ::ng-deep .p-button {
+      padding: 10px;
+    }
+  }
+}
+
+hr {
+  color: rgb(230, 230, 230);
+  border-style: solid;
+}

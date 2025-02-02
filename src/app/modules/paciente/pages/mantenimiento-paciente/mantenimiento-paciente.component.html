@@ -6,16 +6,11 @@
     <h3>Buscar paciente</h3>
       <br>
     <div class="t-flex-start">
-      <!-- <div class="form">
-        <span class="form-text">Tipo Documento:</span>
-        <p-dropdown [options]="tipoDocumentos" formControlName="tipoDocumento" optionLabel="tipo"
-          placeholder="Seleccione"></p-dropdown>
-      </div> -->
-    
+
       <span><b>DNI:</b></span>
       <div class="form">
 
-        <input id="numDocumento" type="text" formControlName="numDocumento" pInputText numbersOnly />
+        <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly />
         <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
           <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
           <small *ngIf="numDocumento?.errors?.['maxlength']" class="p-error">Nro de Documento debe tener 11
@@ -32,7 +27,7 @@
     <div class="t-col-3 t-col-sm-1">
       <div class="form">
         <span class="form-text">Apellidos:</span>
-        <input id="apellidos" type="text" formControlName="apellidos" pInputText />
+        <input id="apellidos" type="text" toUpperCase formControlName="apellidos" pInputText />
         <div class="validation" *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)">
           <small *ngIf="apellidos?.errors?.['required']" class="p-error">Apellidos es obligatorio</small>
         </div>
@@ -40,7 +35,7 @@
 
       <div class="form">
         <span class="form-text">Nombres:</span>
-        <input id="nombres" type="text" formControlName="nombres" autocomplete="off" pInputText />
+        <input id="nombres" type="text" toUpperCase formControlName="nombres" autocomplete="off" pInputText />
         <div class="validation" *ngIf="nombres?.invalid && (nombres?.dirty || nombres?.touched)">
           <small *ngIf="nombres?.errors?.['required']" class="p-error">Nombres es obligatorio</small>
         </div>
@@ -61,7 +56,7 @@
     <div class="t-col-3 t-col-sm-1">
       <div class="form">
         <span class="form-text">Fecha de Nacimiento:</span>
-        <p-calendar formControlName="fechaNacimiento" dateFormat="dd-mm-yy" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
+        <p-calendar formControlName="fechaNacimiento" dateFormat="yy-mm-dd" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
           [readonlyInput]="true"></p-calendar>
         <div class="validation"
           *ngIf="fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)">
@@ -79,7 +74,7 @@
 
       <div class="form">
         <span class="form-text">Celular:</span>
-        <input id="celular" type="text" formControlName="celular" autocomplete="off" pInputText numbersOnly />
+        <input id="celular" type="text" toUpperCase formControlName="celular" autocomplete="off" pInputText numbersOnly />
         <div class="validation" *ngIf="celular?.invalid && (celular?.dirty || celular?.touched)">
           <small *ngIf="celular?.errors?.['required']" class="p-error">Celular es obligatorio</small>
         </div>
@@ -92,7 +87,7 @@
     <div class="t-col-3 t-col-sm-1">
       <div class="form">
         <span class="form-text">Dirección:</span>
-        <input id="direccion" type="text" formControlName="direccion" autocomplete="off" pInputText />
+        <input id="direccion" type="text" toUpperCase formControlName="direccion" autocomplete="off" pInputText />
         <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
           <small *ngIf="direccion?.errors?.['required']" class="p-error">Número es obligatorio</small>
         </div>
@@ -110,7 +105,7 @@
   </section>
   <br>
   <div class="container-opciones">
-    <app-button [label]="'Cancelar'" [router]="'/paciente'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    <app-button [label]="'Regresar'" [router]="'/paciente'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
     </app-button>
     <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="pacienteForm.invalid">
     </app-button>

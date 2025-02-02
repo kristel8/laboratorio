@@ -1,34 +1,68 @@
-<h3>Datos de orden</h3>
-<br />
 <form [formGroup]="agregarResultadoForm">
-  <section class="container-form t-col-3 t-col-sm-2">
+  <h2>Resultados > Exámenes > {{titulo}}</h2>
+  <br />
+  <h3>Datos de atención:</h3>
+  <br />
+  <section class="container-form t-col-4 t-col-sm-2">
     <div class="form">
-      <span class="form-text">Nro Orden:</span>
-      <input id="nroOrden" type="text" formControlName="nroOrden" pInputText />
+      <span class="form-text">Nro Atención:</span>
+      <input id="nroOrden" type="text" toUpperCase formControlName="nroOrden" pInputText />
     </div>
 
     <div class="form">
       <span class="form-text">Apellidos y Nombres:</span>
-      <input
-        id="apellidosyNombres"
-        type="text"
-        formControlName="apellidosyNombres"
-        pInputText
-      />
+      <input id="apellidosyNombres" type="text" toUpperCase formControlName="apellidosyNombres" pInputText />
     </div>
 
     <div class="form">
-        <span class="form-text">Examen:</span>
-        <input id="examen" type="text" formControlName="examen" pInputText />
-      </div>
+      <span class="form-text">Exámen:</span>
+      <input id="examen" type="text" toUpperCase formControlName="examen" pInputText />
+    </div>
 
     <div class="form">
       <span class="form-text">Fecha:</span>
-      <input id="fecha" type="text" formControlName="fecha" pInputText />
+      <input id="fecha" type="text" toUpperCase formControlName="fecha" pInputText />
     </div>
   </section>
+
+  <br>
+
+  <h3>Ingrese los resultados:</h3>
+  <br>
+  <p-table #dt [columns]="cols" [value]="elementos.controls" [rows]="8" [paginator]="true" dataKey="idAnalisis"
+    [loading]="loading" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} elementos"
+    [showCurrentPageReport]="true">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-controls let-i="rowIndex">
+      <ng-container formArrayName="elementos">
+        <tr [formGroupName]="i">
+          <td>
+            {{controls.value.descripcion}}
+          </td>
+          <td>
+            <input type="text" formControlName="resultado" pInputText />
+          </td>
+          <td>
+            {{controls.value.unidad}}
+          </td>
+          <td>
+            {{controls.value.valorReferencial}}
+          </td>
+        </tr>
+      </ng-container>
+    </ng-template>
+  </p-table>
 </form>
-
-<br>
-
-<h3>Detalle de examen</h3>
+<div class="container-opciones">
+  <app-button [label]="'Regresar'" (eventoClick)="regresar()" [icono]="'pi pi-arrow-left'"
+    [estiloBoton]="'p-button-outlined p-button-secondary'"></app-button>
+  <app-button [label]="'Guardar'" (eventoClick)="guardar()" [isDisabled]="elementos.invalid"
+    [icono]="'pi pi-save'"></app-button>
+</div>

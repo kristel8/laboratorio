@@ -10,6 +10,12 @@ export interface IUsuario {
   idGenerado?: number;
 }
 
+export interface IUsuarioLogged {
+  apellido: string;
+  idUsuario: number;
+  nombre: string;
+  tipoUsuario: string;
+}
 
 export interface ITipoUsuario {
   tipoUsuario: string,

@@ -10,16 +10,16 @@ export class StyleEstadoDirective implements OnInit {
 
   ngOnInit() {
     switch (this.value.toString()) {
-      case 'EMITIDO':
+      case 'A CUENTA':
         this.el.nativeElement.classList.add('estadoAmarillo');
         break;
 
-      case 'RECEPCIONADO':
+      case 'PAGADO':
         this.el.nativeElement.classList.add('estadoVerde');
 
         break;
 
-      case 'RECHAZADO':
+      case 'PENDIENTE':
         this.el.nativeElement.classList.add('estadoRojo');
         break;
 
@@ -33,11 +33,11 @@ export class StyleEstadoDirective implements OnInit {
 
         break;
 
-      case 'SIN STOCK':
+      case "PENDIENTE":
         this.el.nativeElement.classList.add('estadoRojo');
         break;
 
-      case 'CONCLUIDA':
+      case 'COMPLETADO':
         this.el.nativeElement.classList.add('estadoVerde');
         break;
 
@@ -53,13 +53,13 @@ export class StyleEstadoDirective implements OnInit {
         this.el.nativeElement.classList.add('estadoVerde');
         break;
 
-        case 'false':
-          this.el.nativeElement.classList.add('estadoRojo');
-          break;
+      case 'false':
+        this.el.nativeElement.classList.add('estadoRojo');
+        break;
 
-        case 'true':
-          this.el.nativeElement.classList.add('estadoVerde');
-          break;
+      case 'true':
+        this.el.nativeElement.classList.add('estadoVerde');
+        break;
       default:
         break;
     }

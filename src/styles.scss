@@ -26,11 +26,14 @@ html {
   grid-template-columns: $first-value $second-value;
 }
 
-
-
 @mixin threeColumn($first-value, $second-value, $third-value) {
   display: grid;
   grid-template-columns: $first-value $second-value $third-value;
+}
+
+@mixin fourColumn($first-value, $second-value, $third-value, $four-value) {
+  display: grid;
+  grid-template-columns: $first-value $second-value $third-value $four-value;
 }
 
 .t-col-1 {
@@ -46,6 +49,11 @@ html {
 
 .t-col-3 {
   @include threeColumn(1fr, 1fr, 1fr);
+  @include gapColumn(10px);
+}
+
+.t-col-4 {
+  @include fourColumn(1fr, 1fr, 1fr, 1fr);
   @include gapColumn(10px);
 }
 
@@ -117,8 +125,6 @@ html {
       width: 100%;
     }
   }
-
-
 
   .p-inputtext {
     width: 100%;
@@ -221,7 +227,7 @@ td {
   width: 10px;
 }
 
-.p-datatable.p-datatable-striped .p-datatable-tbody>tr:nth-child(even) {
+.p-datatable.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
   background: #659dff32 !important;
 }
 

@@ -9,20 +9,18 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   private activeRequests: number = 0;
 
-  constructor(private loaderService: LoaderService) {}
+  constructor(private loaderService: LoaderService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Incrementar el contador de solicitudes activas
     this.activeRequests++;
-    this.loaderService.show(); // Mostrar el loader
-debugger
-console.log(request);
+    this.loaderService.show();
+
     return next.handle(request).pipe(
       finalize(() => {
-        // Decrementar el contador y ocultar el loader si no hay solicitudes activas
         this.activeRequests--;
+        console.log(this.activeRequests);
         if (this.activeRequests === 0) {
-          this.loaderService.hide(); // Ocultar el loader
+          this.loaderService.hide();
         }
       })
     );

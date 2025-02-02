@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IAuth, IAuthSuccess } from '../models/auth';
+import { StorageService } from 'src/app/shared/services/storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,45 +13,46 @@ export class AuthService {
   private URLServicio: string = environment.URLTienda;
   private _auth: IAuthSuccess | undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private storageService: StorageService) { }
 
   get auth(): IAuthSuccess {
     return this._auth
       ? { ...this._auth! }
-      : JSON.parse(localStorage.getItem('token')!);
+      : this.storageService.getItem('token', true);
   }
 
-  // get permisos() {
-  //   return this.auth.permisos;
-  // }
+  get detallePermisos() {
+    console.log(this.auth.detallePermisos);
+    return this.auth.detallePermisos;
+  }
 
   get usuario() {
-    return this.auth.usuario[0];
+    return this.auth.usuario;
   }
 
   verificarAuth(): Observable<boolean> {
-    if (!localStorage.getItem('token')) {
+    if (!this.storageService.getItem('token', true)) {
       return of(false);
     }
 
     return of(true);
   }
 
-  login(header: IAuth): Observable<IAuthSuccess> {
+  login(header: IAuth): Observable<IAuthSuccess[]> {
     return this.http
-      .post<IAuthSuccess>(`${this.URLServicio}usuario/login`, header)
+      .post<IAuthSuccess[]>(`${this.URLServicio}usuario/getLogin`, header)
       .pipe(
         tap((auth) => {
-          this._auth = auth;
+          this._auth = auth[0];
         }),
         tap((auth: any) => {
-          localStorage.setItem('token', JSON.stringify(auth));
+          this.storageService.setItem('token', auth[0], true);
         })
       );
   }
 
   logout(): void {
     this._auth = undefined;
-    localStorage.removeItem('token');
+    this.storageService.removeItem('token');
   }
 }

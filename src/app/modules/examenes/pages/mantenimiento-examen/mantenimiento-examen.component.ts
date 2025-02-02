@@ -40,16 +40,18 @@ export class MantenimientoExamenComponent implements OnInit {
       elementos: this.fb.array([]) // Inicializar FormArray vacío
     });
 
+
   }
 
   ngOnInit(): void {
-
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.titulo = 'Editar Exámen';
       this.id = id;
       this.isEditar = true;
       this.buscarIdElemento();
+    } else {
+      this.agregarFila();
     }
   }
 
@@ -138,26 +140,19 @@ export class MantenimientoExamenComponent implements OnInit {
   }
 
   crearElemento(params: IExamen): void {
-    if (this.idAnalisisCreado) {
-      const listadoPlantilla = this.elementos.getRawValue();
-      const request = listadoPlantilla.map((item) => ({
-        ...item,
-        idAnalisis: this.idAnalisisCreado
-      }))
+    this.service.insert(params).pipe(
+      switchMap((response) => {
+        this.idAnalisisCreado = response.idGenerado;
+        const listadoPlantilla = this.elementos.getRawValue();
+        const request = listadoPlantilla.map((item) => ({
+          ...item,
+          idAnalisis: this.idAnalisisCreado
+        }))
 
-      this.servicePlantilla.insert(request).subscribe(response => {
-        this.router.navigateByUrl('/examenes');
-      });
-
-      return;
-    }
-
-    this.service.insert(params).subscribe((response) => {
-      this.idAnalisisCreado = response.idGenerado;
-      this.nombre?.disable();
-      this.descripcion?.disable();
-      this.precio?.disable();
-      this.agregarFila();
+        return this.servicePlantilla.insert(request)
+      })
+    ).subscribe(() => {
+      this.router.navigateByUrl('/examenes');
     });
   }
 

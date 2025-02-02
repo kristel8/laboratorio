@@ -3,7 +3,7 @@
   <br>
   <section class="container-form t-col-2 t-col-sm-1">
     <div class="form">
-      <span class="form-text">Tipo Documento:</span>
+      <span class="form-text">Tipo Documento:*</span>
       <p-dropdown [options]="tipoDocumentos" formControlName="tipoDocumento" optionLabel="tipo" placeholder="Seleccione"></p-dropdown>
       <div class="validation" *ngIf="tipoDocumento?.invalid && (tipoDocumento?.dirty || tipoDocumento?.touched)">
         <small *ngIf="tipoDocumento?.errors?.['required']" class="p-error">Tipo Documento es obligatorio</small>
@@ -11,8 +11,8 @@
     </div>
 
     <div class="form">
-      <span class="form-text">Nro Documento:</span>
-      <input id="numDocumento" type="text" formControlName="numDocumento" pInputText numbersOnly/>
+      <span class="form-text">Nro Documento:*</span>
+      <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly/>
       <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
         <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
         <small *ngIf="numDocumento?.errors?.['minlength'] || numDocumento?.errors?.['maxlength']" class="p-error">Número de Documento debe tener 11 dígitos</small>
@@ -21,32 +21,32 @@
 
 
     <div class="form">
-      <span class="form-text">Nombre:</span>
-      <input id="descripcion" type="text" formControlName="nombre" pInputText />
+      <span class="form-text">Nombre:*</span>
+      <input id="descripcion" type="text" toUpperCase formControlName="nombre" pInputText />
       <div class="validation" *ngIf="nombre?.invalid && (nombre?.dirty || nombre?.touched)">
         <small *ngIf="nombre?.errors?.['required']" class="p-error">Nomnbre es obligatorio</small>
       </div>
     </div>
 
     <div class="form">
-      <span class="form-text">Apellido:</span>
-      <input id="descripcion" type="text" formControlName="apellido" pInputText />
+      <span class="form-text">Apellido:*</span>
+      <input id="descripcion" type="text" toUpperCase formControlName="apellido" pInputText />
       <div class="validation" *ngIf="apellido?.invalid && (apellido?.dirty || apellido?.touched)">
         <small *ngIf="apellido?.errors?.['required']" class="p-error">Apellido es obligatorio</small>
       </div>
     </div>
 
     <div class="form">
-      <span class="form-text">Dirección:</span>
-      <input id="descripcion" type="text" formControlName="direccion" pInputText />
+      <span class="form-text">Dirección:*</span>
+      <input id="descripcion" type="text" toUpperCase formControlName="direccion" pInputText />
       <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
         <small *ngIf="direccion?.errors?.['required']" class="p-error">Dirección es obligatorio</small>
       </div>
     </div>
 
     <div class="form">
-      <span class="form-text">Telefono:</span>
-      <input id="telefono" type="text" formControlName="telefono" pInputText numbersOnly/>
+      <span class="form-text">Teléfono:*</span>
+      <input id="telefono" type="text" toUpperCase formControlName="telefono" minlength="6" maxlength="6" pInputText numbersOnly/>
       <div class="validation" *ngIf="telefono?.invalid && (telefono?.dirty || telefono?.touched)">
         <small *ngIf="telefono?.errors?.['required']" class="p-error">Teléfono es obligatorio</small>
         <small *ngIf="telefono?.errors?.['minlength'] || telefono?.errors?.['maxlength']" class="p-error">Teléfono debe tener 6 dígitos</small>
@@ -55,28 +55,29 @@
 
 
     <div class="form">
-      <span class="form-text">Celular:</span>
-      <input id="celular" type="text" formControlName="celular" pInputText numbersOnly/>
+      <span class="form-text">Celular:*</span>
+      <input id="celular" type="text" toUpperCase formControlName="celular" minlength="9" maxlength="9" pInputText numbersOnly/>
       <div class="validation" *ngIf="celular?.invalid && (celular?.dirty || celular?.touched)">
         <small *ngIf="celular?.errors?.['required']" class="p-error">Celular es obligatorio</small>
-        <small *ngIf="celular?.errors?.['minlength'] || celular?.errors?.['maxlength']" class="p-error">Celular debe tener 9 dígitos</small>
+        <small *ngIf="celular?.hasError('pattern')" class="p-error">
+          El número de celular debe empezar con 9 y tener un total de 9 dígitos.
+        </small>
       </div>
     </div>
 
-
     <div class="form">
-      <span class="form-text">Cargo:</span>
-      <input id="cargo" type="text" formControlName="cargo" pInputText />
+      <span class="form-text">Tipo Cargo:*</span>
+      <p-dropdown [options]="tipoCargos" formControlName="cargo" optionLabel="tipo" placeholder="Seleccione"></p-dropdown>
       <div class="validation" *ngIf="cargo?.invalid && (cargo?.dirty || cargo?.touched)">
         <small *ngIf="cargo?.errors?.['required']" class="p-error">Cargo es obligatorio</small>
       </div>
-
     </div>
+
   </section>
 
   <br>
   <div class="container-opciones">
-    <app-button [label]="'Cancelar'" [router]="'/empleados'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'" >
+    <app-button [label]="'Regresar'" [router]="'/empleados'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'" >
     </app-button>
     <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="!empleadoForm.valid">
     </app-button>

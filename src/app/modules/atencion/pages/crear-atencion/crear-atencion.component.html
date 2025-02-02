@@ -1,30 +1,36 @@
-<form (ngSubmit)="guardarElemento()" [formGroup]="atencionForm">
-    <h2>Crear atencion</h2>
-    <br>
-  
+<form (ngSubmit)="menuControl.value === menu.Paciente ? siguiente() : guardarElemento()" [formGroup]="atencionForm">
+  <h2>Crear atencion</h2>
+  <br>
+  <p-selectButton [options]="menuOptions" [formControl]="menuControl" optionLabel="name" optionValue="value"
+    optionDisabled="inactive"></p-selectButton>
+  <br>
+
+  <div formGroupName="pacienteForm" *ngIf="menuControl.value === menu.Paciente">
     <section class="container-form">
-      <h3>Buscar paciente</h3>
-        <br>
+      <h3>Buscar paciente:</h3>
+      <br>
       <div class="t-flex-start">
-        <!-- <div class="form">
-          <span class="form-text">Tipo Documento:</span>
-          <p-dropdown [options]="tipoDocumentos" formControlName="tipoDocumento" optionLabel="tipo"
-            placeholder="Seleccione"></p-dropdown>
-        </div> -->
-      
+
         <span><b>DNI:</b></span>
-        <div class="form">
-  
-          <input id="numDocumento" type="text" formControlName="numDocumento" pInputText numbersOnly />
+        <div class="form form-searcher">
+
+          <span class="p-input-icon-right">
+            <i class="pi pi-search"></i>
+            <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly
+              autofocus />
+          </span>
+
           <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
             <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
             <small *ngIf="numDocumento?.errors?.['maxlength']" class="p-error">Nro de Documento debe tener 11
               dígitos</small>
           </div>
         </div>
-        <button pButton type="button" label="Nuevo paciente" *ngIf="!isEditar"></button> 
-        
-  
+        <button pButton type="button" label="Buscar" *ngIf="!isEditar" (click)="buscarPaciente()"></button>
+        <button pButton type="button" label="Nuevo paciente" *ngIf="!isEditar" icon="pi pi-plus"
+          class="p-button-outlined" routerLink="/paciente/mantenimiento-paciente"></button>
+
+
       </div>
       <br>
       <br>
@@ -33,106 +39,164 @@
       <div class="t-col-3 t-col-sm-1">
         <div class="form">
           <span class="form-text">Apellidos:</span>
-          <input id="apellidos" type="text" formControlName="apellidos" pInputText />
-          <div class="validation" *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)">
-            <small *ngIf="apellidos?.errors?.['required']" class="p-error">Apellidos es obligatorio</small>
-          </div>
+          <input id="apellidos" type="text" toUpperCase formControlName="apellidos" pInputText />
         </div>
-  
+
         <div class="form">
           <span class="form-text">Nombres:</span>
-          <input id="nombres" type="text" formControlName="nombres" autocomplete="off" pInputText />
-          <div class="validation" *ngIf="nombres?.invalid && (nombres?.dirty || nombres?.touched)">
-            <small *ngIf="nombres?.errors?.['required']" class="p-error">Nombres es obligatorio</small>
-          </div>
+          <input id="nombres" type="text" toUpperCase formControlName="nombres" autocomplete="off" pInputText />
         </div>
-  
+
         <div class="form">
           <span class="form-text">Género:</span>
           <p-dropdown [options]="generos" formControlName="genero" optionLabel="tipo"
             placeholder="Seleccione"></p-dropdown>
-          <div class="validation" *ngIf="genero?.invalid && (genero?.dirty || genero?.touched)">
-            <small *ngIf="genero?.errors?.['required']" class="p-error">Género es obligatorio</small>
-          </div>
         </div>
       </div>
-  
+
       <br>
-  
+
       <div class="t-col-3 t-col-sm-1">
-        <div class="form">
-          <span class="form-text">Fecha de Nacimiento:</span>
-          <p-calendar formControlName="fechaNacimiento" dateFormat="dd-mm-yy" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
-            [readonlyInput]="true"></p-calendar>
-          <div class="validation"
-            *ngIf="fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)">
-            <small *ngIf="fechaNacimiento?.errors?.['required']" class="p-error">Fecha Nacimiento es obligatorio</small>
+        <div class="t-col-2">
+          <div class="form">
+            <span class="form-text">Fecha de Nacimiento:</span>
+            <p-calendar formControlName="fechaNacimiento" dateFormat="yy-mm-dd" inputId="dateformat" appendTo="body"
+              [readonlyInput]="true"></p-calendar>
+          </div>
+
+          <div class="form">
+            <span class="form-text">Edad:</span>
+            <input id="edad" type="edad" formControlName="edad" autocomplete="off" pInputText />
           </div>
         </div>
-  
+
         <div class="form">
           <span class="form-text">Email:</span>
           <input id="email" type="email" formControlName="email" autocomplete="off" pInputText />
-          <div class="validation" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
-            <small *ngIf="email?.errors?.['required']" class="p-error">Correo es obligatorio</small>
-          </div>
         </div>
-  
+
         <div class="form">
           <span class="form-text">Celular:</span>
-          <input id="celular" type="text" formControlName="celular" autocomplete="off" pInputText numbersOnly />
-          <div class="validation" *ngIf="celular?.invalid && (celular?.dirty || celular?.touched)">
-            <small *ngIf="celular?.errors?.['required']" class="p-error">Celular es obligatorio</small>
-          </div>
+          <input id="celular" type="text" toUpperCase formControlName="celular" autocomplete="off" pInputText
+            numbersOnly />
         </div>
-  
       </div>
-  
+
       <br>
-  
+
       <div class="t-col-3 t-col-sm-1">
         <div class="form">
-          <span class="form-text">Edad:</span>
-          <input id="edad" type="text" formControlName="edad" autocomplete="off" pInputText />
-          <div class="validation" *ngIf="edad?.invalid && (edad?.dirty || edad?.touched)">
-            <small *ngIf="edad?.errors?.['required']" class="p-error">Edad es obligatorio</small>
-          </div>
+          <span class="form-text">Dirección:</span>
+          <input id="direccion" type="text" toUpperCase formControlName="direccion" autocomplete="off" pInputText />
         </div>
-  
+
         <div class="form">
           <span class="form-text">Antecedentes:</span>
           <textarea id="antecedentes" rows="1" cols="30" formControlName="antecedentes" autocomplete="off"
             pInputTextarea></textarea>
-          <div class="validation" *ngIf="antecedentes?.invalid && (antecedentes?.dirty || antecedentes?.touched)">
-            <small *ngIf="antecedentes?.errors?.['required']" class="p-error">Antecedentes es obligatorio</small>
-          </div>
         </div>
       </div>
     </section>
-
     <br>
 
     <section class="container-form">
-     <h3>Referencia</h3>
-     <br>
-     <div class="form">
-      <span class="form-text">Doctor:</span>
-    
-      <p-dropdown class="refer" [options]="referencias" formControlName="referencia" optionLabel="tipo"
-        placeholder="Seleccione"></p-dropdown>
-        
-      <div class="validation" *ngIf="referencia?.invalid && (referencia?.dirty || referencia?.touched)">
-        <small *ngIf="referencia?.errors?.['required']" class="p-error">Seleccione una referencia</small>
+      <h3>Seleccione referencia:</h3>
+      <br>
+      <div class="t-flex-start">
+
+        <span><b>Doctor:</b></span>
+        <div class="form">
+
+          <p-dropdown class="refer" [options]="referencias" [showClear]="true" [filter]="true" filterBy="tipo"
+            formControlName="referencia" placeholder="Seleccione" optionLabel="nombresYApellidos"></p-dropdown>
+
+          <div class="validation" *ngIf="referencia?.invalid && (referencia?.dirty || referencia?.touched)">
+            <small *ngIf="referencia?.errors?.['required']" class="p-error">Seleccione una referencia</small>
+          </div>
+        </div>
       </div>
-    </div>
 
     </section>
+    <br>
+  </div>
+
+  <div formGroupName="examenForm" *ngIf="menuControl.value === menu.Examen">
+    <h3>Seleccione exámenes:</h3>
 
     <br>
-    <div class="container-opciones">
-      <app-button [label]="'Inicio'" [router]="'/atencion'" [estiloBoton]="'outlined'">
+    <p-table #dt [columns]="cols" [value]="elementos" [rows]="8" [paginator]="true" [(selection)]="selectedItems"
+      [rowHover]="true" dataKey="idAnalisis" [loading]="loading"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} elementos" [showCurrentPageReport]="true">
+      <ng-template pTemplate="caption">
+        <div class="caption">
+          <span class="caption__search">
+            <ng-container>
+              Buscar
+              <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" toUpperCase
+                  (input)="dt.filterGlobal($any($event.target).value, 'contains')" />
+              </span>
+            </ng-container>
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th style="width: 4rem">
+            Sel:
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+
+          <td *ngFor="let col of columns">
+            <div [ngSwitch]="col.field">
+
+              <div *ngSwitchCase="'precio'">
+                {{ rowData[col.field] | currency: "S/" }}
+              </div>
+
+              <div *ngSwitchDefault>
+                {{ rowData[col.field] }}
+              </div>
+            </div>
+          </td>
+          <td>
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6">{{mesajeNotItems}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <div class="container-opciones">
+    <app-button [label]="'Inicio'" [icono]="'pi pi-arrow-left'" [router]="'/atencion'" [estiloBoton]="'p-button-text p-button-secondary'"
+      [routerLink]="['/atencion']">
+    </app-button>
+    <button pButton type="submit" label="Siguiente" icon="pi pi-arrow-right" iconPos="right" [disabled]="isNotLoaded"
+      *ngIf="menuControl.value === menu.Paciente"></button>
+
+    <div *ngIf="menuControl.value === menu.Examen" class="t-flex-start">
+      <app-button [label]="'Regresar'" (eventoClick)="menuControl.setValue(menu.Paciente)" [icono]="'pi pi-arrow-left'"
+        [estiloBoton]="'p-button-outlined p-button-secondary'">
       </app-button>
-      <app-button [label]="'Siguiente'" [icono]="'pi pi-check'" [tipo]="'submit'" [isDisabled]="atencionForm.invalid">
-      </app-button>
+      <button pButton type="submit" label="Guardar" icon="pi pi-arrow-right" iconPos="right"
+        [disabled]="selectedItems.length === 0"></button>
     </div>
-  </form>
+  </div>
+
+</form>

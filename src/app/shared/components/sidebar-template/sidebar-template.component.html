@@ -35,32 +35,6 @@
           </a>
         </li>
 
-        <li class="nav-item" *ngFor="let item of menu">
-          <a *ngIf="item.subMenu.length == 0" [routerLink]="[item.ruta]" routerLinkActive="router-link-active"
-            class="nav-link">
-            <i class="nav-icon {{item.imagen}}"></i>
-            <p>
-              {{ item.nombre }}
-            </p>
-          </a>
-
-          <a *ngIf="item.subMenu.length > 0" class="nav-link">
-            <i class="nav-icon {{item.imagen}}"></i>
-            <p>
-              {{ item.nombre }}
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-
-          <ul *ngIf="item.subMenu.length > 0" class="nav nav-treeview">
-            <li class="nav-item" *ngFor="let subItem of item.subMenu">
-              <a [routerLink]="[subItem.ruta]" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                {{ subItem.nombre }}
-              </a>
-            </li>
-          </ul>
-        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

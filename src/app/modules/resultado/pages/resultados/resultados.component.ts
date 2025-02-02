@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IResultado } from '../../models/resultado';
-import { IButton } from 'src/app/shared/components/table/models/table';
 import { Router } from '@angular/router';
+import { IAtencionAprobadas } from '../../models/resultado';
+import { ResultadosService } from '../../services/resultados.service';
+import { StorageService } from 'src/app/shared/services/storage.service';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-resultados',
@@ -10,52 +12,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./resultados.component.scss'],
 })
 export class ResultadosComponent implements OnInit {
-  listaResultados: IResultado[] = [
-    {
-      idResultado: 1,
-    },
-  ];
+  listaAtenciones: IAtencionAprobadas[] = [];
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
-  acciones: IButton[] = [];
   isCargado: boolean = false;
 
   constructor(
-    private router: Router
-  ) {}
+    private router: Router,
+    private resultadoService: ResultadosService,
+    private storageService: StorageService,
+    private mensajeSwalService: MensajesSwalService
+  ) { }
 
   ngOnInit(): void {
+    this.storageService.removeItem('atencion-datos');
+    this.storageService.removeItem('examen-datos');
     this.getItems();
-
-    this.acciones = [
-      {
-        icono: 'pi pi-eye',
-        clase: 'rounded',
-        evento: 'mostrar',
-        estado: true,
-        tooltip: 'Ver examenes'
-      },
-    ]
   }
 
   getItems(): void {
-    //servicio
     this.isCargado = true;
-    this.getColumnasTabla();
+
+    this.resultadoService.getAtencionAprobadas().subscribe((response) => {
+      if (response) {
+        this.isCargado = false;
+        this.getColumnasTabla();
+        this.listaAtenciones = response;
+      }
+    })
   }
 
   getColumnasTabla(): void {
     this.cols = [
-      { field: 'id', header: 'ID', visibility: true, formatoFecha: '' },
+      { field: 'idAtencion', header: 'Nro° Atención', visibility: true, formatoFecha: '' },
       {
-        field: 'nroOrden',
-        header: 'Nro Orden',
-        visibility: true,
-        formatoFecha: '',
-      },
-      {
-        field: 'apellidosyNombres',
+        field: 'apellidosYNombres',
         header: 'Apellidos y Nombres',
         visibility: true,
         formatoFecha: '',
@@ -67,27 +59,29 @@ export class ResultadosComponent implements OnInit {
         formatoFecha: '',
       },
       { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
-  
+
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
   }
 
-  eventoAccion(datos: any) {
-    const { tipo, data } = datos;
-    switch (tipo) {
-      case 'mostrar':
-        this.navigateVerExamenes(data);
-        break;
-
-      default:
-        console.log('Acción no aplicada');
-        break;
-    }
+  verExamenes(data: any): void {
+    this.storageService.setItem('atencion-datos', data, true);
+    this.router.navigateByUrl(`resultado/detalle-resultado`);
   }
 
- navigateVerExamenes(data: any): void {
-  console.log('NAVEGANDO A VER EXAMENES');
-  this.router.navigateByUrl(`resultado/detalle-resultado`);
- }
+  imprimir(data: any): void {
+
+  }
+
+  enviar(data: any): void {
+    const numeroCelular = data.numeroCelular;
+
+    this.mensajeSwalService.mensajePreguntaEnviar(numeroCelular).then((response) => {
+      if (response.isConfirmed) {
+        const mensaje = `Hola *${data.apellidosYNombres}*, te saludamos del Laboratorio Labsol.%0AAdjunto a este mensaje encontrarás el PDF con los resultados solicitados.%0ASi tienes alguna pregunta o necesitas información adicional, no dudes en contactarnos.%0A%0A¡Gracias por confiar en nosotros!%0ASaludos cordiales,%0A%0A*El equipo de Labsol*`
+        window.open(`https://wa.me/${numeroCelular}?text=${mensaje}`, '_blank');
+      }
+    })
+  }
 }

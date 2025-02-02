@@ -5,7 +5,7 @@
 
     <div class="form">
       <span class="form-text">Titulo de la Configuración:</span>
-      <input id="tituloConfiguracion" type="text" formControlName="tituloConfiguracion" autocomplete="off" pInputText />
+      <input id="tituloConfiguracion" type="text" toUpperCase formControlName="tituloConfiguracion" autocomplete="off" pInputText />
       <div class="validation"
         *ngIf="tituloConfiguracion?.invalid && (tituloConfiguracion?.dirty || tituloConfiguracion?.touched)">
         <small *ngIf="tituloConfiguracion?.errors?.['required']" class="p-error">Identificador es obligatorio</small>
@@ -16,7 +16,7 @@
 
     <div class="form">
       <span class="form-text">Nombre Empresa:</span>
-      <input id="nombreEmpresa" type="text" formControlName="nombreEmpresa" autocomplete="off" pInputText />
+      <input id="nombreEmpresa" type="text" toUpperCase formControlName="nombreEmpresa" autocomplete="off" pInputText />
       <div class="validation" *ngIf="nombreEmpresa?.invalid && (nombreEmpresa?.dirty || nombreEmpresa?.touched)">
         <small *ngIf="nombreEmpresa?.errors?.['required']" class="p-error">Nombre Empresa es obligatorio</small>
         <small *ngIf="nombreEmpresa?.errors?.['minlength'] || nombreEmpresa?.errors?.['maxlength']"
@@ -26,7 +26,7 @@
 
     <div class="form">
       <span class="form-text">Ruc Documento:</span>
-      <input id="rucDocumento" type="text" formControlName="rucDocumento" autocomplete="off" pInputText numbersOnly />
+      <input id="rucDocumento" type="text" toUpperCase formControlName="rucDocumento" autocomplete="off" pInputText numbersOnly />
       <div class="validation" *ngIf="rucDocumento?.invalid && (rucDocumento?.dirty || rucDocumento?.touched)">
         <small *ngIf="rucDocumento?.errors?.['required']" class="p-error">Ruc Documento es obligatorio</small>
         <small *ngIf="rucDocumento?.errors?.['minlength'] || rucDocumento?.errors?.['maxlength']"
@@ -36,7 +36,7 @@
 
     <div class="form">
       <span class="form-text">Dirección:</span>
-      <input id="direccion" type="text" formControlName="direccion" autocomplete="off" pInputText />
+      <input id="direccion" type="text" toUpperCase formControlName="direccion" autocomplete="off" pInputText />
       <div class="validation" *ngIf="direccion?.invalid && (direccion?.dirty || direccion?.touched)">
         <small *ngIf="direccion?.errors?.['required']" class="p-error">Dirección es obligatorio</small>
         <small *ngIf="direccion?.errors?.['minlength'] || direccion?.errors?.['maxlength']" class="p-error">Descripción
@@ -46,7 +46,7 @@
 
     <div class="form">
       <span class="form-text">Descripción:</span>
-      <input id="descripcion" type="text" formControlName="descripcion" autocomplete="off" pInputText />
+      <input id="descripcion" type="text" toUpperCase formControlName="descripcion" autocomplete="off" pInputText />
       <div class="validation" *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)">
         <small *ngIf="descripcion?.errors?.['required']" class="p-error">Descripción es obligatorio</small>
         <small *ngIf="descripcion?.errors?.['minlength'] || descripcion?.errors?.['maxlength']"
@@ -63,7 +63,7 @@
 
     <div class="form">
       <span class="form-text">Serie Boleta:</span>
-      <input id="serieBoleta" type="text" formControlName="serieBoleta" autocomplete="off" pInputText />
+      <input id="serieBoleta" type="text" toUpperCase formControlName="serieBoleta" autocomplete="off" pInputText />
       <div class="validation" *ngIf="serieBoleta?.invalid && (serieBoleta?.dirty || serieBoleta?.touched)">
         <small *ngIf="serieBoleta?.errors?.['required']" class="p-error">Serie Boleta es obligatorio</small>
         <small *ngIf="serieBoleta?.errors?.['minlength'] || serieBoleta?.errors?.['maxlength']"
@@ -73,7 +73,7 @@
 
     <div class="form">
       <span class="form-text">Número Boleta Correlativo:</span>
-      <input id="numBoleta" type="text" formControlName="numBoleta" autocomplete="off" pInputText numbersOnly />
+      <input id="numBoleta" type="text" toUpperCase formControlName="numBoleta" autocomplete="off" pInputText numbersOnly />
       <div class="validation" *ngIf="numBoleta?.invalid && (numBoleta?.dirty || numBoleta?.touched)">
         <small *ngIf="numBoleta?.errors?.['required']" class="p-error">Número Boleta es obligatorio</small>
         <small *ngIf="numBoleta?.errors?.['minlength'] || numBoleta?.errors?.['maxlength']" class="p-error">Número Boleta
@@ -84,7 +84,7 @@
 
     <div class="form">
       <span class="form-text">Serie Ticket:</span>
-      <input id="serieTicket" type="text" formControlName="serieTicket" autocomplete="off" pInputText />
+      <input id="serieTicket" type="text" toUpperCase formControlName="serieTicket" autocomplete="off" pInputText />
       <div class="validation" *ngIf="serieTicket?.invalid && (serieTicket?.dirty || serieTicket?.touched)">
         <small *ngIf="serieTicket?.errors?.['required']" class="p-error">Serie Ticket es obligatorio</small>
         <small *ngIf="serieTicket?.errors?.['minlength'] || serieTicket?.errors?.['maxlength']"
@@ -94,7 +94,7 @@
 
     <div class="form">
       <span class="form-text">Número Ticket Correlativo:</span>
-      <input id="numTicket" type="text" formControlName="numTicket" autocomplete="off" pInputText numbersOnly />
+      <input id="numTicket" type="text" toUpperCase formControlName="numTicket" autocomplete="off" pInputText numbersOnly />
       <div class="validation" *ngIf="numTicket?.invalid && (numTicket?.dirty || numTicket?.touched)">
         <small *ngIf="numTicket?.errors?.['required']" class="p-error">Número Ticket Correlativo es obligatorio</small>
         <small *ngIf="numTicket?.errors?.['minlength'] || numTicket?.errors?.['maxlength']" class="p-error">Número Ticket Correlativo
@@ -105,7 +105,7 @@
 
     <div class="form">
       <span class="form-text">Serie Factura:</span>
-      <input id="serieFactura" type="text" formControlName="serieFactura" autocomplete="off" pInputText />
+      <input id="serieFactura" type="text" toUpperCase formControlName="serieFactura" autocomplete="off" pInputText />
       <div class="validation" *ngIf="serieFactura?.invalid && (serieFactura?.dirty || serieFactura?.touched)">
         <small *ngIf="serieFactura?.errors?.['required']" class="p-error">Serie Factura es obligatorio</small>
         <small *ngIf="serieFactura?.errors?.['minlength'] || serieFactura?.errors?.['maxlength']"
@@ -115,7 +115,7 @@
 
     <div class="form">
       <span class="form-text">Número Factura Correlativo:</span>
-      <input id="numFactura" type="text" formControlName="numFactura" autocomplete="off" pInputText numbersOnly />
+      <input id="numFactura" type="text" toUpperCase formControlName="numFactura" autocomplete="off" pInputText numbersOnly />
       <div class="validation" *ngIf="numFactura?.invalid && (numFactura?.dirty || numFactura?.touched)">
         <small *ngIf="numFactura?.errors?.['required']" class="p-error">Número Factura Correlativo es
           obligatorio</small>
@@ -128,7 +128,7 @@
 
   <br>
   <div class="container-opciones">
-    <app-button [label]="'Cancelar'" [router]="'/config-documento-impresos'" [icono]="'pi pi-times'" [estiloBoton]="'outlined'">
+    <app-button [label]="'Regresar'" [router]="'/config-documento-impresos'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
     </app-button>
     <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'"
       [isDisabled]="!configDocumentoImpresoForm.valid">

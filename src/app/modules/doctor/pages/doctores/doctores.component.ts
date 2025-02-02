@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { IDoctor } from '../../models/doctor';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { FormBuilder, Validators } from '@angular/forms';
+import { DoctorService } from '../../services/doctor.service';
+import { Observable } from 'rxjs';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctores',
@@ -9,38 +13,57 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./doctores.component.scss'],
 })
 export class DoctoresComponent implements OnInit {
-  listaDoctores: IDoctor[] = [
-    {
-      idProducto: 1,
-    },
-  ];
+  listaElementos: IDoctor[] = [];
 
   cols: IColumnasTabla[] = [];
   colsVisibles: IColumnasTabla[] = [];
 
   isCargado: boolean = false;
-  cualquiera: boolean = false;
+  isOpenModal: boolean = false;
 
   constructor(
-    private fb: FormBuilder //inicializa el form
-  ) {}
+    private fb: FormBuilder,
+    private router: Router,
+    private service: DoctorService,
+    private readonly servicioMensajesSwal: MensajesSwalService
+  ) { }
 
   doctoresForm = this.fb.group({
     codigo: [null, [Validators.required, Validators.maxLength(20)]],
+    nombre: [null, [Validators.required]],
+    apellidos: [null, [Validators.required]],
   });
 
   get codigo() {
     return this.doctoresForm.get('codigo');
   }
 
-  ngOnInit(): void {
-    this.getItems();
+  get nombre() {
+    return this.doctoresForm.get('nombre');
   }
 
-  getItems(): void {
-    //servicio
-    this.isCargado = true;
-    this.getColumnasTabla();
+  get apellidos() {
+    return this.doctoresForm.get('apellidos');
+  }
+
+  ngOnInit(): void {
+    this.getAllActivosElementos();
+  }
+
+  getAllActivosElementos(): void {
+    const obs = new Observable<boolean>((observer) => {
+      this.service.getAllActivos().subscribe((resp) => {
+        this.listaElementos = resp;
+        observer.next(true);
+      });
+    });
+
+    obs.subscribe((res) => {
+      if (res) {
+        this.isCargado = res;
+        this.getColumnasTabla();
+      }
+    });
   }
 
   getColumnasTabla(): void {
@@ -52,24 +75,23 @@ export class DoctoresComponent implements OnInit {
         formatoFecha: '',
       },
       {
-        field: 'apellidoNombre',
-        header: 'Apellidos y Nombres',
+        field: 'nombre',
+        header: 'Nombres',
         visibility: true,
         formatoFecha: '',
       },
       {
-        field: 'usuariosReferidos',
-        header: 'Usuarios referidos',
+        field: 'apellidos',
+        header: 'Apellidos',
         visibility: true,
         formatoFecha: '',
       },
-      { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
       {
-        field: 'opciones',
-        header: 'Opciones',
+        field: 'codigo',
+        header: 'Codigo',
         visibility: true,
         formatoFecha: '',
-      },
+      }
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
@@ -78,8 +100,8 @@ export class DoctoresComponent implements OnInit {
   eventoAccion(datos: any) {
     const { tipo, data } = datos;
     switch (tipo) {
-      case 'editar':
-        //this.editarProducto(data);
+      case 'eliminar':
+        this.eliminarElemento(data);
         break;
 
       default:
@@ -89,12 +111,30 @@ export class DoctoresComponent implements OnInit {
   }
 
   openModalDoctor(): void {
-    console.log('hola, me estoy ejecutando');
-    this.cualquiera = true;
+    this.isOpenModal = true;
   }
 
   guardar(): void {
-    this.cualquiera = false;
-    this.doctoresForm.reset();
+    this.service.insert(this.doctoresForm.value).subscribe(() => {
+      this.isOpenModal = false;
+      this.doctoresForm.reset();
+      this.getAllActivosElementos();
+      this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+    });
+  }
+
+  eliminarElemento(data: any) {
+    this.servicioMensajesSwal
+      .mensajePregunta('¿Está seguro de eliminar el registro?')
+      .then((response) => {
+        if (response.isConfirmed) {
+          this.service
+            .setInactive(data.idDoctor)
+            .subscribe((res) => {
+              this.getAllActivosElementos();
+              this.servicioMensajesSwal.mensajeRegistroEliminado();
+            });
+        }
+      });
   }
 }
