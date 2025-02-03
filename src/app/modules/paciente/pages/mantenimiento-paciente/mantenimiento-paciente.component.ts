@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IPaciente } from '../../models/paciente';
 import { DatePipe } from '@angular/common';
+import { LocaleUtil } from 'src/app/global/locale.utils';
+import { distinctUntilChanged, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mantenimiento-paciente',
@@ -30,6 +32,7 @@ export class MantenimientoPacienteComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly servicioMensajesSwal: MensajesSwalService,
     private readonly formatoFecha: DatePipe,
+    private util: LocaleUtil
 
   ) {
     const currentDate = new Date();
@@ -38,8 +41,8 @@ export class MantenimientoPacienteComponent implements OnInit {
   }
 
   pacienteForm = this.fb.group({
-    tipoDocumento: ['DNI', [Validators.required]],
-    numDocumento: [null, [Validators.required,  Validators.minLength(8),  Validators.maxLength(8)]],
+    tipoDocumento: [null, [Validators.required]],
+    numDocumento: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
     apellidos: [null, [Validators.required]],
     nombres: [null, [Validators.required]],
     fechaNacimiento: [null, [Validators.required]],
@@ -91,7 +94,14 @@ export class MantenimientoPacienteComponent implements OnInit {
     return this.pacienteForm.get('antecedentes');
   }
 
+  get edad() {
+    return this.pacienteForm.get('edad');
+  }
+
   ngOnInit(): void {
+
+    this.edad?.disable();
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.titulo = 'Editar Paciente';
@@ -101,6 +111,16 @@ export class MantenimientoPacienteComponent implements OnInit {
     }
 
     this.listarDropdown();
+
+    this.tipoDocumento?.setValue(this.tipoDocumentos[0]);
+
+
+    this.fechaNacimiento?.valueChanges.pipe(
+      startWith(this.fechaNacimiento.value),
+      distinctUntilChanged()
+    ).subscribe((fechaNacimiento) => {
+      if (fechaNacimiento) this.selectFecha();
+    });
   }
 
   listarDropdown(): void {
@@ -109,10 +129,7 @@ export class MantenimientoPacienteComponent implements OnInit {
         tipo: 'DNI',
       },
       {
-        tipo: 'RUC',
-      },
-      {
-        tipo: 'CARNET DE EXTRANJERIA',
+        tipo: 'CE',
       },
     ];
 
@@ -185,12 +202,14 @@ export class MantenimientoPacienteComponent implements OnInit {
     const resultado = item[0];
     const genero = this.generos.find((e) => e.tipo === resultado.genero);
     const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
+    const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
 
+    this.tipoDocumento?.disable();
     this.numDocumento?.disable();
 
     console.log('resultado', resultado);
     this.pacienteForm.patchValue({
-      tipoDocumento: resultado.tipoDocumento,
+      tipoDocumento: tipoDocumento,
       numDocumento: resultado.numDocumento,
       apellidos: resultado.apellidos,
       nombres: resultado.nombre,
@@ -203,4 +222,9 @@ export class MantenimientoPacienteComponent implements OnInit {
     });
   }
 
+  selectFecha(): void {
+    const fechaTransformada = this.formatoFecha.transform(this.fechaNacimiento?.value, 'yyyy-MM-dd')!;
+    const edadTransformada = this.util.calcularEdad(fechaTransformada);
+    this.edad?.setValue(`${edadTransformada.años} años, ${edadTransformada.meses} meses, ${edadTransformada.días} días`)
+  }
 }

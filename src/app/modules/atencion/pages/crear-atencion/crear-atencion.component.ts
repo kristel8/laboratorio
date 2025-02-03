@@ -74,14 +74,15 @@ export class CrearAtencionComponent implements OnInit {
 
   atencionForm = this.fb.group({
     pacienteForm: this.fb.group({
-      numDocumento: [null, [Validators.required, Validators.maxLength(8)]],
+      tipoDocumento: [null, [Validators.required]],
+      numDocumento: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
       apellidos: [null, [Validators.required]],
       nombres: [null, [Validators.required]],
       fechaNacimiento: [null, [Validators.required]],
       genero: [null, [Validators.required]],
       edad: [null, [Validators.required]],
       email: [null, [Validators.required]],
-      celular: [null, [Validators.required, Validators.maxLength(9)]],
+      celular: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
       direccion: [null, [Validators.required]],
       antecedentes: [null, [Validators.required]],
       referencia: [null],
@@ -157,6 +158,7 @@ export class CrearAtencionComponent implements OnInit {
     this.pacienteFormCtrl.disable();
     this.numDocumento?.enable();
     this.referencia?.enable();
+    this.tipoDocumento?.enable();
 
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
     if (id) {
@@ -167,6 +169,7 @@ export class CrearAtencionComponent implements OnInit {
     }
 
     this.listarDropdown();
+    this.tipoDocumento?.setValue(this.tipoDocumentos[0]);
   }
 
   listarDropdown(): void {
@@ -175,10 +178,7 @@ export class CrearAtencionComponent implements OnInit {
         tipo: 'DNI',
       },
       {
-        tipo: 'RUC',
-      },
-      {
-        tipo: 'CARNET DE EXTRANJERIA',
+        tipo: 'CE',
       },
     ];
 
@@ -211,7 +211,7 @@ export class CrearAtencionComponent implements OnInit {
         apellidos: paciente.apellidos,
         nombres: paciente.nombre,
         fechaNacimiento: paciente.fechaNacimiento,
-        edad: `${edad.años} años`,
+        edad: `${edad.años} años, ${edad.meses} meses, ${edad.días} días `,
         genero: genero,
         email: paciente.email,
         celular: paciente.celular,
@@ -287,6 +287,7 @@ export class CrearAtencionComponent implements OnInit {
     const referencia = this.referencias.find((e) => e.tipo === resultado.referencia);
     const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
 
+    this.tipoDocumento?.disable();
     this.numDocumento?.disable();
 
     this.atencionForm.patchValue({

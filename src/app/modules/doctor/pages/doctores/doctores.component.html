@@ -5,7 +5,7 @@
 <br />
 <section class="container-table">
   <app-table *ngIf="isCargado" [listaElementos]="listaElementos" [columnas]="colsVisibles" [filas]="5"
-    [listaElementosAFiltrar]="['descripcion']" [isOpcionEditar]="false"
+    [listaElementosAFiltrar]="['codigo', 'apellidos', ]" [isOpcionEditar]="false"
     (eventoAccion)="eventoAccion($event)"></app-table>
 </section>
 

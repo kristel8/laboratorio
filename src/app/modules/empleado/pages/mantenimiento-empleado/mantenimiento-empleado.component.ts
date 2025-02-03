@@ -55,6 +55,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
     }
 
     this.listarDropdown();
+    this.tipoDocumento?.setValue(this.tipoDocumentos[0]);
   }
 
   get tipoDocumento() {
@@ -95,10 +96,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
         tipo: 'DNI',
       },
       {
-        tipo: 'RUC',
-      },
-      {
-        tipo: 'CARNET DE EXTRANJERIA',
+        tipo: 'CE',
       },
     ];
 

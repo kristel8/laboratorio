@@ -144,6 +144,6 @@ export class AgregarResultadosComponent implements OnInit {
 
   regresar(): void {
     this.storageService.removeItem('examen-datos');
-    this.router.navigateByUrl('/resultado/detalle-resultado');
+    this.router.navigateByUrl('/resultados/detalle-resultado');
   }
 }

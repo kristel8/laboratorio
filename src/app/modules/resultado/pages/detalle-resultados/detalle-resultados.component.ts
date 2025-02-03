@@ -95,11 +95,11 @@ export class DetalleResultadosComponent implements OnInit {
 
   agregarResultado(data: any): void {
     this.storageService.setItem('examen-datos', data, true);
-    this.router.navigateByUrl(`resultado/agregar-resultado`);
+    this.router.navigateByUrl(`resultados/agregar-resultado`);
   }
 
   regresar(): void {
     this.storageService.removeItem('atencion-datos');
-    this.router.navigateByUrl(`resultado`);
+    this.router.navigateByUrl(`resultados`);
   }
 }

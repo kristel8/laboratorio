@@ -225,7 +225,7 @@ export class CajaComponent implements OnInit {
         this.listaExamenes = response;
         console.log(data);
 
-        if (data.estadoPago === 'PENDIENTE PAGO') {
+        if (data.estadoPago === 'PENDIENTE') {
           this.descuentoTotal.reset();
           this.acuenta.reset();
 

@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'agregar-resultado', component: AgregarResultadosComponent}
 ];
 
-@NgModule({ 
+@NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
