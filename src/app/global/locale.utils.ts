@@ -29,4 +29,26 @@ export class LocaleUtil {
       (typeof value === 'object' || Array.isArray(value))
     );
   }
+
+  calcularEdad(fechaNacimiento: string): { años: number, meses: number, días: number } {
+    const nacimiento = new Date(fechaNacimiento);
+    const hoy = new Date();
+
+    let años = hoy.getFullYear() - nacimiento.getFullYear();
+    let meses = hoy.getMonth() - nacimiento.getMonth();
+    let días = hoy.getDate() - nacimiento.getDate();
+
+    if (meses < 0) {
+      años--;
+      meses += 12;
+    }
+
+    if (días < 0) {
+      meses--;
+      const ultimoDiaMesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
+      días += ultimoDiaMesAnterior;
+    }
+
+    return { años, meses, días };
+  }
 }

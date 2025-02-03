@@ -3,22 +3,20 @@
   <br>
 
   <section class="container-form">
-    <h3>Buscar paciente</h3>
+    <h3>Ingrese paciente</h3>
       <br>
     <div class="t-flex-start">
 
       <span><b>DNI:</b></span>
       <div class="form">
 
-        <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly />
+        <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" maxlength="8" pInputText numbersOnly />
         <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
           <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
           <small *ngIf="numDocumento?.errors?.['maxlength'] || numDocumento?.errors?.['minlength']" class="p-error">Nro de Documento debe tener 8
             dígitos</small>
         </div>
       </div>
-      <button pButton type="button" icon="pi pi-search" label="Buscar" *ngIf="!isEditar"></button>
-
     </div>
     <br>
     <br>
@@ -54,21 +52,31 @@
     <br>
 
     <div class="t-col-3 t-col-sm-1">
-      <div class="form">
-        <span class="form-text">Fecha de Nacimiento:</span>
-        <p-calendar formControlName="fechaNacimiento" dateFormat="yy-mm-dd" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
-          [readonlyInput]="true"></p-calendar>
-        <div class="validation"
-          *ngIf="fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)">
-          <small *ngIf="fechaNacimiento?.errors?.['required']" class="p-error">Fecha Nacimiento es obligatorio</small>
+      <div class="t-col-2">
+        <div class="form">
+          <span class="form-text">Fecha de Nacimiento:</span>
+          <p-calendar formControlName="fechaNacimiento" dateFormat="yy-mm-dd" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
+            [readonlyInput]="true"></p-calendar>
+          <div class="validation"
+            *ngIf="fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)">
+            <small *ngIf="fechaNacimiento?.errors?.['required']" class="p-error">Fecha Nacimiento es obligatorio</small>
+          </div>
+        </div>
+
+        <div class="form">
+          <span class="form-text">Edad:</span>
+          <input id="edad" type="edad" formControlName="edad" autocomplete="off" pInputText [disabled]="true"/>
         </div>
       </div>
+
+
 
       <div class="form">
         <span class="form-text">Email:</span>
         <input id="email" type="email" formControlName="email" autocomplete="off" pInputText />
         <div class="validation" *ngIf="email?.invalid && (email?.dirty || email?.touched)">
           <small *ngIf="email?.errors?.['required']" class="p-error">Correo es obligatorio</small>
+          <small *ngIf="email?.errors?.['email']" class="p-error">Correo no es correcto</small>
         </div>
       </div>
 

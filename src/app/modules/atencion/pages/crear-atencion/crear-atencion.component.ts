@@ -17,6 +17,7 @@ import { IAtencionAnalisis } from '../../models/atencion-analisis';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { of } from 'rxjs';
 import { MensajesToastService } from 'src/app/shared/services/mensajes-toast.service';
+import { LocaleUtil } from 'src/app/global/locale.utils';
 
 @Component({
   selector: 'app-crear-atencion',
@@ -56,7 +57,8 @@ export class CrearAtencionComponent implements OnInit {
     private readonly servicioMensajesSwal: MensajesSwalService,
     private readonly serviceMensajesToast: MensajesToastService,
     private readonly formatoFecha: DatePipe,
-    private serviceAuth: AuthService
+    private serviceAuth: AuthService,
+    private util: LocaleUtil
   ) {
     const currentDate = new Date();
     this.minDate = new Date(1900, 0, 1);
@@ -198,15 +200,18 @@ export class CrearAtencionComponent implements OnInit {
     const dniIngresado = this.numDocumento?.value;
     const paciente = this.pacientes.find((paciente) => paciente.numDocumento === dniIngresado);
     this.isNotLoaded = true;
-console.log(paciente);
+
     if (paciente) {
       this.isNotLoaded = false;
       const genero = this.generos.find((genero) => genero.tipo === paciente.genero);
+      const edad = this.util.calcularEdad(paciente.fechaNacimiento);
+      console.log(edad);
       this.pacienteFormCtrl.patchValue({
         idPaciente: paciente.idPaciente,
         apellidos: paciente.apellidos,
         nombres: paciente.nombre,
         fechaNacimiento: paciente.fechaNacimiento,
+        edad: `${edad.años} años`,
         genero: genero,
         email: paciente.email,
         celular: paciente.celular,

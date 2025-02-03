@@ -1,4 +1,4 @@
-import { Directive, HostListener, ElementRef, NgZone, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[toUpperCase]'
@@ -13,6 +13,8 @@ export class ToUpperCaseDirective {
 
     this.renderer.setProperty(input, 'value', upperCaseValue);
 
-    // Disparar evento input para que Angular detecte el cambio
+    // Disparar evento 'input' para actualizar el FormControl en Angular
+    const eventInit = new Event('input', { bubbles: true });
+    input.dispatchEvent(eventInit);
   }
 }
