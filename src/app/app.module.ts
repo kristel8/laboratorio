@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
@@ -9,10 +9,14 @@ import { ModulesModule } from './modules/modules.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 import { LoaderInterceptor } from './interceptors/loader.interceptor';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEs);
 
 @NgModule({
   declarations: [
@@ -30,6 +34,8 @@ import { LoaderInterceptor } from './interceptors/loader.interceptor';
     HttpClientModule
   ],
   providers: [MessageService,
+    { provide: LOCALE_ID, useValue: 'es' },
+    PrimeNGConfig,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ResponseInterceptor,
