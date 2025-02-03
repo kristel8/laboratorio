@@ -4,17 +4,13 @@
 </div>
 <br />
 <section class="container-table">
-  <app-table 
-  *ngIf="isCargado" 
-  [listaElementos]="listaElementos" 
-  [columnas]="colsVisibles" 
+  <app-table
+  *ngIf="isCargado"
+  [listaElementos]="listaElementos"
+  [columnas]="colsVisibles"
   [filas]="5"
-  [listaElementosAFiltrar]="['idDoctor', 'nombre', 'apellidos', 'codigo']" 
-  [isOpcionEditar]="false"
+  [listaElementosAFiltrar]="['idDoctor', 'nombre', 'apellidos', 'codigo']"
   (eventoAccion)="eventoAccion($event)"></app-table>
-  <app-table *ngIf="isCargado" [listaElementos]="listaElementos" [columnas]="colsVisibles" [filas]="5"
-    [listaElementosAFiltrar]="['codigo', 'apellidos', ]" [isOpcionEditar]="false"
-    (eventoAccion)="eventoAccion($event)"></app-table>
 </section>
 
 <p-dialog header="Agregar Médico" [(visible)]="isOpenModal" [modal]="true" [style]="{ width: '50vw' }"

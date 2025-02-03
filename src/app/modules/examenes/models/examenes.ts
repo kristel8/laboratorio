@@ -4,6 +4,7 @@ export interface IExamen {
   descripcion: string;
   precio: number;
   estado: boolean;
+  duracion: string;
 }
 
 

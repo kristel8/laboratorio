@@ -1,0 +1,9 @@
+.t-col-4 {
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.container-plantilla {
+  .p-inputtext, .p-textarea {
+    width: 100%;
+  }
+}

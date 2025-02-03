@@ -40,12 +40,12 @@
 </form>
 <br>
 <section class="container-table">
-  <app-table 
-  *ngIf="isCargado" 
-  [listaElementos]="listaCaja" 
+  <app-table
+  *ngIf="isCargado"
+  [listaElementos]="listaCaja"
   [columnas]="colsVisibles" [filas]="5"
-  [listaElementosAFiltrar]="['idAtencion', 'apellidoYNombres', 'fechaEmision', 'fechaPago', 'tipoPago', 'total','estadoPago']" 
-  [isMostrarAcciones]="false" 
+  [listaElementosAFiltrar]="['idAtencion', 'apellidoYNombres', 'fechaEmision', 'fechaPago', 'tipoPago', 'total','estadoPago']"
+  [isMostrarAcciones]="false"
   [isMostrarMasOpciones]="true"
   [acciones]="acciones" (eventoAccion)="eventoAccion($event)" [footer]="true" [total]="totalLista"></app-table>
 </section>
@@ -88,7 +88,7 @@
       <div class="t-flex-start">
         <span><b>Descuento:</b></span>
         <p-inputNumber inputId="descuentoTotal" formControlName="descuentoTotal" mode="currency" currency="PEN" [min]="0" [max]="subTotal.value - 1" (onBlur)="descuento()"
-          locale="es-PE" [disabled]="hasDescuento" >
+          locale="es-PE" >
         </p-inputNumber>
       </div>
       <div class="t-flex-start">
@@ -102,7 +102,7 @@
     <section class="contain-medio">
       <div class="t-flex-start">
         <span><b>A cuenta:</b></span>
-        <p-inputNumber inputId="acuenta" formControlName="acuenta" mode="currency" currency="PEN" [min]="0" [max]="subTotal.value" locale="es-PE" [disabled]="hasACuenta">
+        <p-inputNumber inputId="acuenta" formControlName="acuenta" mode="currency" currency="PEN" [min]="0" [max]="subTotal.value" locale="es-PE" >
         </p-inputNumber>
       </div>
       <div class="t-flex-start">
@@ -117,7 +117,8 @@
 
     <br>
     <br>
-    <p-button type="submit" (click)="pagar()" [label]="'Pagar ' + (acuenta.value ? ((total.value - acuenta.value) | currency: 'S/') : (total.value | currency: 'S/')) " class="button-pay" styleClass="p-button-secondary" [disabled]="cajaForm.invalid">
+    <p-button type="submit" (click)="pagar()"
+    [label]="getPagoLabel()" class="button-pay" styleClass="p-button-secondary" [disabled]="cajaForm.invalid">
     </p-button>
   </form>
 </p-dialog>

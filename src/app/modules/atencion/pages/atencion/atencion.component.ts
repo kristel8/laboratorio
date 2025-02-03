@@ -65,12 +65,12 @@ export class AtencionComponent implements OnInit {
 
   getColumnasTabla(): void {
     this.cols = [
-      { field: 'nrOrden', header: 'Nr Orden', visibility: true, formatoFecha: '' },
+      { field: 'idAtencion', header: 'Nr Orden', visibility: true, formatoFecha: '' },
       { field: 'apellidoYNombrePaciente', header: 'Apellidos y Nombres Paciente', visibility: true, formatoFecha: '' },
       { field: 'apellidoYNombreDoctor', header: 'Apellidos y Nombres Doctor', visibility: true, formatoFecha: '' },
       { field: 'estadoOrden', header: 'Estado Orden', visibility: true, formatoFecha: '' },
-      { field: 'fechaCreacion', header: 'Fecha Creacion', visibility: true, formatoFecha: '' },
-      { field: 'usuarioCreacion', header: 'Usuario Creacion', visibility: true, formatoFecha: '' },
+      { field: 'fecha', header: 'Fecha Creacion', visibility: true, formatoFecha: '' },
+      { field: 'usuario', header: 'Usuario Creacion', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);

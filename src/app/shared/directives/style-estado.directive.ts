@@ -30,7 +30,6 @@ export class StyleEstadoDirective implements OnInit {
 
       case 'EN STOCK':
         this.el.nativeElement.classList.add('estadoAmarillo');
-
         break;
 
       case "PENDIENTE":
@@ -38,6 +37,10 @@ export class StyleEstadoDirective implements OnInit {
         break;
 
       case 'COMPLETADO':
+        this.el.nativeElement.classList.add('estadoVerde');
+        break;
+
+      case 'APROBADO':
         this.el.nativeElement.classList.add('estadoVerde');
         break;
 

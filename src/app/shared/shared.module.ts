@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -28,6 +28,11 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { ToUpperCaseDirective } from './directives/toUpperCase.directive';
 import { TipoPagoIconPipe } from './pipes/tipo-pago.pipe';
 import { OnlyTextDirective } from './directives/text-only.directive';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEsPe from '@angular/common/locales/es-PE';
+
+registerLocaleData(localeEsPe); // Registrar localización peruana
 
 @NgModule({
   declarations: [
@@ -78,6 +83,9 @@ import { OnlyTextDirective } from './directives/text-only.directive';
     LoaderComponent,
     TipoPagoIconPipe
   ],
-  providers: [MessageService]
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es-PE' },
+    MessageService,
+    CurrencyPipe]
 })
 export class SharedModule { }

@@ -11,6 +11,7 @@ import { TableModule } from 'primeng/table';
 import { ExamenComponent } from './pages/examen/examen.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MantenimientoExamenComponent } from './pages/mantenimiento-examen/mantenimiento-examen.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MantenimientoExamenComponent } from './pages/mantenimiento-examen/mante
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    InputTextareaModule,
     DropdownModule,
     InputNumberModule,
   ],

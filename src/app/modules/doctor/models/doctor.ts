@@ -4,4 +4,5 @@ export interface IDoctor{
   apellidos: string;
   codigo: string;
   estado: boolean;
+  numAtenciones: number;
 }

@@ -41,12 +41,12 @@
           </div>
         </td>
         <td class="contain-buttons">
-          <button pButton (click)="verExamenes(rowData)" type="button" icon="pi pi-pencil" pTooltip="Ver exámenes"
-            class="p-button-rounded"></button>
+          <button pButton (click)="verExamenes(rowData)" type="button" icon="pi pi-eye" pTooltip="Ver exámenes"
+            class="p-button-rounded p-button-success"></button>
           <button *ngIf="rowData.estado" pButton (click)="imprimir(rowData)" type="button" icon="pi pi-print"
             pTooltip="Imprimir" class="p-button-rounded p-button-help"></button>
           <button *ngIf="rowData.estado" pButton (click)="enviar(rowData)" type="button" icon="pi pi-send"
-            pTooltip="Enviar WhatsApp" class="p-button-rounded p-button-success"></button>
+            pTooltip="Enviar WhatsApp" class="p-button-rounded"></button>
         </td>
       </tr>
     </ng-template>

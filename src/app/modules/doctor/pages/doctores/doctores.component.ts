@@ -21,6 +21,8 @@ export class DoctoresComponent implements OnInit {
   isCargado: boolean = false;
   isOpenModal: boolean = false;
 
+  isEditar = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -29,10 +31,15 @@ export class DoctoresComponent implements OnInit {
   ) { }
 
   doctoresForm = this.fb.group({
+    idDoctor: [null],
     codigo: [null, [Validators.required, Validators.maxLength(20)]],
     nombre: [null, [Validators.required]],
     apellidos: [null, [Validators.required]],
   });
+
+  get idDoctor() {
+    return this.doctoresForm.get('idDoctor');
+  }
 
   get codigo() {
     return this.doctoresForm.get('codigo');
@@ -91,6 +98,12 @@ export class DoctoresComponent implements OnInit {
         header: 'Codigo',
         visibility: true,
         formatoFecha: '',
+      },
+      {
+        field: 'numAtenciones',
+        header: 'N° Atenciones',
+        visibility: true,
+        formatoFecha: '',
       }
     ];
 
@@ -100,6 +113,10 @@ export class DoctoresComponent implements OnInit {
   eventoAccion(datos: any) {
     const { tipo, data } = datos;
     switch (tipo) {
+      case 'editar':
+        this.editarElemento(data);
+        break;
+
       case 'eliminar':
         this.eliminarElemento(data);
         break;
@@ -111,16 +128,26 @@ export class DoctoresComponent implements OnInit {
   }
 
   openModalDoctor(): void {
+    this.isEditar = false;
     this.isOpenModal = true;
   }
 
   guardar(): void {
-    this.service.insert(this.doctoresForm.value).subscribe(() => {
-      this.isOpenModal = false;
-      this.doctoresForm.reset();
-      this.getAllActivosElementos();
-      this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
-    });
+    if (this.isEditar) {
+      this.service.update(this.idDoctor?.value, this.doctoresForm.getRawValue()).subscribe(() => {
+        this.isOpenModal = false;
+        this.doctoresForm.reset();
+        this.getAllActivosElementos();
+        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+      });
+    } else {
+      this.service.insert(this.doctoresForm.value).subscribe(() => {
+        this.isOpenModal = false;
+        this.doctoresForm.reset();
+        this.getAllActivosElementos();
+        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+      });
+    }
   }
 
   eliminarElemento(data: any) {
@@ -136,5 +163,20 @@ export class DoctoresComponent implements OnInit {
             });
         }
       });
+  }
+
+  editarElemento(data: any) {
+    this.doctoresForm.reset();
+    this.isOpenModal = true;
+    this.isEditar = true;
+
+    this.doctoresForm.patchValue({
+      idDoctor: data.idDoctor,
+      codigo: data.codigo,
+      nombre: data.nombre,
+      apellidos: data.apellidos,
+    });
+
+    this.codigo?.disable();
   }
 }

@@ -34,6 +34,7 @@ export class ExamenComponent implements OnInit {
       { field: 'nombre', header: 'Nombre', visibility: true, formatoFecha: '' },
       { field: 'descripcion', header: 'Descripción', visibility: true, formatoFecha: '' },
       { field: 'precio', header: 'Precio', visibility: true, formatoFecha: '' },
+      { field: 'duracion', header: 'Tiempo a Entregar', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);

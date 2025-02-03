@@ -37,6 +37,7 @@ export class MantenimientoExamenComponent implements OnInit {
       nombre: [null, [Validators.required]],
       descripcion: [null, [Validators.required]],
       precio: [null, [Validators.required]],
+      duracion: [null, [Validators.required]],
       elementos: this.fb.array([]) // Inicializar FormArray vacío
     });
 
@@ -67,6 +68,10 @@ export class MantenimientoExamenComponent implements OnInit {
     return this.examenesForm.get('precio');
   }
 
+  get duracion() {
+    return this.examenesForm.get('duracion');
+  }
+
   get elementos(): FormArray {
     return this.examenesForm.get('elementos') as FormArray;
   }
@@ -92,7 +97,8 @@ export class MantenimientoExamenComponent implements OnInit {
     this.examenesForm.patchValue({
       nombre: resultado.nombre,
       descripcion: resultado.descripcion,
-      precio: resultado.precio
+      precio: resultado.precio,
+      duracion: resultado.duracion
     });
 
     this.idAnalisisCreado = resultado.idAnalisis;
@@ -109,7 +115,7 @@ export class MantenimientoExamenComponent implements OnInit {
       descripcion: [data?.descripcion || null, Validators.required],
       unidad: [data?.unidad || null, Validators.required],
       valorReferencia: [data?.valorReferencia || null, Validators.required],
-      estado: [true]
+      estado: [true],
     });
     this.elementos.push(nuevaFila);
     console.log('Elementos:', this.elementos.value); // Verificar estructura
@@ -121,13 +127,14 @@ export class MantenimientoExamenComponent implements OnInit {
   }
 
   guardar(): void {
-    const { nombre, descripcion, precio } = this.examenesForm.value;
+    const { nombre, descripcion, precio, duracion } = this.examenesForm.value;
 
     const params: IExamen = {
       nombre,
       descripcion,
       precio,
       estado: true,
+      duracion
     };
 
     if (this.isEditar) {

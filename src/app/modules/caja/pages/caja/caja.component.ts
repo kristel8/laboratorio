@@ -4,7 +4,7 @@ import { ICaja } from '../../models/caja';
 import { IButton } from 'src/app/shared/components/table/models/table';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { CajaService } from '../../services/caja.service';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
@@ -37,10 +37,6 @@ export class CajaComponent implements OnInit {
 
   nombreBotonAPagar!: string;
 
-  hasACuenta: boolean = false;
-
-  hasDescuento: boolean = false;
-
   totalLista: number = 0;
 
   constructor(
@@ -48,6 +44,7 @@ export class CajaComponent implements OnInit {
     private cajaService: CajaService,
     private readonly formatoFecha: DatePipe,
     private readonly servicioMensajesSwal: MensajesSwalService,
+    private currencyPipe: CurrencyPipe
   ) { }
 
   cajaBuscadorForm = this.fb.group({
@@ -245,11 +242,8 @@ export class CajaComponent implements OnInit {
           });
 
         } else {
-          this.hasACuenta = false;
-          this.hasDescuento = false;
-
-          if (data.acuenta) this.hasACuenta = true;
-          if (data.acuenta || data.descuentoTotal) this.hasDescuento = true;
+          if (data.acuenta) this.acuenta.disable();
+          if (data.acuenta || data.descuentoTotal) this.descuentoTotal.disable();
 
           console.log(data);
 
@@ -279,4 +273,21 @@ export class CajaComponent implements OnInit {
       console.log(response);
     })
   }
+
+  getPagoLabel(): string {
+    const total = this.total.value;
+    const acuenta = this.acuenta.value;
+
+    this.cajaForm.updateValueAndValidity();
+    if (acuenta && this.acuenta.disabled) {
+      return `Pagar ${this.currencyPipe.transform(total - acuenta, 'S/')}`;
+    }
+
+    if (acuenta) {
+      return `Pagar ${this.currencyPipe.transform(acuenta, 'S/')}`;
+    }
+
+    return `Pagar ${this.currencyPipe.transform(total, 'S/')}`;
+  }
+
 }

@@ -113,7 +113,7 @@ export class MantenimientoClienteComponent implements OnInit {
         tipo: 'RUC',
       },
       {
-        tipo: 'CR',
+        tipo: 'CE',
       },
     ];
 

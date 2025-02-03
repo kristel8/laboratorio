@@ -1,7 +1,7 @@
 <form [formGroup]="examenesForm" (ngSubmit)="guardar()">
   <h2>{{titulo}}</h2>
   <br>
-  <section class="container-form t-col-3 t-col-sm-1">
+  <section class="container-form t-col-4 t-col-sm-1">
     <div class="form">
       <span class="form-text">Nombre</span>
       <input id="nombre" type="text" toUpperCase formControlName="nombre" pInputText />
@@ -11,10 +11,10 @@
     </div>
 
     <div class="form">
-      <span class="form-text">Descripcion</span>
+      <span class="form-text">Muestra</span>
       <input id="descripcion" type="text" toUpperCase formControlName="descripcion" pInputText />
       <div class="validation" *ngIf="descripcion?.invalid && (descripcion?.dirty || descripcion?.touched)">
-        <small *ngIf="descripcion?.errors?.['required']" class="p-error">Descripcion es obligatorio</small>
+        <small *ngIf="descripcion?.errors?.['required']" class="p-error">Muestra es obligatorio</small>
       </div>
     </div>
 
@@ -26,48 +26,56 @@
         <small *ngIf="precio?.errors?.['required']" class="p-error">Precio es obligatorio</small>
       </div>
     </div>
+
+    <div class="form">
+      <span class="form-text">Tiempo de entrega</span>
+      <input id="duracion" type="text" toUpperCase formControlName="duracion" pInputText />
+      <div class="validation" *ngIf="duracion?.invalid && (duracion?.dirty || duracion?.touched)">
+        <small *ngIf="duracion?.errors?.['required']" class="p-error">Duración es obligatorio</small>
+      </div>
+    </div>
   </section>
 
-  <p-table [value]="elementos.controls">
+  <p-table [value]="elementos.controls" class="container-plantilla">
     <ng-template pTemplate="header">
       <tr>
         <th>Opción</th>
-        <th>Muestra</th>
-        <th>Unidad</th>
+        <th>Descripción</th>
+        <th style="width: 150px;">Unidad</th>
         <th>Valor Referencia</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-i="rowIndex">
-      <ng-container  formArrayName="elementos">
-      <tr [formGroupName]="i">
-        <td class="t-flex-start" style="justify-content: center; column-gap: 10px;">
-          <button pButton (click)="agregarFila()" type="button" icon="pi pi-plus" class="p-button-rounded"></button>
-          <button pButton (click)="borrarFila(i)" type="button" [disabled]="elementos.length <= 1" icon="pi pi-minus" class="p-button-rounded p-button-danger"></button>
-        </td>
-        <td>
-          <input type="text" toUpperCase formControlName="descripcion" pInputText/>
-        </td>
-        <td>
-          <input type="text" toUpperCase formControlName="unidad" pInputText/>
-        </td>
-        <td>
-          <input type="text" formControlName="valorReferencia" pInputText/>
-        </td>
-      </tr>
-    </ng-container>
+      <ng-container formArrayName="elementos">
+        <tr [formGroupName]="i">
+          <td >
+            <button pButton (click)="agregarFila()" type="button" icon="pi pi-plus" class="p-button-rounded" style="margin-right: 5px;"></button>
+            <button pButton (click)="borrarFila(i)" type="button" [disabled]="elementos.length <= 1" icon="pi pi-minus"
+              class="p-button-rounded p-button-danger"></button>
+          </td>
+          <td>
+            <input type="text" toUpperCase formControlName="descripcion" pInputText />
+          </td>
+          <td>
+            <input type="text" toUpperCase formControlName="unidad" pInputText />
+          </td>
+          <td>
+            <textarea type="text" formControlName="valorReferencia" pInputTextarea [rows]="2"></textarea>
+          </td>
+        </tr>
+      </ng-container>
 
     </ng-template>
   </p-table>
 
-<br>
+  <br>
 
-<div class="container-opciones">
-  <app-button [label]="'Regresar'" [router]="'/examenes'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
-  </app-button>
-  <app-button [label]="'Guardar'" [tipo]="'submit'" [icono]="'pi pi-check'" [isDisabled]="!examenesForm.valid">
-  </app-button>
-</div>
+  <div class="container-opciones">
+    <app-button [label]="'Regresar'" [router]="'/examenes'" [icono]="'pi pi-arrow-left'"
+      [estiloBoton]="'p-button-outlined p-button-secondary'">
+    </app-button>
+    <app-button [label]="'Guardar'" [tipo]="'submit'" [icono]="'pi pi-check'" [isDisabled]="!examenesForm.valid">
+    </app-button>
+  </div>
 
 </form>
-
-
