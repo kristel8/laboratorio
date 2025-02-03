@@ -16,6 +16,7 @@ import { switchMap } from 'rxjs/operators';
 import { IAtencionAnalisis } from '../../models/atencion-analisis';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { of } from 'rxjs';
+import { MensajesToastService } from 'src/app/shared/services/mensajes-toast.service';
 
 @Component({
   selector: 'app-crear-atencion',
@@ -53,6 +54,7 @@ export class CrearAtencionComponent implements OnInit {
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
     private readonly servicioMensajesSwal: MensajesSwalService,
+    private readonly serviceMensajesToast: MensajesToastService,
     private readonly formatoFecha: DatePipe,
     private serviceAuth: AuthService
   ) {
@@ -200,7 +202,6 @@ console.log(paciente);
     if (paciente) {
       this.isNotLoaded = false;
       const genero = this.generos.find((genero) => genero.tipo === paciente.genero);
-console.log(paciente.fechaNacimiento);
       this.pacienteFormCtrl.patchValue({
         idPaciente: paciente.idPaciente,
         apellidos: paciente.apellidos,
@@ -214,6 +215,8 @@ console.log(paciente.fechaNacimiento);
       });
 
       this.pacienteFormCtrl.updateValueAndValidity();
+    } else {
+      this.serviceMensajesToast.showError('El paciente no se encuentra registrado.');
     }
   }
 

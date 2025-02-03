@@ -35,7 +35,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
 
   empleadoForm = this.fb.group({
     tipoDocumento: [null, [Validators.required]],
-    numDocumento: [null, [Validators.required,  Validators.maxLength(12)]],
+    numDocumento: [null, [Validators.required,  Validators.minLength(8),  Validators.maxLength(12)]],
     nombre: [null, [Validators.required]],
     apellido: [null, [Validators.required]],
     direccion: [null, [Validators.required]],

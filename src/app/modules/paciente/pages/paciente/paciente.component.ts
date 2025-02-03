@@ -4,6 +4,7 @@ import { IPaciente } from '../../models/paciente';
 import { Observable } from 'rxjs';
 import { PacienteService } from '../../services/paciente.service';
 import { Router } from '@angular/router';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-paciente',
@@ -20,6 +21,7 @@ export class PacienteComponent implements OnInit {
   constructor(
     private service: PacienteService,
     private router: Router,
+    private readonly servicioMensajesSwal: MensajesSwalService
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +66,10 @@ export class PacienteComponent implements OnInit {
         this.editarElemento(data);
         break;
 
+      case 'eliminar':
+        this.eliminarElemento(data);
+        break;
+
       default:
         console.log('Acción no aplicada');
         break;
@@ -73,5 +79,21 @@ export class PacienteComponent implements OnInit {
   editarElemento(data: any) {
     const id = data.idPaciente;
     this.router.navigateByUrl(`paciente/mantenimiento-paciente/${id}`);
+  }
+
+
+  eliminarElemento(data: any) {
+    this.servicioMensajesSwal
+      .mensajePregunta('¿Está seguro de eliminar el registro?')
+      .then((response) => {
+        if (response.isConfirmed) {
+          this.service
+            .setInactive(data.idPaciente)
+            .subscribe((res) => {
+              this.getAllActivosElementos();
+              this.servicioMensajesSwal.mensajeRegistroEliminado();
+            });
+        }
+      });
   }
 }

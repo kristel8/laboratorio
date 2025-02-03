@@ -13,7 +13,7 @@
         <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly />
         <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
           <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
-          <small *ngIf="numDocumento?.errors?.['maxlength']" class="p-error">Nro de Documento debe tener 11
+          <small *ngIf="numDocumento?.errors?.['maxlength'] || numDocumento?.errors?.['minlength']" class="p-error">Nro de Documento debe tener 8
             dígitos</small>
         </div>
       </div>
@@ -27,7 +27,7 @@
     <div class="t-col-3 t-col-sm-1">
       <div class="form">
         <span class="form-text">Apellidos:</span>
-        <input id="apellidos" type="text" toUpperCase formControlName="apellidos" pInputText />
+        <input id="apellidos" type="text" toUpperCase formControlName="apellidos" appOnlyText pInputText />
         <div class="validation" *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)">
           <small *ngIf="apellidos?.errors?.['required']" class="p-error">Apellidos es obligatorio</small>
         </div>
@@ -35,7 +35,7 @@
 
       <div class="form">
         <span class="form-text">Nombres:</span>
-        <input id="nombres" type="text" toUpperCase formControlName="nombres" autocomplete="off" pInputText />
+        <input id="nombres" type="text" toUpperCase formControlName="nombres" autocomplete="off" appOnlyText pInputText />
         <div class="validation" *ngIf="nombres?.invalid && (nombres?.dirty || nombres?.touched)">
           <small *ngIf="nombres?.errors?.['required']" class="p-error">Nombres es obligatorio</small>
         </div>

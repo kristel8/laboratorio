@@ -39,7 +39,7 @@ export class MantenimientoPacienteComponent implements OnInit {
 
   pacienteForm = this.fb.group({
     tipoDocumento: ['DNI', [Validators.required]],
-    numDocumento: [null, [Validators.required, Validators.maxLength(8)]],
+    numDocumento: [null, [Validators.required,  Validators.minLength(8),  Validators.maxLength(8)]],
     apellidos: [null, [Validators.required]],
     nombres: [null, [Validators.required]],
     fechaNacimiento: [null, [Validators.required]],
