@@ -40,9 +40,14 @@
 </form>
 <br>
 <section class="container-table">
-  <app-table *ngIf="isCargado" [listaElementos]="listaCaja" [columnas]="colsVisibles" [filas]="5"
-    [listaElementosAFiltrar]="['descripcion']" [isMostrarAcciones]="false" [isMostrarMasOpciones]="true"
-    [acciones]="acciones" (eventoAccion)="eventoAccion($event)" [footer]="true" [total]="totalLista"></app-table>
+  <app-table 
+  *ngIf="isCargado" 
+  [listaElementos]="listaCaja" 
+  [columnas]="colsVisibles" [filas]="5"
+  [listaElementosAFiltrar]="['idAtencion', 'apellidoYNombres', 'fechaEmision', 'fechaPago', 'tipoPago', 'total','estadoPago']" 
+  [isMostrarAcciones]="false" 
+  [isMostrarMasOpciones]="true"
+  [acciones]="acciones" (eventoAccion)="eventoAccion($event)" [footer]="true" [total]="totalLista"></app-table>
 </section>
 
 <p-dialog header="{{tituloModal}}" [(visible)]="isOpenModal" [modal]="true" [style]="{ width: '45vw' }"

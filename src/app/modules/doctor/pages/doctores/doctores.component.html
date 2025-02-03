@@ -4,6 +4,14 @@
 </div>
 <br />
 <section class="container-table">
+  <app-table 
+  *ngIf="isCargado" 
+  [listaElementos]="listaElementos" 
+  [columnas]="colsVisibles" 
+  [filas]="5"
+  [listaElementosAFiltrar]="['idDoctor', 'nombre', 'apellidos', 'codigo']" 
+  [isOpcionEditar]="false"
+  (eventoAccion)="eventoAccion($event)"></app-table>
   <app-table *ngIf="isCargado" [listaElementos]="listaElementos" [columnas]="colsVisibles" [filas]="5"
     [listaElementosAFiltrar]="['codigo', 'apellidos', ]" [isOpcionEditar]="false"
     (eventoAccion)="eventoAccion($event)"></app-table>
