@@ -7,6 +7,7 @@ import { CajaService } from '../../services/caja.service';
 import { DatePipe } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-caja',
@@ -46,6 +47,7 @@ export class CajaComponent implements OnInit {
     private fb: FormBuilder,
     private cajaService: CajaService,
     private readonly formatoFecha: DatePipe,
+    private readonly servicioMensajesSwal: MensajesSwalService,
   ) { }
 
   cajaBuscadorForm = this.fb.group({
@@ -218,6 +220,10 @@ export class CajaComponent implements OnInit {
   }
 
   openModalPagar(data: ICaja): void {
+    if (data.estadoPago === 'PAGADO') {
+      return this.servicioMensajesSwal.mensajeAdvertencia('La atención ya ha sido pagada.');
+    }
+
     this.cajaService.getDetalle(data.idAtencion).subscribe((response) => {
       if (response) {
         this.tituloModal = `Pagar Orden: ${data.idAtencion}`
@@ -225,7 +231,7 @@ export class CajaComponent implements OnInit {
         this.listaExamenes = response;
         console.log(data);
 
-        if (data.estadoPago === 'PENDIENTE PAGO') {
+        if (data.estadoPago === 'PENDIENTE') {
           this.descuentoTotal.reset();
           this.acuenta.reset();
 

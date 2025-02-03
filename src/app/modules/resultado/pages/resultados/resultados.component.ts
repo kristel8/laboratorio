@@ -67,7 +67,7 @@ export class ResultadosComponent implements OnInit {
 
   verExamenes(data: any): void {
     this.storageService.setItem('atencion-datos', data, true);
-    this.router.navigateByUrl(`resultado/detalle-resultado`);
+    this.router.navigateByUrl(`resultados/detalle-resultado`);
   }
 
   imprimir(data: any): void {
@@ -79,7 +79,7 @@ export class ResultadosComponent implements OnInit {
 
     this.mensajeSwalService.mensajePreguntaEnviar(numeroCelular).then((response) => {
       if (response.isConfirmed) {
-        const mensaje = `Hola *${data.apellidosYNombres}*, te saludamos del Laboratorio Labsol.%0AAdjunto a este mensaje encontrarás el PDF con los resultados solicitados.%0ASi tienes alguna pregunta o necesitas información adicional, no dudes en contactarnos.%0A%0A¡Gracias por confiar en nosotros!%0ASaludos cordiales,%0A%0A*El equipo de Labsol*`
+        const mensaje = `Hola *${data.apellidosYNombres}*, te saludamos de Laboratorios LAB SOL.%0AAdjunto el presente el PDF con los resultados correspondientes, si tiene alguna pregunta o necesita información adicional, no dudes en contactarnos.%0A%0AEsperamos su pronta mejora.%0A%0A¡Gracias por confiar en nosotros!%0A%0A*EQUIPO LABSOL*`
         window.open(`https://wa.me/${numeroCelular}?text=${mensaje}`, '_blank');
       }
     })

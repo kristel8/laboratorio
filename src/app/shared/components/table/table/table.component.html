@@ -100,9 +100,15 @@
           </div>
 
           <div *ngSwitchCase="'tipoPago'" class="tipoPago">
-            <img [src]="rowData[col.field] | tipoPagoIcon" width="24" height="24" alt="{{ rowData[col.field] }}">
-            {{ rowData[col.field] | uppercase }}
+            <ng-container *ngIf="rowData[col.field]; else noData">
+              <img [src]="rowData[col.field] | tipoPagoIcon" width="24" height="24" alt="{{ rowData[col.field] }}">
+              {{ rowData[col.field] | uppercase }}
+            </ng-container>
+            <ng-template #noData>
+              <span class="text-muted">-</span>
+            </ng-template>
           </div>
+
 
 
           <div style="word-break: break-all;" *ngSwitchDefault>

@@ -53,7 +53,7 @@ html {
 }
 
 .t-col-4 {
-  @include fourColumn(1fr, 1fr, 1fr, 1fr);
+  @include fourColumn(min-content, 1fr, 1fr, 1fr);
   @include gapColumn(10px);
 }
 
