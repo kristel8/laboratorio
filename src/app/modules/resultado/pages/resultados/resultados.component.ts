@@ -5,6 +5,7 @@ import { IAtencionAprobadas } from '../../models/resultado';
 import { ResultadosService } from '../../services/resultados.service';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
+import * as printJS from 'print-js';
 
 @Component({
   selector: 'app-resultados',
@@ -58,6 +59,7 @@ export class ResultadosComponent implements OnInit {
         visibility: true,
         formatoFecha: '',
       },
+      { field: 'estadoOrden', header: 'Estado', visibility: true, formatoFecha: '' },
       { field: 'fecha', header: 'Fecha', visibility: true, formatoFecha: '' },
 
     ];
@@ -70,15 +72,56 @@ export class ResultadosComponent implements OnInit {
     this.router.navigateByUrl(`resultados/detalle-resultado`);
   }
 
-  imprimir(data: any): void {
+  imprimir(data: any, isFirma: boolean): void {
+    const request = {
+      idAtencion: data.idAtencion,
+      isFirma: isFirma
+    }
 
+    this.resultadoService.generarReporte(request).subscribe((response) => {
+      if (isFirma) {
+        this.enviar(data, response)
+      } else {
+        const base64 = response.file as string;
+        printJS({
+          printable: base64,
+          type: 'pdf',
+          base64: true,
+          showModal: false,
+          onPrintDialogClose: () => {
+            console.log("Impresión finalizada");
+          }
+        });
+      }
+    })
   }
 
-  enviar(data: any): void {
+  downloadPdf(base64String: string, fileName: string) {
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const fileBlob = new Blob([byteArray], { type: 'application/pdf' });
+
+    // Crear URL de descarga
+    const fileURL = URL.createObjectURL(fileBlob);
+    const a = document.createElement('a');
+    a.href = fileURL;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(fileURL);
+  }
+
+  enviar(data: any, info: any): void {
     const numeroCelular = data.numeroCelular;
 
     this.mensajeSwalService.mensajePreguntaEnviar(numeroCelular).then((response) => {
       if (response.isConfirmed) {
+        this.downloadPdf(info.file, info.fileName);
         const mensaje = `Hola *${data.apellidosYNombres}*, te saludamos de Laboratorios LAB SOL.%0AAdjunto el presente el PDF con los resultados correspondientes, si tiene alguna pregunta o necesita información adicional, no dudes en contactarnos.%0A%0AEsperamos su pronta mejora.%0A%0A¡Gracias por confiar en nosotros!%0A%0A*EQUIPO LABSOL*`
         window.open(`https://wa.me/${numeroCelular}?text=${mensaje}`, '_blank');
       }

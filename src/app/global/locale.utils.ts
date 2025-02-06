@@ -51,4 +51,5 @@ export class LocaleUtil {
 
     return { años, meses, días };
   }
+
 }

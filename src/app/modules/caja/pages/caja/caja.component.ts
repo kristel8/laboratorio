@@ -308,7 +308,7 @@ export class CajaComponent implements OnInit {
   imprimirTicket(id: number): void {
     this.cajaService.generarTicket(id).subscribe((response) => {
       console.log(response);
-      const base64 = response.data[0].file as string;
+      const base64 = response.file as string;
       printJS({
         printable: base64,
         type: 'pdf',

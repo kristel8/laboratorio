@@ -10,7 +10,7 @@ export interface IResponseTicket  {
   error: string;
 }
 
-interface DataPrint {
+export interface DataPrint {
   file: string;
   fileName: string;
 }

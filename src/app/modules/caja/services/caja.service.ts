@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ICaja, IDetalle, IPagar } from '../models/caja';
-import { IResponse, IResponseTicket } from 'src/app/global/response';
+import { DataPrint, IResponse, IResponseTicket } from 'src/app/global/response';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,9 @@ export class CajaService {
     return this.httpClient.post<IResponse>(`${this.URLServicio}pago/pagar`, header);
   }
 
-  generarTicket(idPago: number): Observable<IResponseTicket> {
-    return this.httpClient.get<IResponseTicket>(`${this.URLServicio}pago/generarTicketOrden/${idPago}`);
+  generarTicket(idPago: number): Observable<DataPrint> {
+    return this.httpClient.get<IResponseTicket>(`${this.URLServicio}pago/generarTicketOrden/${idPago}`).pipe(
+      map((response) => response.data[0])
+    );
   }
 }
