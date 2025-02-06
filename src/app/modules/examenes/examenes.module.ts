@@ -12,6 +12,7 @@ import { ExamenComponent } from './pages/examen/examen.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MantenimientoExamenComponent } from './pages/mantenimiento-examen/mantenimiento-examen.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputTextareaModule,
     DropdownModule,
     InputNumberModule,
+    DialogModule
   ],
 })
 export class ExamenesModule { }

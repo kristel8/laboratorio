@@ -3,3 +3,47 @@
   column-gap: 6px;
   justify-content: center;
 }
+
+.estadoAmarillo {
+  background-color: rgb(247, 246, 177);
+  color: rgb(133, 115, 34);
+  padding: 5px 20px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 50px;
+  min-width: 130px;
+  justify-self: center;
+}
+
+.estadoVerde {
+  background-color: rgb(177, 247, 177);
+  color: rgb(34, 133, 34);
+  text-align: center;
+  padding: 5px 20px;
+  font-weight: 500;
+  border-radius: 50px;
+  min-width: 130px;
+  justify-self: center;
+}
+
+.estadoAzul {
+  background-color: rgb(177, 191, 247);
+  color: rgb(34, 57, 133);
+  text-align: center;
+  padding: 5px 20px;
+  font-weight: 500;
+  border-radius: 50px;
+  min-width: 130px;
+  justify-self: center;
+}
+
+.estadoRojo{
+  background-color: rgb(247, 177, 177);
+  color: rgb(133, 34, 34);
+  text-align: center;
+  padding: 5px 20px;
+  font-weight: 500;
+  border-radius: 50px;
+  min-width: 130px;
+  justify-self: center;
+}

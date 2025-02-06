@@ -37,7 +37,7 @@ export class StyleEstadoDirective implements OnInit {
         break;
 
       case 'COMPLETADO':
-        this.el.nativeElement.classList.add('estadoVerde');
+        this.el.nativeElement.classList.add('estadoAzul');
         break;
 
       case 'APROBADO':

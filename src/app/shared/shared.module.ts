@@ -19,11 +19,9 @@ import { FlagsPipe } from './pipes/flags.pipe';
 import { StyleEstadoDirective } from './directives/style-estado.directive';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
-import { MensajesToastService } from './services/mensajes-toast.service';
 import { MessageService } from 'primeng/api';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BodyComponent } from './components/body/body.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoaderComponent } from './components/loader/loader.component';
 import { ToUpperCaseDirective } from './directives/toUpperCase.directive';
 import { TipoPagoIconPipe } from './pipes/tipo-pago.pipe';
@@ -80,6 +78,7 @@ registerLocaleData(localeEsPe); // Registrar localización peruana
     OnlyTextDirective,
     NumbersOnlyDirective,
     ToUpperCaseDirective,
+    StyleEstadoDirective,
     LoaderComponent,
     TipoPagoIconPipe
   ],
