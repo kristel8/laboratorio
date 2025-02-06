@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IButton } from 'src/app/shared/components/table/models/table';
 import { Router } from '@angular/router';
-import { IDetalleAtencion } from '../../models/resultado';
+import { IButton } from 'src/app/shared/components/table/models/table';
+import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { IDetalleAtencion } from '../../models/resultado';
 import { ResultadosService } from '../../services/resultados.service';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-detalle-resultados',
@@ -28,7 +29,8 @@ export class DetalleResultadosComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private resultadosService: ResultadosService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private readonly servicioMensajesSwal: MensajesSwalService
   ) { }
 
   detalleResultadoForm = this.fb.group({
@@ -44,13 +46,7 @@ export class DetalleResultadosComponent implements OnInit {
   getItems(): void {
     this.validateAtencionSeleccionado();
 
-    this.resultadosService.getFindByIdAtencion(this.atencionSelecionado.idAtencion).subscribe((response) => {
-      if (response) {
-        this.isCargado = true;
-        this.getColumnasTabla();
-        this.listaDetalleResultado = response;
-      }
-    })
+
   }
 
   validateAtencionSeleccionado(): void {
@@ -61,9 +57,17 @@ export class DetalleResultadosComponent implements OnInit {
         nroOrden: seleccionado.idAtencion,
         apellidosyNombres: seleccionado.apellidosYNombres,
         fecha: seleccionado.fecha
-      })
+      });
+
+      this.resultadosService.getFindByIdAtencion(this.atencionSelecionado.idAtencion).subscribe((response) => {
+        if (response) {
+          this.isCargado = true;
+          this.getColumnasTabla();
+          this.listaDetalleResultado = response;
+        }
+      });
     } else {
-      this.router.navigateByUrl(`resultado`);
+      this.router.navigateByUrl(`resultados`);
     }
   }
 

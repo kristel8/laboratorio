@@ -37,8 +37,8 @@
           <div class="p-inputgroup">
             <button pButton (click)="showBuscadorDeEmpleado($event)" type="button" icon="pi pi-search"></button>
             <div class="form" style="width: 200px">
-              <input id="numEmpleado" type="text" toUpperCase formControlName="numEmpleado" (keypress)="buscarEmpleado($event)"
-                pInputText numbersOnly />
+              <input id="numEmpleado" type="text" toUpperCase formControlName="numEmpleado"
+                (keypress)="buscarEmpleado($event)" pInputText numbersOnly />
 
               <div class="validation" *ngIf="numEmpleado?.dirty || numEmpleado?.touched">
                 <small *ngIf="numEmpleado?.errors?.['required']" class="p-error">DNI Empleado es obligatorio</small>
@@ -56,7 +56,7 @@
       </div>
     </div>
   </section>
-<br>
+  <br>
   <section class="container-form t-col-sm-1">
     <p-pickList [source]="listaPorAsignar" [showSourceControls]="false" [showTargetControls]="false"
       [target]="listaAsignados" sourceHeader="Por asignar" targetHeader="Asignados" [dragdrop]="true"
@@ -72,7 +72,8 @@
 
   <br>
   <div class="container-opciones">
-    <app-button [label]="'Regresar'" [router]="'/usuarios'" [icono]="'pi pi-arrow-left'" [estiloBoton]="'p-button-outlined p-button-secondary'">
+    <app-button [label]="'Regresar'" [router]="'/usuarios'" [icono]="'pi pi-arrow-left'"
+      [estiloBoton]="'p-button-outlined p-button-secondary'">
     </app-button>
     <app-button [label]="'Guardar'" [icono]="'pi pi-check'" [tipo]="'submit'"
       [isDisabled]="!usuarioForm.valid || listaAsignados.length === 0">

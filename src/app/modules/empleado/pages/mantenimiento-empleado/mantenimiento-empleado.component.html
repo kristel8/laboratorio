@@ -12,10 +12,10 @@
 
     <div class="form">
       <span class="form-text">Nro Documento:*</span>
-      <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" pInputText numbersOnly/>
+      <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" minlength="8" maxlength="11" pInputText numbersOnly/>
       <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
         <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
-        <small *ngIf="numDocumento?.errors?.['minlength'] || numDocumento?.errors?.['maxlength']" class="p-error">Número de Documento debe tener 11 dígitos</small>
+        <small *ngIf="numDocumento?.errors?.['minlength']" class="p-error">Debe tener 8 o 11 dígitos</small>
       </div>
     </div>
 

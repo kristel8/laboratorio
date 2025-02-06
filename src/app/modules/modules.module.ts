@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
-import { CategoriaModule } from './categoria/categoria.module';
-import { AlmacenCentralModule } from './almacen-central/almacen-central.module';
 import { EmpleadoModule } from './empleado/empleado.module';
 import { MessageService } from 'primeng/api';
 import { PacienteModule } from './paciente/paciente.module';
@@ -19,8 +17,6 @@ import { ResultadoModule } from './resultado/resultado.module';
     CommonModule,
     DashboardModule,
     RouterModule,
-    CategoriaModule,
-    AlmacenCentralModule,
     EmpleadoModule,
     PacienteModule,
     UsuarioModule,
@@ -33,8 +29,6 @@ import { ResultadoModule } from './resultado/resultado.module';
     CommonModule,
     DashboardModule,
     RouterModule,
-    CategoriaModule,
-    AlmacenCentralModule,
     EmpleadoModule,
     PacienteModule,
     UsuarioModule,

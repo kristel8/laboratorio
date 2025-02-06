@@ -85,7 +85,6 @@ export class UsuariosComponent implements OnInit {
         this.eliminarElementos(data);
         break;
 
-
       default:
         console.log('Acción no aplicada');
         break;

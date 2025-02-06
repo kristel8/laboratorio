@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ExamenService } from '../../services/examen.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IDetalleExamen } from '../../models/detalle-examen';
 import { IExamen } from '../../models/examenes';
+import { ExamenService } from '../../services/examen.service';
 import { PlantillaExamenService } from '../../services/plantilla-examen.service';
-import { switchMap } from 'rxjs/operators';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-mantenimiento-examen',
@@ -32,13 +33,14 @@ export class MantenimientoExamenComponent implements OnInit {
     private servicePlantilla: PlantillaExamenService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
+    private servicioMensajesSwal: MensajesSwalService
   ) {
     this.examenesForm = this.fb.group({
       nombre: [null, [Validators.required]],
       descripcion: [null, [Validators.required]],
       precio: [null, [Validators.required]],
       duracion: [null, [Validators.required]],
-      elementos: this.fb.array([]) // Inicializar FormArray vacío
+      elementos: this.fb.array([])
     });
 
 
@@ -85,7 +87,6 @@ export class MantenimientoExamenComponent implements OnInit {
         return this.servicePlantilla.getFindById(resultado.idAnalisis as number)
       })
     ).subscribe((plantilla) => {
-      console.log('plantilla', plantilla);
       plantilla.forEach((item) => {
         this.agregarFila(item);
       })
@@ -102,14 +103,9 @@ export class MantenimientoExamenComponent implements OnInit {
     });
 
     this.idAnalisisCreado = resultado.idAnalisis;
-
-
-
   }
 
-  // Otras funciones como buscarIdElemento, agregarFila, borrarFila, etc.
   agregarFila(data?: IDetalleExamen): void {
-
     const nuevaFila = this.fb.group({
       idPlantillaAnalisis: [data?.idPlantillaAnalisis || null],
       descripcion: [data?.descripcion || null, Validators.required],
@@ -118,7 +114,6 @@ export class MantenimientoExamenComponent implements OnInit {
       estado: [true],
     });
     this.elementos.push(nuevaFila);
-    console.log('Elementos:', this.elementos.value); // Verificar estructura
     return;
   }
 
@@ -159,6 +154,7 @@ export class MantenimientoExamenComponent implements OnInit {
         return this.servicePlantilla.insert(request)
       })
     ).subscribe(() => {
+      this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
       this.router.navigateByUrl('/examenes');
     });
   }
@@ -176,6 +172,7 @@ export class MantenimientoExamenComponent implements OnInit {
 
       })
     ).subscribe(() => {
+      this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
       this.router.navigateByUrl('/examenes');
     })
   }

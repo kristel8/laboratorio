@@ -265,6 +265,7 @@ export class CrearAtencionComponent implements OnInit {
 
         })
       ).subscribe(() => {
+        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
         this.router.navigateByUrl('/atencion');
       });
   }

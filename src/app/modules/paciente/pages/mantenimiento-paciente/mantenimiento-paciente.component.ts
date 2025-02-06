@@ -1,12 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PacienteService } from '../../services/paciente.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { distinctUntilChanged, startWith } from 'rxjs/operators';
+import { LocaleUtil } from 'src/app/global/locale.utils';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IPaciente } from '../../models/paciente';
-import { DatePipe } from '@angular/common';
-import { LocaleUtil } from 'src/app/global/locale.utils';
-import { distinctUntilChanged, startWith } from 'rxjs/operators';
+import { PacienteService } from '../../services/paciente.service';
 
 @Component({
   selector: 'app-mantenimiento-paciente',
@@ -36,8 +36,8 @@ export class MantenimientoPacienteComponent implements OnInit {
 
   ) {
     const currentDate = new Date();
-    this.minDate = new Date(1900, 0, 1); // 1 de enero de 1900
-    this.maxDate = currentDate; // Fecha actual
+    this.minDate = new Date(1900, 0, 1);
+    this.maxDate = currentDate;
   }
 
   pacienteForm = this.fb.group({
@@ -179,15 +179,14 @@ export class MantenimientoPacienteComponent implements OnInit {
       .insert(params)
       .subscribe((response: IPaciente) => {
         this.router.navigateByUrl('/paciente');
-        //this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
       });
   }
 
   editarElemento(params: IPaciente) {
-    console.log(params);
     this.service.update(+this.id, params).subscribe(() => {
       this.router.navigateByUrl('/paciente');
-      //this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+      this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
     });
   }
 
@@ -207,7 +206,6 @@ export class MantenimientoPacienteComponent implements OnInit {
     this.tipoDocumento?.disable();
     this.numDocumento?.disable();
 
-    console.log('resultado', resultado);
     this.pacienteForm.patchValue({
       tipoDocumento: tipoDocumento,
       numDocumento: resultado.numDocumento,

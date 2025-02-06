@@ -23,18 +23,14 @@ export class ResponseInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           const body = event.body;
           if (body && typeof body === 'object') {
-            const endpointsExcluded = ['getLogin', 'getAllActive', 'getDetalle', 'findByDate', 'findById', 'findAtencionesAprobadas', 'getAtencionAnalisisByAtencion', 'setInactive', 'insert/usuario']
+            const endpointsExcluded = ['getLogin', 'getAllActive', 'getDetalle', 'findByDate', 'findById', 'findAtencionesAprobadas', 'getAtencionAnalisisByAtencion', 'setInactive']
             if (!endpointsExcluded.some(endpoint => req.url.includes(endpoint))) {
               if (body.error) {
                 this.servicioMensajesSwal.mensajeError(body.mensaje);
-              } else {
-                this.servicioMensajesSwal.mensajeExito(body.mensaje);
               }
 
               return event;
             }
-
-            console.log(!body.data);
 
             if (!body.data) {
               return event.clone({ body: [] });

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { IAtencionLista } from '../../models/atencion';
-import { IButton } from 'src/app/shared/components/table/models/table';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AtencionService } from '../../services/atencion.service';
+import { IButton } from 'src/app/shared/components/table/models/table';
+import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
+import { IAtencionLista } from '../../models/atencion';
+import { AtencionService } from '../../services/atencion.service';
 
 @Component({
   selector: 'app-atencion',
@@ -22,7 +21,6 @@ export class AtencionComponent implements OnInit {
 
   constructor(
     private service: AtencionService,
-    private router: Router,
     private readonly servicioMensajesSwal: MensajesSwalService,
   ) { }
 
@@ -83,7 +81,7 @@ export class AtencionComponent implements OnInit {
         if (response.isConfirmed) {
           this.service
             .setInactive(data.idAtencion)
-            .subscribe((res) => {
+            .subscribe(() => {
               this.getAllActivosElementos();
               this.servicioMensajesSwal.mensajeRegistroEliminado();
             });

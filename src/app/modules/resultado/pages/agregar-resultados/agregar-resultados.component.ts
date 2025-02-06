@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IColumnasTabla } from 'src/app/shared/models/columnas';
-import { StorageService } from 'src/app/shared/services/storage.service';
-import { ResultadosService } from '../../services/resultados.service';
-import { IDetalleAnalisis, IResultadoAtencion } from '../../models/resultado';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/global/response';
 import { PlantillaExamenService } from 'src/app/modules/examenes/services/plantilla-examen.service';
+import { IColumnasTabla } from 'src/app/shared/models/columnas';
+import { StorageService } from 'src/app/shared/services/storage.service';
+import { IDetalleAnalisis, IResultadoAtencion } from '../../models/resultado';
+import { ResultadosService } from '../../services/resultados.service';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-agregar-resultados',
@@ -35,7 +36,8 @@ export class AgregarResultadosComponent implements OnInit {
     private router: Router,
     private resultadosService: ResultadosService,
     private plantillaExamenService: PlantillaExamenService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private servicioMensajesSwal: MensajesSwalService
   ) { }
 
   agregarResultadoForm = this.fb.group({
@@ -54,11 +56,9 @@ export class AgregarResultadosComponent implements OnInit {
     this.validateAtencionSeleccionado();
     this.loading = true;
     const seleccionadoExamen = this.examenSeleccionado = this.storageService.getItem('examen-datos', true);
-    console.log(seleccionadoExamen);
     this.isEditar = seleccionadoExamen.estadoAtencionAnalisis === 'COMPLETADO';
 
     if (!this.isEditar) {
-
       this.plantillaExamenService.getFindById(this.examenSeleccionado.idAnalisis).subscribe((response) => {
         if (response) {
           this.loading = false;
@@ -71,7 +71,6 @@ export class AgregarResultadosComponent implements OnInit {
         }
       })
     } else {
-
       this.resultadosService.getFindByIdAnalisis(this.examenSeleccionado.idAtencionAnalisis).subscribe((response) => {
         if (response) {
           this.loading = false;
@@ -115,7 +114,7 @@ export class AgregarResultadosComponent implements OnInit {
         examen: seleccionadoExamen.examen
       })
     } else {
-      this.router.navigateByUrl(`resultado`);
+      this.router.navigateByUrl(`resultados`);
     }
   }
 
@@ -150,9 +149,14 @@ export class AgregarResultadosComponent implements OnInit {
 
     this.insertOrUpdateElemento(listRequest).subscribe((response) => {
       if (response) {
-        this.storageService.removeItem('atencion-datos');
+        if (this.isEditar) {
+          this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+        } else {
+          this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        }
+
         this.storageService.removeItem('examen-datos');
-        this.router.navigateByUrl('/resultados');
+        this.router.navigateByUrl('/resultados/detalle-resultado');
       }
     });
   }
@@ -166,7 +170,13 @@ export class AgregarResultadosComponent implements OnInit {
   }
 
   regresar(): void {
-    this.storageService.removeItem('examen-datos');
-    this.router.navigateByUrl('/resultados/detalle-resultado');
+    this.servicioMensajesSwal
+      .mensajePregunta('¿Está seguro de regresar?')
+      .then((response) => {
+        if (response.isConfirmed) {
+          this.storageService.removeItem('examen-datos');
+          this.router.navigateByUrl('/resultados/detalle-resultado');
+        }
+      });
   }
 }

@@ -105,7 +105,6 @@ export class ResultadosComponent implements OnInit {
     const byteArray = new Uint8Array(byteNumbers);
     const fileBlob = new Blob([byteArray], { type: 'application/pdf' });
 
-    // Crear URL de descarga
     const fileURL = URL.createObjectURL(fileBlob);
     const a = document.createElement('a');
     a.href = fileURL;

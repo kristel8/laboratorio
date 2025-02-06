@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { IEmpleado } from 'src/app/modules/empleado/models/empleado';
 import { EmpleadoService } from 'src/app/modules/empleado/services/empleado.service';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IDetallePermiso, IMenu, ITipoUsuario, IUsuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario.service';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mantenimiento-usuario',
@@ -38,7 +38,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
   idUsuario!: number;
 
   constructor(
-    private fb: FormBuilder, //inicializa el form
+    private fb: FormBuilder,
     private serviceUsuario: UsuarioService,
     private serviceEmpleado: EmpleadoService,
     private router: Router,
@@ -68,15 +68,11 @@ export class MantenimientoUsuarioComponent implements OnInit {
       this.serviceEmpleado.getAllActivos().pipe(
         switchMap((res: IEmpleado[]) => {
           this.listaEmpleados = res;
-          console.log('listaEmpleados',this.listaEmpleados);
           return this.serviceUsuario.getFindById(+this.id)
         })
       ).subscribe((resultado) => {
         this.mostrarValoresInput(resultado[0]);
       });
-
-      this.buscarIdDetallePermiso().subscribe();
-
     }
 
     this.listaTipoUsuario = [
@@ -137,8 +133,9 @@ export class MantenimientoUsuarioComponent implements OnInit {
       this.guardarDetallePermiso(+this.id);
     } else {
       this.crearElemento(params).subscribe((idUsuario: any) => {
-        console.log(idUsuario);
-        this.guardarDetallePermiso(idUsuario);
+        if (idUsuario) {
+          this.guardarDetallePermiso(idUsuario);
+        }
       });
     }
   }
@@ -151,6 +148,9 @@ export class MantenimientoUsuarioComponent implements OnInit {
         idMenu: res.idMenu,
         idUsuario: idUsuario
       }
+
+
+      console.log('request detallePermiso', detallePermiso);
 
       listaDetallePermiso.push(detallePermiso);
     });
@@ -182,10 +182,16 @@ export class MantenimientoUsuarioComponent implements OnInit {
       this.serviceUsuario
         .insert(params)
         .subscribe((response: IUsuario) => {
-          this.idUsuario = response.idGenerado as number
-          observer.next(this.idUsuario);
+          debugger
+          if (response.idGenerado) {
+            this.idUsuario = response.idGenerado as number;
+            observer.next(this.idUsuario);
+          }
+          console.log(this.idUsuario);
         });
     });
+
+    console.log(obs);
     return obs;
 
   }

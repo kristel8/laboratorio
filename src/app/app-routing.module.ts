@@ -21,36 +21,6 @@ const routes: Routes = [
         //canActivate: [AuthGuard]
       },
       {
-        path: 'categorias',
-        loadChildren: () => import('./modules/categoria/categoria.module').then(m => m.CategoriaModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'productos',
-        loadChildren: () => import('./modules/producto/producto.module').then(m => m.ProductoModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'config-documento-impresos',
-        loadChildren: () => import('./modules/config-documento-impreso/config-documento-impreso.module').then(m => m.ConfigDocumentoImpresoModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'importar-productos',
-        loadChildren: () => import('./modules/importar-producto/importar-producto.module').then(m => m.ImportarProductoModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'almacen-central',
-        loadChildren: () => import('./modules/almacen-central/almacen-central.module').then(m => m.AlmacenCentralModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
         path: 'empleados',
         loadChildren: () => import('./modules/empleado/empleado.module').then(m => m.EmpleadoModule),
         //canLoad: [AuthGuard],
@@ -59,12 +29,6 @@ const routes: Routes = [
       {
         path: 'clientes',
         loadChildren: () => import('./modules/cliente/cliente.module').then(m => m.ClienteModule),
-        //canLoad: [AuthGuard],
-        //canActivate: [AuthGuard]
-      },
-      {
-        path: 'almacen-sucursal',
-        loadChildren: () => import('./modules/almacen-sucursal/almacen-sucursal.module').then(m => m.AlmacenSucursalModule),
         //canLoad: [AuthGuard],
         //canActivate: [AuthGuard]
       },

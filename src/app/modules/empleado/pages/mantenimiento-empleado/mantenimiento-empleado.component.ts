@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PATTERNS } from 'src/app/global/pattern';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IEmpleado } from '../../models/empleado';
 import { EmpleadoService } from '../../services/empleado.service';
-import { PATTERNS } from 'src/app/global/pattern';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-mantenimiento-empleado',
@@ -18,24 +19,25 @@ export class MantenimientoEmpleadoComponent implements OnInit {
   id!: string;
   isEditar: boolean = false;
 
-  colsEmpleado: IColumnasTabla [] = [];
-  colsEmpleadoVisibles: IColumnasTabla [] = [];
-  listaElementos: IEmpleado [] = [];
+  colsEmpleado: IColumnasTabla[] = [];
+  colsEmpleadoVisibles: IColumnasTabla[] = [];
+  listaElementos: IEmpleado[] = [];
 
-  tipoDocumentos: any [] = [];
-  tipoCargos: any [] = [];
-  listaCargos: any [] = [];
+  tipoDocumentos: any[] = [];
+  tipoCargos: any[] = [];
+  listaCargos: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private serviceEmpleado: EmpleadoService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
+    private servicioMensajesSwal: MensajesSwalService
   ) { }
 
   empleadoForm = this.fb.group({
     tipoDocumento: [null, [Validators.required]],
-    numDocumento: [null, [Validators.required,  Validators.minLength(8),  Validators.maxLength(12)]],
+    numDocumento: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
     nombre: [null, [Validators.required]],
     apellido: [null, [Validators.required]],
     direccion: [null, [Validators.required]],
@@ -126,7 +128,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       telefono,
       celular,
       cargo,
-     } = this.empleadoForm.value;
+    } = this.empleadoForm.value;
 
     const params: IEmpleado = {
       tipoDocumento: tipoDocumento.tipo,
@@ -149,9 +151,9 @@ export class MantenimientoEmpleadoComponent implements OnInit {
   crearElemento(params: IEmpleado) {
     this.serviceEmpleado
       .insert(params)
-      .subscribe((response: IEmpleado) => {
+      .subscribe(() => {
         this.router.navigateByUrl('/empleados');
-        //this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
       });
   }
 
@@ -160,7 +162,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
       .update(+this.id, params)
       .subscribe(() => {
         this.router.navigateByUrl('/empleados');
-        //this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+        this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
       });
   }
 
@@ -172,7 +174,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
   }
 
 
-  mostrarValoresInput(resultado: any ) {
+  mostrarValoresInput(resultado: any) {
     const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
     const cargo = this.tipoCargos.find((e) => e.tipo === resultado.cargo);
 
