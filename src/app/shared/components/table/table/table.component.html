@@ -128,10 +128,20 @@
       <td *ngIf="isMostrarMasOpciones" class="t-flex-start" [ngStyle]="{'min-width': anchoColumna}"
         style="justify-content: center;">
         <ng-container *ngFor="let x of acciones">
-          <app-button *ngIf="x.estado" [icono]="x.icono" [estiloBoton]="x.clase"
-            (eventoClick)="esUnaAccion( x.evento, rowData, $event)" [isDisabled]="x.isDisabled" [tooltip]="x.tooltip">
+          <app-button
+            *ngIf="((x.evento !== 'imprimir') || (rowData.estadoPago !== 'PENDIENTE' || rowData.estadoAtencionAnalisis === 'COMPLETADO')) &&
+            (x.evento !== 'pagar' || rowData.estadoPago !== 'PAGADO') &&
+            x.estado"
+            [icono]="x.icono"
+            [estiloBoton]="x.clase"
+            (eventoClick)="esUnaAccion(x.evento, rowData, $event)"
+            [isDisabled]="x.isDisabled"
+            [tooltip]="x.tooltip">
           </app-button>
         </ng-container>
+
+
+
       </td>
     </tr>
   </ng-template>
@@ -151,7 +161,7 @@
   <ng-template pTemplate="footer" *ngIf="footer">
     <tr>
       <td colspan="4" class="text-right">Total</td>
-      <td colspan="1" >{{total | currency: 'S/'}}</td>
+      <td colspan="1">{{total | currency: 'S/'}}</td>
     </tr>
   </ng-template>
 

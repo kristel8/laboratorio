@@ -22,7 +22,7 @@ export interface IDetalleAnalisis {
   idPlantillaAnalisis: number;
   descripcion: string;
   unidad: string;
-  valorReferencial: string;
+  valorReferencia: string;
   resultado: number;
   idAtencionAnalisis: number;
 }

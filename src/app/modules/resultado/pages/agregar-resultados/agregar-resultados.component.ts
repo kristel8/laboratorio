@@ -7,6 +7,7 @@ import { ResultadosService } from '../../services/resultados.service';
 import { IDetalleAnalisis, IResultadoAtencion } from '../../models/resultado';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/global/response';
+import { PlantillaExamenService } from 'src/app/modules/examenes/services/plantilla-examen.service';
 
 @Component({
   selector: 'app-agregar-resultados',
@@ -33,6 +34,7 @@ export class AgregarResultadosComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private resultadosService: ResultadosService,
+    private plantillaExamenService: PlantillaExamenService,
     private storageService: StorageService
   ) { }
 
@@ -51,17 +53,38 @@ export class AgregarResultadosComponent implements OnInit {
   getItems(): void {
     this.validateAtencionSeleccionado();
     this.loading = true;
-    this.resultadosService.getFindByIdAnalisis(this.examenSeleccionado.idAtencionAnalisis).subscribe((response) => {
-      if (response) {
-        this.loading = false;
-        this.getColumnasTabla();
-        this.listaDetalleExamenes = response;
+    const seleccionadoExamen = this.examenSeleccionado = this.storageService.getItem('examen-datos', true);
+    console.log(seleccionadoExamen);
+    this.isEditar = seleccionadoExamen.estadoAtencionAnalisis === 'COMPLETADO';
 
-        this.listaDetalleExamenes.forEach((item) => {
-          this.agregarFila(item);
-        })
-      }
-    })
+    if (!this.isEditar) {
+
+      this.plantillaExamenService.getFindById(this.examenSeleccionado.idAnalisis).subscribe((response) => {
+        if (response) {
+          this.loading = false;
+          this.getColumnasTabla();
+          this.listaDetalleExamenes = response;
+
+          this.listaDetalleExamenes.forEach((item) => {
+            this.agregarFila(item);
+          })
+        }
+      })
+    } else {
+
+      this.resultadosService.getFindByIdAnalisis(this.examenSeleccionado.idAtencionAnalisis).subscribe((response) => {
+        if (response) {
+          this.loading = false;
+          this.getColumnasTabla();
+          this.listaDetalleExamenes = response;
+
+          this.listaDetalleExamenes.forEach((item) => {
+            this.agregarFila(item);
+          })
+        }
+      })
+    }
+
   }
 
   agregarFila(data?: IDetalleAnalisis): void {
@@ -71,7 +94,7 @@ export class AgregarResultadosComponent implements OnInit {
       descripcion: [data?.descripcion],
       resultado: [data?.resultado || null, Validators.required],
       unidad: [data?.unidad],
-      valorReferencial: [data?.valorReferencial],
+      valorReferencia: [data?.valorReferencia],
       idAtencionAnalisis: [data?.idAtencionAnalisis],
     });
 
@@ -106,7 +129,7 @@ export class AgregarResultadosComponent implements OnInit {
       { field: 'descripcion', header: 'Descripción', visibility: true, formatoFecha: '' },
       { field: 'resultado', header: 'Resultado', visibility: true, formatoFecha: '' },
       { field: 'unidad', header: 'Unidad', visibility: true, formatoFecha: '' },
-      { field: 'valorReferencial', header: 'Valor referencial', visibility: true, formatoFecha: '' },
+      { field: 'valorReferencia', header: 'Valor referencial', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
@@ -121,7 +144,7 @@ export class AgregarResultadosComponent implements OnInit {
         idResultadoAtencion: item.idResultadoAtencion ?? 0,
         idPlantillaAnalisis: item.idPlantillaAnalisis,
         resultado: item.resultado,
-        idAtencionAnalisis: item.idAtencionAnalisis
+        idAtencionAnalisis: this.examenSeleccionado.idAtencionAnalisis
       })
     });
 
@@ -129,16 +152,16 @@ export class AgregarResultadosComponent implements OnInit {
       if (response) {
         this.storageService.removeItem('atencion-datos');
         this.storageService.removeItem('examen-datos');
-        this.router.navigateByUrl('/resultado');
+        this.router.navigateByUrl('/resultados');
       }
     });
   }
 
   insertOrUpdateElemento(params: IResultadoAtencion[]): Observable<IResponse> {
     if (this.isEditar) {
-      return this.resultadosService.insert(params);
-    } else {
       return this.resultadosService.update(params);
+    } else {
+      return this.resultadosService.insert(params);
     }
   }
 

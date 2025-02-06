@@ -12,7 +12,7 @@ export class LocaleUtil {
   }
 
   setItem(title: string, param: any) {
-    if( typeof param === 'string') {
+    if (typeof param === 'string') {
       return localStorage.setItem(title, param);
     }
 
@@ -38,15 +38,15 @@ export class LocaleUtil {
     let meses = hoy.getMonth() - nacimiento.getMonth();
     let días = hoy.getDate() - nacimiento.getDate();
 
+    if (días < 0) {
+      const ultimoDiaMesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
+      días += ultimoDiaMesAnterior;
+      meses--; // Ajustamos los meses después de compensar los días
+    }
+
     if (meses < 0) {
       años--;
       meses += 12;
-    }
-
-    if (días < 0) {
-      meses--;
-      const ultimoDiaMesAnterior = new Date(hoy.getFullYear(), hoy.getMonth(), 0).getDate();
-      días += ultimoDiaMesAnterior;
     }
 
     return { años, meses, días };

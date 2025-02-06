@@ -8,6 +8,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, startWith } from 'rxjs/operators';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
+import * as printJS from 'print-js';
 
 @Component({
   selector: 'app-caja',
@@ -59,9 +60,9 @@ export class CajaComponent implements OnInit {
     fechaPago: [null],
     idAtencion: [null],
     tipoPago: [null, Validators.required],
-    descuentoTotal: [null],
+    descuentoTotal: [0],
     total: [null],
-    acuenta: [null],
+    acuenta: [0],
   });
 
   options: any[] = [
@@ -79,6 +80,9 @@ export class CajaComponent implements OnInit {
     return this.cajaBuscadorForm.get('medioPago');
   }
 
+  get idPago(): AbstractControl {
+    return this.cajaForm.get('idPago') as AbstractControl;
+  }
 
   get subTotal(): AbstractControl {
     return this.cajaForm.get('subTotal') as AbstractControl;
@@ -183,6 +187,11 @@ export class CajaComponent implements OnInit {
       case 'pagar':
         this.openModalPagar(data)
         break;
+
+      case 'imprimir':
+        this.imprimirTicket(data.idPago)
+        break;
+
     }
   }
 
@@ -269,8 +278,14 @@ export class CajaComponent implements OnInit {
   }
 
   pagar(): void {
+    this.acuenta.setValue(0);
+    this.descuentoTotal.setValue(0);
+
     this.cajaService.pagar(this.cajaForm.getRawValue()).subscribe((response) => {
       console.log(response);
+      this.isOpenModal = false;
+      this.buscar();
+      this.imprimirTicket(this.idPago.value);
     })
   }
 
@@ -290,4 +305,19 @@ export class CajaComponent implements OnInit {
     return `Pagar ${this.currencyPipe.transform(total, 'S/')}`;
   }
 
+  imprimirTicket(id: number): void {
+    this.cajaService.generarTicket(id).subscribe((response) => {
+      console.log(response);
+      const base64 = response.data[0].file as string;
+      printJS({
+        printable: base64,
+        type: 'pdf',
+        base64: true,
+        showModal: false, // Evita mostrar la ventana de carga
+        onPrintDialogClose: () => {
+          console.log("Impresión finalizada");
+        }
+      });
+    });
+  }
 }
