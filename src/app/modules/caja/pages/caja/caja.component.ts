@@ -266,8 +266,9 @@ export class CajaComponent implements OnInit {
   }
 
   pagar(): void {
-    this.acuenta.setValue(0);
-    this.descuentoTotal.setValue(0);
+
+    if (!this.acuenta.value) this.acuenta.setValue(0);
+    if (!this.descuentoTotal.value) this.descuentoTotal.setValue(0);
 
     this.cajaService.pagar(this.cajaForm.getRawValue()).subscribe((response) => {
       this.isOpenModal = false;
