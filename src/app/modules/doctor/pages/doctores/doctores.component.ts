@@ -130,6 +130,7 @@ export class DoctoresComponent implements OnInit {
   openModalDoctor(): void {
     this.isEditar = false;
     this.isOpenModal = true;
+    this.codigo?.enable();
     this.doctoresForm.reset();
   }
 

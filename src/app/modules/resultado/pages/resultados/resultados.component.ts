@@ -72,13 +72,8 @@ export class ResultadosComponent implements OnInit {
     this.router.navigateByUrl(`resultados/detalle-resultado`);
   }
 
-  imprimir(data: any, isFirma: boolean): void {
-    const request = {
-      idAtencion: data.idAtencion,
-      isFirma: isFirma
-    }
-
-    this.resultadoService.generarReporte(request).subscribe((response) => {
+  imprimir(data: any, isFirma: number): void {
+    this.resultadoService.generarReporte(data.idAtencion, isFirma).subscribe((response) => {
       if (isFirma) {
         this.enviar(data, response)
       } else {
