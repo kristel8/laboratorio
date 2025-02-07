@@ -154,7 +154,7 @@ export class MantenimientoPacienteComponent implements OnInit {
     } = this.pacienteForm.getRawValue();
 
     const params: IPaciente = {
-      tipoDocumento,
+      tipoDocumento: tipoDocumento.tipo,
       numDocumento,
       apellidos,
       nombre: nombres,
