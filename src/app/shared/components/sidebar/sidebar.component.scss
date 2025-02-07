@@ -90,7 +90,7 @@
       .icons2 {
         font-size: 18px;
         margin: 0 0.5rem;
-        padding-left: 10px; 
+        padding-left: 10px;
       }
 
       .sidenav-link-icon-circle {
@@ -199,6 +199,10 @@
   display: grid;
   justify-content: center;
 
+}
+
+.sidebar_info {
+  width: 150px;
 }
 
 .sidebar_info h3{
