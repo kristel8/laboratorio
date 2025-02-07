@@ -18,6 +18,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { of } from 'rxjs';
 import { MensajesToastService } from 'src/app/shared/services/mensajes-toast.service';
 import { LocaleUtil } from 'src/app/global/locale.utils';
+import { documentoValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-crear-atencion',
@@ -45,6 +46,7 @@ export class CrearAtencionComponent implements OnInit {
   selectedItems: IExamen[] = [];
   loading = true;
   mesajeNotItems = MensajesGlobales._MENSAJE_NOT_ITEMS;
+  optionDisabled = 'inactive';
 
   constructor(
     private fb: FormBuilder,
@@ -75,7 +77,7 @@ export class CrearAtencionComponent implements OnInit {
   atencionForm = this.fb.group({
     pacienteForm: this.fb.group({
       tipoDocumento: [null, [Validators.required]],
-      numDocumento: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
+      numDocumento: [null, [Validators.required, documentoValidator()]],
       apellidos: [null, [Validators.required]],
       nombres: [null, [Validators.required]],
       fechaNacimiento: [null, [Validators.required]],
@@ -87,11 +89,13 @@ export class CrearAtencionComponent implements OnInit {
       antecedentes: [null, [Validators.required]],
       referencia: [null],
       idPaciente: [null],
+      idAnalisis: [null],
     }),
 
     examenForm: this.fb.group({
     }),
   });
+
 
   get idPaciente() {
     return this.pacienteFormCtrl.get('idPaciente');
@@ -141,6 +145,10 @@ export class CrearAtencionComponent implements OnInit {
     return this.pacienteFormCtrl.get('referencia');
   }
 
+  get idAnalisis() {
+    return this.pacienteFormCtrl.get('idAnalisis');
+  }
+
   get pacienteFormCtrl() {
     return this.atencionForm.get('pacienteForm')!;
   }
@@ -155,6 +163,10 @@ export class CrearAtencionComponent implements OnInit {
       { name: 'Examenes', value: MENU.Examen, inactive: true },
     ];
 
+    this.pacienteFormCtrl.get('tipoDocumento')?.valueChanges.subscribe(() => {
+      this.pacienteFormCtrl.get('numDocumento')?.updateValueAndValidity();
+    });
+
     this.pacienteFormCtrl.disable();
     this.numDocumento?.enable();
     this.referencia?.enable();
@@ -162,7 +174,7 @@ export class CrearAtencionComponent implements OnInit {
 
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.titulo = 'Editar Atencion';
+      this.titulo = 'Ver Atencion';
       this.id = id;
       this.isEditar = true;
       this.buscarIdElemento();
@@ -205,7 +217,6 @@ export class CrearAtencionComponent implements OnInit {
       this.isNotLoaded = false;
       const genero = this.generos.find((genero) => genero.tipo === paciente.genero);
       const edad = this.util.calcularEdad(paciente.fechaNacimiento);
-      console.log(edad);
       this.pacienteFormCtrl.patchValue({
         idPaciente: paciente.idPaciente,
         apellidos: paciente.apellidos,
@@ -231,6 +242,9 @@ export class CrearAtencionComponent implements OnInit {
     this.serviceExamen.getAllActivos().subscribe((examenes) => {
       this.elementos = examenes;
       this.loading = false;
+      if (this.isEditar) {
+        this.selectedItems = this.elementos.filter(el => this.idAnalisis?.value.includes(el.idAnalisis));
+      }
     });
   }
   guardarElemento(): void {
@@ -285,27 +299,29 @@ export class CrearAtencionComponent implements OnInit {
 
   mostrarValoresInput(resultado: any) {
     const genero = this.generos.find((e) => e.tipo === resultado.genero);
-    const referencia = this.referencias.find((e) => e.tipo === resultado.referencia);
+    const referencia = this.referencias.find((e) => e.idDoctor === resultado.idDoctor);
     const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
+    const edad = this.util.calcularEdad(resultado.fechaNacimiento);
+    const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
 
-    this.tipoDocumento?.disable();
-    this.numDocumento?.disable();
+    this.atencionForm.disable();
+    this.isNotLoaded = false;
 
-    this.atencionForm.patchValue({
-      tipoDocumento: resultado.tipoDocumento,
+    this.pacienteFormCtrl.patchValue({
+      tipoDocumento: tipoDocumento,
       numDocumento: resultado.numDocumento,
       apellidos: resultado.apellidos,
-      nombres: resultado.nombre,
+      nombres: resultado.nombres,
       fechaNacimiento: fechaTransformada,
       genero: genero,
       email: resultado.email,
       celular: resultado.celular,
-      edad: resultado.edad,
+      edad: `${edad.años} años, ${edad.meses} meses, ${edad.días} días `,
       antecedentes: resultado.antecedentes,
+      direccion: resultado.direccion,
       referencia: referencia,
+      idAnalisis: resultado.idAnalisis
     });
-
-    console.log(this.atencionForm.getRawValue());
   }
 
 }

@@ -12,7 +12,6 @@ export class TipoPagoIconPipe implements PipeTransform {
       'pos': `assets/images/caja/${value}.svg`
     };
 
-    console.log(icons[value]);
     return icons[value];
   }
 }

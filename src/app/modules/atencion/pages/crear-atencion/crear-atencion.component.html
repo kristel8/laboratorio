@@ -2,7 +2,7 @@
   <h2>Crear atencion</h2>
   <br>
   <p-selectButton [options]="menuOptions" [formControl]="menuControl" optionLabel="name" optionValue="value"
-    optionDisabled="inactive"></p-selectButton>
+    [optionDisabled]="optionDisabled"></p-selectButton>
   <br>
 
   <div formGroupName="pacienteForm" *ngIf="menuControl.value === menu.Paciente">
@@ -25,9 +25,11 @@
 
           <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
             <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
-            <small *ngIf="numDocumento?.errors?.['minlength']" class="p-error">Debe tener 8 o 11
-              dígitos</small>
+            <small *ngIf="numDocumento?.errors?.['dniInvalido']" class="p-error">{{ numDocumento?.errors?.['dniInvalido'] }}</small>
+            <small *ngIf="numDocumento?.errors?.['ceInvalido']" class="p-error">{{ numDocumento?.errors?.['ceInvalido'] }}</small>
           </div>
+
+
         </div>
         <button pButton type="button" label="Buscar" *ngIf="!isEditar" (click)="buscarPaciente()"></button>
         <button pButton type="button" label="Nuevo paciente" *ngIf="!isEditar" icon="pi pi-plus"
@@ -150,7 +152,7 @@
             {{col.header}}
           </th>
           <th style="width: 4rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            <p-tableHeaderCheckbox [disabled]="isEditar"></p-tableHeaderCheckbox>
           </th>
         </tr>
       </ng-template>
@@ -171,7 +173,7 @@
             </div>
           </td>
           <td>
-            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            <p-tableCheckbox [value]="rowData" [disabled]="isEditar"></p-tableCheckbox>
           </td>
         </tr>
       </ng-template>
@@ -197,7 +199,7 @@
         [estiloBoton]="'p-button-outlined p-button-secondary'">
       </app-button>
       <button pButton type="submit" label="Guardar" icon="pi pi-arrow-right" iconPos="right"
-        [disabled]="selectedItems.length === 0"></button>
+        [disabled]="selectedItems.length === 0" *ngIf="!isEditar" ></button>
     </div>
   </div>
 

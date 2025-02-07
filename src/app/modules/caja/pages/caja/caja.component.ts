@@ -128,15 +128,6 @@ export class CajaComponent implements OnInit {
     ];
 
     this.buscar();
-
-    // this.descuentoTotal.valueChanges.pipe(
-    //   startWith(this.descuentoTotal.value),
-    //   distinctUntilChanged()
-    // ).subscribe((descuento) => {
-    //   if (descuento) {
-    //     this.descuento();
-    //   }
-    // });
   }
 
   listarDropdown(): void {
@@ -235,7 +226,6 @@ export class CajaComponent implements OnInit {
         this.tituloModal = `Pagar Orden: ${data.idAtencion}`
         this.isOpenModal = true;
         this.listaExamenes = response;
-        console.log(data);
 
         if (data.estadoPago === 'PENDIENTE') {
           this.descuentoTotal.reset();
@@ -253,8 +243,6 @@ export class CajaComponent implements OnInit {
         } else {
           if (data.acuenta) this.acuenta.disable();
           if (data.acuenta || data.descuentoTotal) this.descuentoTotal.disable();
-
-          console.log(data);
 
           this.cajaForm.patchValue({
             idPago: data.idPago,
@@ -282,7 +270,6 @@ export class CajaComponent implements OnInit {
     this.descuentoTotal.setValue(0);
 
     this.cajaService.pagar(this.cajaForm.getRawValue()).subscribe((response) => {
-      console.log(response);
       this.isOpenModal = false;
       this.buscar();
       this.imprimirTicket(this.idPago.value);
@@ -307,7 +294,6 @@ export class CajaComponent implements OnInit {
 
   imprimirTicket(id: number): void {
     this.cajaService.generarTicket(id).subscribe((response) => {
-      console.log(response);
       const base64 = response.file as string;
       printJS({
         printable: base64,

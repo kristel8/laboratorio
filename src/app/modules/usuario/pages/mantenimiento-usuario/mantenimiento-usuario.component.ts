@@ -65,12 +65,7 @@ export class MantenimientoUsuarioComponent implements OnInit {
       this.id = id;
       this.isEditar = true;
 
-      this.serviceEmpleado.getAllActivos().pipe(
-        switchMap((res: IEmpleado[]) => {
-          this.listaEmpleados = res;
-          return this.serviceUsuario.getFindById(+this.id)
-        })
-      ).subscribe((resultado) => {
+      this.serviceUsuario.getFindById(+this.id).subscribe((resultado) => {
         this.mostrarValoresInput(resultado[0]);
       });
     }
@@ -149,9 +144,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
         idUsuario: idUsuario
       }
 
-
-      console.log('request detallePermiso', detallePermiso);
-
       listaDetallePermiso.push(detallePermiso);
     });
 
@@ -182,16 +174,13 @@ export class MantenimientoUsuarioComponent implements OnInit {
       this.serviceUsuario
         .insert(params)
         .subscribe((response: IUsuario) => {
-          debugger
           if (response.idGenerado) {
             this.idUsuario = response.idGenerado as number;
             observer.next(this.idUsuario);
           }
-          console.log(this.idUsuario);
         });
     });
 
-    console.log(obs);
     return obs;
 
   }
@@ -285,7 +274,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
         (x) => x.numDocumento === valorActual
       );
       if (valorEncontrado) {
-        console.log(valorEncontrado);
         this.usuarioForm.patchValue(
           {
             datosEmpleado: ` ${valorEncontrado.nombre} ${valorEncontrado.apellido}`,
@@ -305,7 +293,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
   putEmpleadoSeleccionado() {
     if (this.rowSeleccionado) {
       const { numDocumento, nombre, apellido } = this.rowSeleccionado;
-      console.log(this.rowSeleccionado);
       this.usuarioForm.patchValue({
         numEmpleado: numDocumento,
         datosEmpleado: `${nombre}  ${apellido}`,

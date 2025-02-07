@@ -5,6 +5,7 @@ import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IAtencionLista } from '../../models/atencion';
 import { AtencionService } from '../../services/atencion.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-atencion',
@@ -21,6 +22,7 @@ export class AtencionComponent implements OnInit {
 
   constructor(
     private service: AtencionService,
+    private router: Router,
     private readonly servicioMensajesSwal: MensajesSwalService,
   ) { }
 
@@ -93,11 +95,17 @@ export class AtencionComponent implements OnInit {
     const { tipo, data } = datos;
     switch (tipo) {
       case 'ver':
+        this.verElemento(data);
         break;
 
       case 'eliminar':
         this.eliminarElemento(data);
         break;
     }
+  }
+
+  verElemento(data: any) {
+    const id = data.idAtencion ;
+    this.router.navigateByUrl(`atencion/crear-atencion/${id}`);
   }
 }

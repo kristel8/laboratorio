@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IAtencion, IAtencionLista, IAtencionResponse } from '../models/atencion';
+import { IAtencion, IAtencionLista, IAtencionResponse, IAtencionSeleccionado } from '../models/atencion';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IResponse } from 'src/app/global/response';
@@ -29,8 +29,8 @@ export class AtencionService {
     return this.httpClient.post<IAtencionResponse>(`${this.URLServicio}atencionanalisis/insert/atencionanalisis`, header);
   }
 
-  getFindById(id: number): Observable<IAtencion[]> {
-    return this.httpClient.get<IAtencion[]>(`${this.URLServicio}atencion/findById/${id}`)
+  getFindById(id: number): Observable<IAtencionSeleccionado[]> {
+    return this.httpClient.get<IAtencionSeleccionado[]>(`${this.URLServicio}atencion/findByIdAtencionForm/${id}`)
   }
 
   update(id: number, header: IAtencion): Observable<IResponse> {

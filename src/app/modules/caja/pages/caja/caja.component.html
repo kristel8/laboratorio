@@ -43,7 +43,7 @@
   <app-table
   *ngIf="isCargado"
   [listaElementos]="listaCaja"
-  [columnas]="colsVisibles" [filas]="5"
+  [columnas]="colsVisibles" [filas]="10"
   [listaElementosAFiltrar]="['idAtencion', 'apellidoYNombres', 'fechaEmision', 'fechaPago', 'tipoPago', 'total','estadoPago']"
   [isMostrarAcciones]="false"
   [isMostrarMasOpciones]="true"
@@ -52,8 +52,8 @@
 
 <p-dialog header="{{tituloModal}}" [(visible)]="isOpenModal" [modal]="true" [style]="{ width: '45vw' }"
   [draggable]="true" [resizable]="true">
-  <p-table #dt [columns]="colsPagar" selectionMode="single" [value]="listaExamenes" dataKey="numDocumento" [rows]="6"
-    [scrollable]="true" responsiveLayout="scroll">
+  <p-table #dt [columns]="colsPagar" selectionMode="single" [value]="listaExamenes" dataKey="numDocumento" [rows]="5"
+    [scrollable]="true" responsiveLayout="scroll" scrollHeight="260px" >
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns">

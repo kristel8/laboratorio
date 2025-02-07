@@ -10,11 +10,7 @@ export function rangeStockValidator(stockActual: string): ValidatorFn {
             return null;
         }
 
-        console.log(+valueEnvio)
-        console.log(+stockActual)
-
         const valid = stockActual >= valueEnvio;
-        console.log(valid)
         return !valid ? {stockValid:true}: null;
     }
 }

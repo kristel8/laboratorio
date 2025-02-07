@@ -27,8 +27,8 @@
 <h3>Lista de exámenes</h3>
 <br>
 <section class="container-table">
-  <app-table *ngIf="isCargado" [listaElementos]="listaDetalleResultado" [columnas]="colsVisibles" [filas]="5"
-    [listaElementosAFiltrar]="['descripcion']" [isOpcionEliminar]="false" [acciones]="acciones"
+  <app-table *ngIf="isCargado" [listaElementos]="listaDetalleResultado" [columnas]="colsVisibles" [filas]="10"
+    [listaElementosAFiltrar]="['estadoAtencionAnalisis', 'examen', 'fechaCreacion', 'fechaModificacion', 'usuario', 'idAnalisis']" [isOpcionEliminar]="false" [acciones]="acciones"
     (eventoAccion)="eventoAccion($event)"></app-table>
 </section>
 

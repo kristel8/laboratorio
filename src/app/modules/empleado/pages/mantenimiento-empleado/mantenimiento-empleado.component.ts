@@ -6,6 +6,7 @@ import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { IEmpleado } from '../../models/empleado';
 import { EmpleadoService } from '../../services/empleado.service';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
+import { documentoValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-mantenimiento-empleado',
@@ -37,7 +38,7 @@ export class MantenimientoEmpleadoComponent implements OnInit {
 
   empleadoForm = this.fb.group({
     tipoDocumento: [null, [Validators.required]],
-    numDocumento: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
+    numDocumento: [null, [Validators.required, documentoValidator()]],
     nombre: [null, [Validators.required]],
     apellido: [null, [Validators.required]],
     direccion: [null, [Validators.required]],
@@ -47,6 +48,9 @@ export class MantenimientoEmpleadoComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.empleadoForm.get('tipoDocumento')?.valueChanges.subscribe(() => {
+      this.empleadoForm.get('numDocumento')?.updateValueAndValidity();
+    });
 
     const id = this._ActivatedRoute.snapshot.paramMap.get('id');
     if (id) {

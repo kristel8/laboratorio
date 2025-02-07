@@ -18,8 +18,8 @@
         autofocus />
         <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
           <small *ngIf="numDocumento?.errors?.['required']" class="p-error">Nro Documento es obligatorio</small>
-          <small *ngIf="numDocumento?.errors?.['minlength']" class="p-error">Debe tener 8 o 11
-            dígitos</small>
+          <small *ngIf="numDocumento?.errors?.['dniInvalido']" class="p-error">{{ numDocumento?.errors?.['dniInvalido'] }}</small>
+          <small *ngIf="numDocumento?.errors?.['ceInvalido']" class="p-error">{{ numDocumento?.errors?.['ceInvalido'] }}</small>
         </div>
       </div>
     </div>

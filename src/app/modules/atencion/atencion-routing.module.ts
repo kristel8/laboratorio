@@ -5,7 +5,8 @@ import { CrearAtencionComponent } from './pages/crear-atencion/crear-atencion.co
 
 const routes: Routes = [
   { path: '', component: AtencionComponent},
-  { path: 'crear-atencion', component: CrearAtencionComponent}
+  { path: 'crear-atencion', component: CrearAtencionComponent},
+  { path: 'crear-atencion/:id', component: CrearAtencionComponent },
 ];
 
 @NgModule({

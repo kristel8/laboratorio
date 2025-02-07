@@ -7,6 +7,7 @@ import { LocaleUtil } from 'src/app/global/locale.utils';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IPaciente } from '../../models/paciente';
 import { PacienteService } from '../../services/paciente.service';
+import { documentoValidator } from 'src/app/shared/validators/validators';
 
 @Component({
   selector: 'app-mantenimiento-paciente',
@@ -42,7 +43,7 @@ export class MantenimientoPacienteComponent implements OnInit {
 
   pacienteForm = this.fb.group({
     tipoDocumento: [null, [Validators.required]],
-    numDocumento: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(11)]],
+    numDocumento: [null, [Validators.required, documentoValidator()]],
     apellidos: [null, [Validators.required]],
     nombres: [null, [Validators.required]],
     fechaNacimiento: [null, [Validators.required]],
@@ -99,6 +100,9 @@ export class MantenimientoPacienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pacienteForm.get('tipoDocumento')?.valueChanges.subscribe(() => {
+      this.pacienteForm.get('numDocumento')?.updateValueAndValidity();
+    });
 
     this.edad?.disable();
 

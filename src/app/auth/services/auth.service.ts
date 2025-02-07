@@ -22,7 +22,6 @@ export class AuthService {
   }
 
   get detallePermisos() {
-    console.log(this.auth.detallePermisos);
     return this.auth.detallePermisos;
   }
 

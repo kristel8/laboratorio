@@ -26,3 +26,18 @@ export interface IAtencionLista {
   idDoctor: number;
   apellidoYNombreDoctor: string;
 }
+
+export interface IAtencionSeleccionado {
+  dni: string;
+  apellidos: string;
+  nombres: string;
+  genero: string;
+  fechaNacimiento: string;
+  email: string;
+  celular: string;
+  direccion: string;
+  antecedentes: string;
+  idDoctor: number;
+  doctor: string;
+  idAnalisis: number[];
+}

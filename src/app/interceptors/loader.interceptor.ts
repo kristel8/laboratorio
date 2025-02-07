@@ -18,7 +18,6 @@ export class LoaderInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       finalize(() => {
         this.activeRequests--;
-        console.log(this.activeRequests);
         if (this.activeRequests === 0) {
           this.loaderService.hide();
         }
