@@ -78,15 +78,15 @@ export class CrearAtencionComponent implements OnInit {
     pacienteForm: this.fb.group({
       tipoDocumento: [null, [Validators.required]],
       numDocumento: [null, [Validators.required, documentoValidator()]],
-      apellidos: [null, [Validators.required]],
-      nombres: [null, [Validators.required]],
-      fechaNacimiento: [null, [Validators.required]],
-      genero: [null, [Validators.required]],
-      edad: [null, [Validators.required]],
-      email: [null, [Validators.required]],
-      celular: [null, [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
-      direccion: [null, [Validators.required]],
-      antecedentes: [null, [Validators.required]],
+      apellidos: [null],
+      nombres: [null],
+      fechaNacimiento: [null],
+      genero: [null],
+      edad: [null],
+      email: [null],
+      celular: [null, [Validators.minLength(9), Validators.maxLength(9)]],
+      direccion: [null],
+      antecedentes: [null],
       referencia: [null],
       idPaciente: [null],
       idAnalisis: [null],
@@ -208,31 +208,56 @@ export class CrearAtencionComponent implements OnInit {
     })
   }
 
-  buscarPaciente(): void {
-    const dniIngresado = this.numDocumento?.value;
-    const paciente = this.pacientes.find((paciente) => paciente.numDocumento === dniIngresado);
-    this.isNotLoaded = true;
+  buscarPaciente(event?: any): void {
+    event?.preventDefault();
+    if (event && event.key !== 'Enter') {
+      return;
+    }
 
-    if (paciente) {
-      this.isNotLoaded = false;
-      const genero = this.generos.find((genero) => genero.tipo === paciente.genero);
-      const edad = this.util.calcularEdad(paciente.fechaNacimiento);
-      this.pacienteFormCtrl.patchValue({
-        idPaciente: paciente.idPaciente,
-        apellidos: paciente.apellidos,
-        nombres: paciente.nombre,
-        fechaNacimiento: paciente.fechaNacimiento,
-        edad: `${edad.años} años, ${edad.meses} meses, ${edad.días} días `,
-        genero: genero,
-        email: paciente.email,
-        celular: paciente.celular,
-        direccion: paciente.direccion,
-        antecedentes: paciente.antecedentes,
+    const dniIngresado = this.numDocumento?.value;
+    if (!dniIngresado || !this.numDocumento?.valid) {
+      this.serviceMensajesToast.showError('Ingrese un documento válido.');
+      return;
+    }
+
+    const paciente = this.pacientes.find(p => p.numDocumento === dniIngresado);
+    if (!paciente) {
+      this.serviceMensajesToast.showError('El paciente no se encuentra registrado.');
+      return;
+    }
+
+    this.isNotLoaded = false;
+    this.validateFechaNacimiento(paciente);
+
+    const genero = this.generos.find(g => g.tipo === paciente.genero);
+    const edadTransformada = this.util.calcularEdad(paciente.fechaNacimiento);
+
+    this.pacienteFormCtrl.patchValue({
+      idPaciente: paciente.idPaciente,
+      apellidos: paciente.apellidos,
+      nombres: paciente.nombre,
+      fechaNacimiento: paciente.fechaNacimiento,
+      edad: edadTransformada,
+      genero: genero,
+      email: paciente.email,
+      celular: paciente.celular,
+      direccion: paciente.direccion,
+      antecedentes: paciente.antecedentes,
+    });
+
+    this.pacienteFormCtrl.updateValueAndValidity();
+  }
+
+  validateFechaNacimiento(paciente: IPaciente) {
+    if (!paciente?.fechaNacimiento) {
+      this.servicioMensajesSwal.mensajeAdvertenciaOpcion('El paciente no tiene fecha de nacimiento registrada. Vamos actualizarlo.')
+      .then((response) => {
+        if (response.isConfirmed) {
+          this.router.navigateByUrl(`paciente/mantenimiento-paciente/${paciente?.idPaciente}`);
+        }
       });
 
-      this.pacienteFormCtrl.updateValueAndValidity();
-    } else {
-      this.serviceMensajesToast.showError('El paciente no se encuentra registrado.');
+      return;
     }
   }
 
@@ -301,7 +326,7 @@ export class CrearAtencionComponent implements OnInit {
     const genero = this.generos.find((e) => e.tipo === resultado.genero);
     const referencia = this.referencias.find((e) => e.idDoctor === resultado.idDoctor);
     const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
-    const edad = this.util.calcularEdad(resultado.fechaNacimiento);
+    const edadTransformada = this.util.calcularEdad(resultado.fechaNacimiento);
     const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
 
     this.atencionForm.disable();
@@ -316,7 +341,7 @@ export class CrearAtencionComponent implements OnInit {
       genero: genero,
       email: resultado.email,
       celular: resultado.celular,
-      edad: `${edad.años} años, ${edad.meses} meses, ${edad.días} días `,
+      edad: edadTransformada,
       antecedentes: resultado.antecedentes,
       direccion: resultado.direccion,
       referencia: referencia,

@@ -47,3 +47,16 @@
   min-width: 130px;
   justify-self: center;
 }
+
+.caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+
+  &__search {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+  }
+}

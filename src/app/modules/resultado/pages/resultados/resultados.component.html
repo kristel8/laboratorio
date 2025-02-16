@@ -5,8 +5,8 @@
 <h3>Lista de atenciones</h3>
 <br>
 <section class="container-table">
-  <p-table #dt [columns]="cols" [value]="listaAtenciones" [rows]="8" [paginator]="true" dataKey="idAnalisis"
-    [loading]="isCargado" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} elementos"
+  <p-table #dt styleClass="p-datatable-striped" [columns]="cols" [value]="listaAtenciones" [rows]="8" [paginator]="true" [scrollable]="true" dataKey="idAnalisis"
+    [loading]="isCargado" scrollHeight="400px" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} elementos"
     [showCurrentPageReport]="true">
     <ng-template pTemplate="caption">
       <div class="caption">
@@ -24,16 +24,16 @@
     </ng-template>
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of columns">
+        <th *ngFor="let col of columns" style="justify-content: center;">
           {{col.header}}
         </th>
-        <th>Opciones</th>
+        <th pFrozenColumn [frozen]="true" alignFrozen="right" style="justify-content: center;">Opciones</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-rowData let-columns="columns">
       <tr>
-        <td *ngFor="let col of columns">
+        <td *ngFor="let col of columns" style="justify-content: center;">
           <div [ngSwitch]="col.field">
             <div *ngSwitchCase="'estadoOrden'" [value]="rowData[col.field]" appStyleEstado>
               {{ rowData[col.field] }}
@@ -44,7 +44,7 @@
             </div>
           </div>
         </td>
-        <td class="contain-buttons">
+        <td class="contain-buttons" pFrozenColumn [frozen]="true" alignFrozen="right">
           <button pButton (click)="verExamenes(rowData)" type="button" icon="pi pi-eye" pTooltip="Ver exámenes"
             class="p-button-rounded p-button-success"></button>
           <button *ngIf="rowData.estadoOrden === 'COMPLETADO'" pButton (click)="imprimir(rowData, 0)" type="button" icon="pi pi-print"

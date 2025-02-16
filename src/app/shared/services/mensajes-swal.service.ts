@@ -104,6 +104,23 @@ export class MensajesSwalService {
     });
   }
 
+  mensajeAdvertenciaOpcion(mensaje: string): Promise<SweetAlertResult<any>> {
+    const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) => {
+      Swal.fire({
+        title: 'Advertencia',
+        text: mensaje,
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+      }).then(
+        respuesta => {
+          resolve(respuesta);
+        }
+      )
+    });
+
+    return promesa;
+  }
+
   mensajePregunta(mensaje: string): Promise<SweetAlertResult<any>> {
     const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) => {
       Swal.fire({

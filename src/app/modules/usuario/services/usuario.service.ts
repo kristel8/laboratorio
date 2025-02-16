@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IDetallePermiso, IMenu, IUsuario } from '../models/usuario';
+import { IResponse } from 'src/app/global/response';
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +26,8 @@ export class UsuarioService {
     return this.httpClient.get<IUsuario[]>(`${this.URLServicio}usuario/findById/${id}`);
   }
 
-  update(id: number, header: IUsuario):Observable<IUsuario> {
-    return this.httpClient.put<IUsuario>(`${this.URLServicio}usuario/update/${id}`, header);
+  update(id: number, header: IUsuario):Observable<IResponse> {
+    return this.httpClient.put<IResponse>(`${this.URLServicio}usuario/update/${id}`, header);
   }
 
   setInactive(id: number):Observable<any> {

@@ -30,7 +30,7 @@ export class LocaleUtil {
     );
   }
 
-  calcularEdad(fechaNacimiento: string): { años: number, meses: number, días: number } {
+  calcularEdad(fechaNacimiento: string): string {
     const nacimiento = new Date(fechaNacimiento);
     const hoy = new Date();
 
@@ -49,7 +49,14 @@ export class LocaleUtil {
       meses += 12;
     }
 
-    return { años, meses, días };
+    // Devolver solo la unidad relevante
+    if (años > 0) {
+      return `${años} ${años === 1 ? 'año' : 'años'}`;
+    } else if (meses > 0) {
+      return `${meses} ${meses === 1 ? 'mes' : 'meses'}`;
+    } else {
+      return `${días} ${días === 1 ? 'día' : 'días'}`;
+    }
   }
 
 }

@@ -30,9 +30,9 @@
         {{ col.header }} <p-sortIcon *ngIf="isSorting" field="{{ col.field }}"></p-sortIcon>
       </th>
       <th *ngIf="isMostrarAcciones" [ngStyle]="{'min-width': anchoColumna}"
-        style="text-align: center; justify-content: center;">Opciones</th>
+        style="text-align: center; justify-content: center;" pFrozenColumn [frozen]="true" alignFrozen="right">Opciones</th>
       <th *ngIf="isMostrarMasOpciones" [ngStyle]="{'min-width': anchoColumna}"
-        style="text-align: center; justify-content: center;">Opciones</th>
+        style="text-align: center; justify-content: center;" pFrozenColumn [frozen]="true" alignFrozen="right">Opciones</th>
     </tr>
   </ng-template>
 
@@ -118,7 +118,8 @@
           </div>
         </div>
       </td>
-      <td *ngIf="isMostrarAcciones" class="t-flex-start" style="justify-content: center; column-gap: 10px;">
+      <td *ngIf="isMostrarAcciones" class="t-flex-start" style="justify-content: center; column-gap: 10px;"
+      pFrozenColumn [frozen]="true" alignFrozen="right">
         <app-button *ngIf="isOpcionEditar" [icono]="'pi pi-pencil'" [estiloBoton]="'rounded'"
           (eventoClick)="esUnaAccion('editar', rowData)"></app-button>
         <app-button *ngIf="isOpcionEliminar" [icono]="'pi pi-trash'" [estiloBoton]="'rounded-danger'"
@@ -126,7 +127,7 @@
       </td>
 
       <td *ngIf="isMostrarMasOpciones" class="t-flex-start" [ngStyle]="{'min-width': anchoColumna}"
-        style="justify-content: center;">
+        style="justify-content: center;" pFrozenColumn [frozen]="true" alignFrozen="right">
         <ng-container *ngFor="let x of acciones">
           <app-button
             *ngIf="((x.evento !== 'imprimir') || (rowData.estadoPago !== 'PENDIENTE' || rowData.estadoAtencionAnalisis === 'COMPLETADO')) &&

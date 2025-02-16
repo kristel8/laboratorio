@@ -29,12 +29,11 @@
 
   <h3>Ingrese los resultados:</h3>
   <br>
-  <p-table #dt [columns]="cols" [value]="elementos.controls" [rows]="8" [paginator]="true" dataKey="idAnalisis"
-    [loading]="loading" currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} elementos"
-    [showCurrentPageReport]="true">
+  <p-table #dt [id]="dt" [columns]="cols" dataKey="id" [value]="elementos.controls" dataKey="idAnalisis"
+    [loading]="loading" [responsiveLayout]="'scroll'" [scrollable]="true" scrollHeight="calc(90vh - 300px)" [rowHover]="true">
     <ng-template pTemplate="header" let-columns>
       <tr>
-        <th *ngFor="let col of columns">
+        <th *ngFor="let col of columns" style="justify-content: center;">
           {{col.header}}
         </th>
       </tr>
@@ -43,17 +42,20 @@
     <ng-template pTemplate="body" let-controls let-i="rowIndex">
       <ng-container formArrayName="elementos">
         <tr [formGroupName]="i">
-          <td>
+          <td [width]="'300px'" [ngClass]="{
+            'inputtext-subtitulo': elementos.at(i).get('isSubtitulo')?.value,
+            'inputtext-normal': !elementos.at(i).get('isSubtitulo')?.value
+            }">
             {{controls.value.descripcion}}
           </td>
           <td>
-            <input type="text" formControlName="resultado" pInputText />
+            <input *ngIf="!elementos.at(i).get('isSubtitulo')?.value" type="text" formControlName="resultado" style="width: 180px;" pInputText />
           </td>
           <td>
             {{controls.value.unidad}}
           </td>
-          <td>
-            {{controls.value.valorReferencia}}
+          <td [width]="'300px'">
+            <div [innerHTML]="controls.value.valorReferencia | safeHtml"></div>
           </td>
         </tr>
       </ng-container>

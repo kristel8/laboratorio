@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { ERROR } from 'src/app/global/constantes';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
+import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 import { IDetalleExamen } from '../../models/detalle-examen';
 import { IExamen } from '../../models/examenes';
 import { ExamenService } from '../../services/examen.service';
 import { PlantillaExamenService } from '../../services/plantilla-examen.service';
-import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
 @Component({
   selector: 'app-mantenimiento-examen',
@@ -33,7 +34,8 @@ export class MantenimientoExamenComponent implements OnInit {
     private servicePlantilla: PlantillaExamenService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
-    private servicioMensajesSwal: MensajesSwalService
+    private servicioMensajesSwal: MensajesSwalService,
+    private cdRef: ChangeDetectorRef
   ) {
     this.examenesForm = this.fb.group({
       nombre: [null, [Validators.required]],
@@ -78,6 +80,36 @@ export class MantenimientoExamenComponent implements OnInit {
     return this.examenesForm.get('elementos') as FormArray;
   }
 
+  updateRowState(index: number) {
+    this.cdRef.detectChanges();
+
+    const row = this.elementos.at(index);
+    const isSubtitulo = row.get('isSubtitulo')?.value;
+
+    if (isSubtitulo) {
+      if (row.get('unidad')?.value && row.get('valorReferencia')?.value) {
+        this.servicioMensajesSwal.mensajePregunta('Los campos UNIDAD y VALOR REFERENCIA se borrarán, está seguro de continuar?').then(
+          (response) => {
+            if (response.isConfirmed) {
+              row.get('unidad')?.disable();
+              row.get('valorReferencia')?.disable();
+
+              row.get('unidad')?.reset();
+              row.get('valorReferencia')?.reset();
+            } else {
+              row.get('isSubtitulo')?.setValue(false);
+            }
+          }
+        )
+      } else {
+        row.get('unidad')?.disable();
+        row.get('valorReferencia')?.disable();
+      }
+    } else {
+      row.get('unidad')?.enable();
+      row.get('valorReferencia')?.enable();
+    }
+  }
 
   buscarIdElemento(): void {
     this.service.getFindById(+this.id).pipe(
@@ -87,8 +119,9 @@ export class MantenimientoExamenComponent implements OnInit {
         return this.servicePlantilla.getFindById(resultado.idAnalisis as number)
       })
     ).subscribe((plantilla) => {
-      plantilla.forEach((item) => {
+      plantilla.forEach((item, index) => {
         this.agregarFila(item);
+        this.updateRowState(index);
       })
     });
   }
@@ -107,10 +140,11 @@ export class MantenimientoExamenComponent implements OnInit {
 
   agregarFila(data?: IDetalleExamen): void {
     const nuevaFila = this.fb.group({
+      isSubtitulo: [data?.isSubtitulo || false],
       idPlantillaAnalisis: [data?.idPlantillaAnalisis || null],
       descripcion: [data?.descripcion || null, Validators.required],
-      unidad: [data?.unidad || null, Validators.required],
-      valorReferencia: [data?.valorReferencia || null, Validators.required],
+      unidad: [data?.unidad || null],
+      valorReferencia: [data?.valorReferencia || null],
       estado: [true],
     });
     this.elementos.push(nuevaFila);
@@ -153,9 +187,13 @@ export class MantenimientoExamenComponent implements OnInit {
 
         return this.servicePlantilla.insert(request)
       })
-    ).subscribe(() => {
-      this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
-      this.router.navigateByUrl('/examenes');
+    ).subscribe((response) => {
+      if (response.mensaje.includes(ERROR)) {
+        this.servicioMensajesSwal.mensajeError(response.mensaje);
+      } else {
+        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        this.router.navigateByUrl('/examenes');
+      }
     });
   }
 

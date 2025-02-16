@@ -29,6 +29,7 @@ import { OnlyTextDirective } from './directives/text-only.directive';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEsPe from '@angular/common/locales/es-PE';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 registerLocaleData(localeEsPe); // Registrar localización peruana
 
@@ -49,6 +50,7 @@ registerLocaleData(localeEsPe); // Registrar localización peruana
     FooterTemplateComponent,
     FlagsPipe,
     TipoPagoIconPipe,
+    SafeHtmlPipe,
     StyleEstadoDirective,
     LoadingComponent,
     BodyComponent,
@@ -80,7 +82,8 @@ registerLocaleData(localeEsPe); // Registrar localización peruana
     ToUpperCaseDirective,
     StyleEstadoDirective,
     LoaderComponent,
-    TipoPagoIconPipe
+    TipoPagoIconPipe,
+    SafeHtmlPipe
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es-PE' },

@@ -13,6 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MantenimientoExamenComponent } from './pages/mantenimiento-examen/mantenimiento-examen.component';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { DialogModule } from 'primeng/dialog';
     InputTextareaModule,
     DropdownModule,
     InputNumberModule,
-    DialogModule
+    DialogModule,
+    CheckboxModule
   ],
 })
 export class ExamenesModule { }

@@ -1,4 +1,5 @@
 export interface IPlantillaExamen {
+  isSubtitulo: boolean;
   idPlantillaAnalisis: number;
   descripcion: string;
   unidad: string;

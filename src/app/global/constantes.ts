@@ -16,6 +16,8 @@ export class ConstanteGlobales {
 
 }
 
+export const ERROR = 'ERROR';
+
 export const MENU = {
   Paciente: 1,
   Antecedente: 2,

@@ -61,25 +61,25 @@ export class AgregarResultadosComponent implements OnInit {
     if (!this.isEditar) {
       this.plantillaExamenService.getFindById(this.examenSeleccionado.idAnalisis).subscribe((response) => {
         if (response) {
-          this.loading = false;
           this.getColumnasTabla();
           this.listaDetalleExamenes = response;
-
           this.listaDetalleExamenes.forEach((item) => {
             this.agregarFila(item);
-          })
+          });
+          this.loading = false;
         }
       })
     } else {
       this.resultadosService.getFindByIdAnalisis(this.examenSeleccionado.idAtencionAnalisis).subscribe((response) => {
         if (response) {
-          this.loading = false;
           this.getColumnasTabla();
           this.listaDetalleExamenes = response;
 
           this.listaDetalleExamenes.forEach((item) => {
             this.agregarFila(item);
-          })
+          });
+          this.loading = false;
+
         }
       })
     }
@@ -87,7 +87,9 @@ export class AgregarResultadosComponent implements OnInit {
   }
 
   agregarFila(data?: IDetalleAnalisis): void {
+
     const nuevaFila = this.fb.group({
+      isSubtitulo: [data?.isSubtitulo ?? false],
       idResultadoAtencion: [data?.idResultadoAtencion],
       idPlantillaAnalisis: [data?.idPlantillaAnalisis],
       descripcion: [data?.descripcion],
@@ -96,6 +98,11 @@ export class AgregarResultadosComponent implements OnInit {
       valorReferencia: [data?.valorReferencia],
       idAtencionAnalisis: [data?.idAtencionAnalisis],
     });
+
+    if (data?.isSubtitulo) {
+      nuevaFila.get('resultado')?.clearValidators();
+      nuevaFila.get('resultado')?.updateValueAndValidity();
+    }
 
     this.elementos.push(nuevaFila);
     return;

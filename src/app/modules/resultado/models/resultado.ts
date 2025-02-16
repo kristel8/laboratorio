@@ -18,6 +18,7 @@ export interface IDetalleAtencion {
 }
 
 export interface IDetalleAnalisis {
+  isSubtitulo: boolean;
   idResultadoAtencion: number;
   idPlantillaAnalisis: number;
   descripcion: string;

@@ -17,8 +17,8 @@ export class PacienteService {
     return this.httpClient.get<IPaciente[]>(`${this.URLServicio}paciente/getAllActive`)
   }
 
-  insert(header: IPaciente):Observable<IPaciente> {
-    return this.httpClient.post<IPaciente>(`${this.URLServicio}paciente/insert/paciente`, header);
+  insert(header: IPaciente):Observable<IResponse> {
+    return this.httpClient.post<IResponse>(`${this.URLServicio}paciente/insert/paciente`, header);
   }
 
   getFindById(id: number):Observable<IPaciente> {

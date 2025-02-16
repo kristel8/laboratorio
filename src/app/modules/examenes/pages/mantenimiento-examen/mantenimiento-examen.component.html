@@ -36,10 +36,12 @@
     </div>
   </section>
 
-  <p-table [value]="elementos.controls" class="container-plantilla">
+  <p-table [value]="elementos.controls" class="container-plantilla" [scrollable]="true" scrollHeight="400px"
+    [rowHover]="true" [tableStyle]="{'min-width': '100%'}">
     <ng-template pTemplate="header">
       <tr>
-        <th>Opción</th>
+        <th style="max-width:180px; justify-content: center;">Opción</th>
+        <th style="max-width:100px; justify-content: center;">Subtitulo</th>
         <th>Descripción</th>
         <th style="width: 150px;">Unidad</th>
         <th>Valor Referencia</th>
@@ -48,19 +50,24 @@
     <ng-template pTemplate="body" let-rowData let-i="rowIndex">
       <ng-container formArrayName="elementos">
         <tr [formGroupName]="i">
-          <td >
-            <button pButton (click)="agregarFila()" type="button" icon="pi pi-plus" class="p-button-rounded" style="margin-right: 5px;"></button>
+          <td style="max-width:180px; justify-content: center;">
+            <button pButton (click)="agregarFila()" type="button" icon="pi pi-plus" class="p-button-rounded"
+              style="margin-right: 5px;"></button>
             <button pButton (click)="borrarFila(i)" type="button" [disabled]="elementos.length <= 1" icon="pi pi-minus"
               class="p-button-rounded p-button-danger"></button>
           </td>
-          <td>
-            <input type="text" toUpperCase formControlName="descripcion" pInputText />
+          <td style="max-width:100px; justify-content: center;">
+            <p-checkbox formControlName="isSubtitulo" [binary]="true" (onChange)="updateRowState(i)"></p-checkbox>
           </td>
           <td>
-            <input type="text" toUpperCase formControlName="unidad" pInputText />
+            <input type="text" formControlName="descripcion"
+              [ngStyle]="{'font-weight': elementos.at(i).get('isSubtitulo')?.value ? 'bold' : 'normal'}" pInputText />
           </td>
           <td>
-            <textarea type="text" formControlName="valorReferencia" pInputTextarea [rows]="2"></textarea>
+            <input type="text" formControlName="unidad" pInputText />
+          </td>
+          <td>
+            <textarea type="text" formControlName="valorReferencia" [rows]="2" pInputTextarea></textarea>
           </td>
         </tr>
       </ng-container>

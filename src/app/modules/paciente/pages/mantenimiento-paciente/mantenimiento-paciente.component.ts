@@ -8,6 +8,8 @@ import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.servi
 import { IPaciente } from '../../models/paciente';
 import { PacienteService } from '../../services/paciente.service';
 import { documentoValidator } from 'src/app/shared/validators/validators';
+import { ERROR } from 'src/app/global/constantes';
+import { PATTERNS } from 'src/app/global/pattern';
 
 @Component({
   selector: 'app-mantenimiento-paciente',
@@ -46,13 +48,13 @@ export class MantenimientoPacienteComponent implements OnInit {
     numDocumento: [null, [Validators.required, documentoValidator()]],
     apellidos: [null, [Validators.required]],
     nombres: [null, [Validators.required]],
-    fechaNacimiento: [null, [Validators.required]],
+    fechaNacimiento: [''],
     genero: [null, [Validators.required]],
     edad: [null, [Validators.required]],
-    email: [null, [Validators.required, Validators.email]],
-    celular: [null, [Validators.required, Validators.maxLength(9)]],
-    direccion: [null, [Validators.required]],
-    antecedentes: [null, [Validators.required]],
+    email: ['', [Validators.email]],
+    celular: [null, [Validators.required, Validators.pattern(PATTERNS.CELULAR)]],
+    direccion: [''],
+    antecedentes: [''],
   });
 
   get tipoDocumento() {
@@ -123,6 +125,7 @@ export class MantenimientoPacienteComponent implements OnInit {
       startWith(this.fechaNacimiento.value),
       distinctUntilChanged()
     ).subscribe((fechaNacimiento) => {
+      this.edad?.reset();
       if (fechaNacimiento) this.selectFecha();
     });
   }
@@ -181,9 +184,13 @@ export class MantenimientoPacienteComponent implements OnInit {
   crearElemento(params: IPaciente) {
     this.service
       .insert(params)
-      .subscribe((response: IPaciente) => {
-        this.router.navigateByUrl('/paciente');
-        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+      .subscribe((response) => {
+        if (response.mensaje.includes(ERROR)) {
+          this.servicioMensajesSwal.mensajeError(response.mensaje);
+        } else {
+          this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+          this.router.navigateByUrl('/paciente');
+        }
       });
   }
 
@@ -227,6 +234,6 @@ export class MantenimientoPacienteComponent implements OnInit {
   selectFecha(): void {
     const fechaTransformada = this.formatoFecha.transform(this.fechaNacimiento?.value, 'yyyy-MM-dd')!;
     const edadTransformada = this.util.calcularEdad(fechaTransformada);
-    this.edad?.setValue(`${edadTransformada.años} años, ${edadTransformada.meses} meses, ${edadTransformada.días} días`)
+    this.edad?.setValue(edadTransformada);
   }
 }
