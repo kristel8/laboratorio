@@ -140,7 +140,7 @@ export class DoctoresComponent implements OnInit {
         this.isOpenModal = false;
         this.doctoresForm.reset();
         this.getAllActivosElementos();
-        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
       });
     } else {
       this.service.insert(this.doctoresForm.value).subscribe(() => {

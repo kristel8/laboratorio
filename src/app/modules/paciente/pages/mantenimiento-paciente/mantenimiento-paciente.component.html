@@ -29,7 +29,7 @@
     <br>
     <div class="t-col-3 t-col-sm-1">
       <div class="form">
-        <span class="form-text">Apellidos:</span>
+        <span class="form-text">Apellidos:*</span>
         <input id="apellidos" type="text" toUpperCase formControlName="apellidos" appOnlyText pInputText />
         <div class="validation" *ngIf="apellidos?.invalid && (apellidos?.dirty || apellidos?.touched)">
           <small *ngIf="apellidos?.errors?.['required']" class="p-error">Apellidos es obligatorio</small>
@@ -37,7 +37,7 @@
       </div>
 
       <div class="form">
-        <span class="form-text">Nombres:</span>
+        <span class="form-text">Nombres:*</span>
         <input id="nombres" type="text" toUpperCase formControlName="nombres" autocomplete="off" appOnlyText pInputText />
         <div class="validation" *ngIf="nombres?.invalid && (nombres?.dirty || nombres?.touched)">
           <small *ngIf="nombres?.errors?.['required']" class="p-error">Nombres es obligatorio</small>
@@ -45,7 +45,7 @@
       </div>
 
       <div class="form">
-        <span class="form-text">Género:</span>
+        <span class="form-text">Género:*</span>
         <p-dropdown [options]="generos" formControlName="genero" optionLabel="tipo"
           placeholder="Seleccione"></p-dropdown>
         <div class="validation" *ngIf="genero?.invalid && (genero?.dirty || genero?.touched)">
@@ -86,12 +86,12 @@
       </div>
 
       <div class="form">
-        <span class="form-text">Celular:</span>
+        <span class="form-text">Celular:*</span>
         <input id="celular" type="text" toUpperCase formControlName="celular" autocomplete="off" [minlength]="9" [maxLength]="9" pInputText numbersOnly />
         <div class="validation" *ngIf="celular?.invalid && (celular?.dirty || celular?.touched)">
           <small *ngIf="celular?.errors?.['required']" class="p-error">Celular es obligatorio</small>
           <small *ngIf="celular?.hasError('pattern')" class="p-error">
-            El número de celular debe empezar con 9 y tener un total de 9 dígitos.
+            El celular debe empezar con 9 y tener un total de 9 dígitos.
           </small>
         </div>
       </div>

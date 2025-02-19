@@ -22,11 +22,28 @@ export class ResponseInterceptor implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
           const body = event.body;
+
           if (body && typeof body === 'object') {
-            const endpointsExcluded = ['getLogin', 'getAllActive', 'getDetalle', 'findByDate', 'findById', 'findAtencionesAprobadas', 'getAtencionAnalisisByAtencion', 'setInactive', 'findByIdAtencionForm']
+            const endpointsExcluded = [
+              'getLogin', 'getAllActive', 'getDetalle', 'findByDate', 'findById',
+              'findAtencionesAprobadas', 'getAtencionAnalisisByAtencion', 'setInactive',
+              'findByIdAtencionForm', 'detallepermisos', 'atencionanalisis', 'plantillaanalisis'];
+
             if (!endpointsExcluded.some(endpoint => req.url.includes(endpoint))) {
               if (body.error) {
-                this.servicioMensajesSwal.mensajeError(body.mensaje);
+                let mensajeError = body.mensaje;
+
+                if (body.error.includes('Duplicate')) {
+                  mensajeError = `<b>${mensajeError}</b><br>Revisa que el registro no sea duplicado<br>o intente con otro.`;
+                }
+
+                this.servicioMensajesSwal.mensajeError(mensajeError);
+
+                return event.clone({ body: null });
+              }
+
+              if (body.mensaje) {
+                this.servicioMensajesSwal.mensajeExito(body.mensaje);
               }
 
               return event;

@@ -272,6 +272,11 @@ export class CajaComponent implements OnInit {
 
     this.cajaService.pagar(this.cajaForm.getRawValue()).subscribe((response) => {
       this.isOpenModal = false;
+
+      this.acuenta.enable();
+      this.descuentoTotal.enable();
+      this.cajaForm.reset();
+
       this.buscar();
       this.imprimirTicket(this.idPago.value);
     })

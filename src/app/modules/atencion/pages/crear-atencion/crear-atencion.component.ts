@@ -19,6 +19,7 @@ import { of } from 'rxjs';
 import { MensajesToastService } from 'src/app/shared/services/mensajes-toast.service';
 import { LocaleUtil } from 'src/app/global/locale.utils';
 import { documentoValidator } from 'src/app/shared/validators/validators';
+import { IColumnasTabla } from 'src/app/shared/models/columnas';
 
 @Component({
   selector: 'app-crear-atencion',
@@ -41,12 +42,16 @@ export class CrearAtencionComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   pacientes: IPaciente[] = [];
-  cols: any = [];
+  cols: IColumnasTabla[] = [];
+  colsPaciente: IColumnasTabla[] = [];
+
   elementos: IExamen[] = [];
   selectedItems: IExamen[] = [];
   loading = true;
   mesajeNotItems = MensajesGlobales._MENSAJE_NOT_ITEMS;
   optionDisabled = 'inactive';
+  isBuscadoPaciente: boolean = false;
+  rowSeleccionado!: IPaciente;
 
   constructor(
     private fb: FormBuilder,
@@ -208,12 +213,15 @@ export class CrearAtencionComponent implements OnInit {
     })
   }
 
-  buscarPaciente(event?: any): void {
+  searchPaciente(event?: any): void {
+    if (event && event.key === 'Enter') {
     event?.preventDefault();
-    if (event && event.key !== 'Enter') {
-      return;
-    }
 
+      this.buscarPaciente();
+    }
+  }
+
+  buscarPaciente(): void {
     const dniIngresado = this.numDocumento?.value;
     if (!dniIngresado || !this.numDocumento?.valid) {
       this.serviceMensajesToast.showError('Ingrese un documento válido.');
@@ -269,6 +277,7 @@ export class CrearAtencionComponent implements OnInit {
       this.loading = false;
       if (this.isEditar) {
         this.selectedItems = this.elementos.filter(el => this.idAnalisis?.value.includes(el.idAnalisis));
+        this.elementos = this.selectedItems;
       }
     });
   }
@@ -303,9 +312,8 @@ export class CrearAtencionComponent implements OnInit {
           return of(undefined);
 
         })
-      ).subscribe(() => {
-        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
-        this.router.navigateByUrl('/atencion');
+      ).subscribe((response) => {
+        if (response) this.router.navigateByUrl('/atencion');
       });
   }
 
@@ -349,4 +357,30 @@ export class CrearAtencionComponent implements OnInit {
     });
   }
 
+
+  showBuscadorPaciente(event: any) {
+    this.isBuscadoPaciente = true;
+    this.getColumnasTablaPaciente();
+  }
+
+  getColumnasTablaPaciente() {
+    this.colsPaciente = [
+      { field: 'tipoDocumento', header: 'Tipo de Documento' },
+      { field: 'numDocumento', header: 'Número de Documento' },
+      { field: 'nombre', header: 'Nombre' },
+      { field: 'apellidos', header: 'Apellidos' },
+    ];
+  }
+
+  onRowEmpleadoSelected(event: any) {
+    this.rowSeleccionado = event.data;
+  }
+
+  putEmpleadoSeleccionado() {
+    if (this.rowSeleccionado) {
+      this.numDocumento?.setValue(this.rowSeleccionado.numDocumento);
+      this.buscarPaciente();
+      this.isBuscadoPaciente = false;
+    }
+  }
 }

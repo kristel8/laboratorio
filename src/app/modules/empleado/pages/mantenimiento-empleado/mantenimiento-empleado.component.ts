@@ -155,18 +155,16 @@ export class MantenimientoEmpleadoComponent implements OnInit {
   crearElemento(params: IEmpleado) {
     this.serviceEmpleado
       .insert(params)
-      .subscribe(() => {
-        this.router.navigateByUrl('/empleados');
-        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+      .subscribe((response) => {
+        if (response) this.router.navigateByUrl('/empleados');
       });
   }
 
   editarElemento(params: IEmpleado) {
     this.serviceEmpleado
       .update(+this.id, params)
-      .subscribe(() => {
-        this.router.navigateByUrl('/empleados');
-        this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+      .subscribe((response) => {
+        if (response) this.router.navigateByUrl('/empleados');
       });
   }
 

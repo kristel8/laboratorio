@@ -3,6 +3,6 @@ export interface IColumnasTabla {
   subField?:string;
   subField2?: string;
   header: string;
-  visibility: boolean;
-  formatoFecha: string;
+  visibility?: boolean;
+  formatoFecha?: string;
 }

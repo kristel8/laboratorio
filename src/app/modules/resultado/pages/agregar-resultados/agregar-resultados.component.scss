@@ -8,3 +8,17 @@
   text-align: start !important;
   padding-left: 40px !important;
 }
+
+
+.tabla-container {
+  height: calc(100vh - 400px); /* Ajusta el valor según tu layout */
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .p-datatable-scrollable-body {
+  flex-grow: 1;
+  height: 100% !important;
+  max-height: 100%;
+  overflow-y: auto;
+}

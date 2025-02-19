@@ -43,8 +43,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
     private serviceEmpleado: EmpleadoService,
     private router: Router,
     private _ActivatedRoute: ActivatedRoute,
-    private readonly servicioMensajesSwal: MensajesSwalService
-
   ) { }
 
   usuarioForm = this.fb.group({
@@ -157,9 +155,8 @@ export class MantenimientoUsuarioComponent implements OnInit {
   }
 
   crearDetallePermiso(params: IDetallePermiso[]) {
-    this.serviceUsuario.insertDetallePermiso(params).subscribe((res) => {
-      this.router.navigateByUrl('/usuarios');
-      this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+    this.serviceUsuario.insertDetallePermiso(params).subscribe((response) => {
+      if (response) this.router.navigateByUrl('/usuarios');
     });
   }
 
@@ -189,9 +186,8 @@ export class MantenimientoUsuarioComponent implements OnInit {
   editarElemento(params: IUsuario) {
     this.serviceUsuario
       .update(+this.id, params)
-      .subscribe(() => {
-        this.router.navigateByUrl('/usuarios');
-        this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+      .subscribe((response) => {
+        if (response) this.router.navigateByUrl('/usuarios');
       });
   }
 
@@ -244,12 +240,9 @@ export class MantenimientoUsuarioComponent implements OnInit {
   getColumnasTablaEmpleado() {
     this.colsEmpleado = [
       { field: 'tipoDocumento', header: 'Tipo de Documento', visibility: true, formatoFecha: '' },
-      { field: 'numDocumento', header: 'Número de Documento', visibility: true, formatoFecha: '' },
-      { field: 'nombre', header: 'Nombre', visibility: true, formatoFecha: '' },
+      { field: 'numDocumento', header: 'Nro de Documento', visibility: true, formatoFecha: '' },
+      { field: 'nombre', header: 'Nombres', visibility: true, formatoFecha: '' },
       { field: 'apellido', header: 'Apellidos', visibility: true, formatoFecha: '' },
-      { field: 'direccion', header: 'Dirección', visibility: true, formatoFecha: '' },
-      { field: 'telefono', header: 'Telefono', visibility: true, formatoFecha: '' },
-      { field: 'celular', header: 'Celular', visibility: true, formatoFecha: '' },
     ];
 
     this.colsEmpleadoVisibles = this.colsEmpleado.filter(

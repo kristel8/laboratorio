@@ -99,7 +99,7 @@ export class MensajesSwalService {
       position: 'center',
       icon: 'error',
       title: 'Error',
-      text: mensaje,
+      html: mensaje,
       showConfirmButton: true,
     });
   }

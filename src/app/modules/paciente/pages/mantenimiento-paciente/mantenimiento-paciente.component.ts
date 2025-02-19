@@ -33,7 +33,6 @@ export class MantenimientoPacienteComponent implements OnInit {
     private service: PacienteService,
     private router: Router,
     private route: ActivatedRoute,
-    private readonly servicioMensajesSwal: MensajesSwalService,
     private readonly formatoFecha: DatePipe,
     private util: LocaleUtil
 
@@ -45,12 +44,12 @@ export class MantenimientoPacienteComponent implements OnInit {
 
   pacienteForm = this.fb.group({
     tipoDocumento: [null, [Validators.required]],
-    numDocumento: [null, [Validators.required, documentoValidator()]],
+    numDocumento: [null, [documentoValidator()]],
     apellidos: [null, [Validators.required]],
     nombres: [null, [Validators.required]],
     fechaNacimiento: [''],
     genero: [null, [Validators.required]],
-    edad: [null, [Validators.required]],
+    edad: [null],
     email: ['', [Validators.email]],
     celular: [null, [Validators.required, Validators.pattern(PATTERNS.CELULAR)]],
     direccion: [''],
@@ -185,19 +184,17 @@ export class MantenimientoPacienteComponent implements OnInit {
     this.service
       .insert(params)
       .subscribe((response) => {
-        if (response.mensaje.includes(ERROR)) {
-          this.servicioMensajesSwal.mensajeError(response.mensaje);
-        } else {
-          this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+        if (response) {
           this.router.navigateByUrl('/paciente');
         }
       });
   }
 
   editarElemento(params: IPaciente) {
-    this.service.update(+this.id, params).subscribe(() => {
-      this.router.navigateByUrl('/paciente');
-      this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
+    this.service.update(+this.id, params).subscribe((response) => {
+      if (response) {
+        this.router.navigateByUrl('/paciente');
+      }
     });
   }
 
@@ -214,8 +211,10 @@ export class MantenimientoPacienteComponent implements OnInit {
     const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
     const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
 
-    this.tipoDocumento?.disable();
-    this.numDocumento?.disable();
+    if (resultado.numDocumento) {
+      this.tipoDocumento?.disable();
+      this.numDocumento?.disable();
+    }
 
     this.pacienteForm.patchValue({
       tipoDocumento: tipoDocumento,

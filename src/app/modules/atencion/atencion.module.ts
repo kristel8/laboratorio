@@ -15,6 +15,7 @@ import { CrearAtencionComponent } from './pages/crear-atencion/crear-atencion.co
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     CalendarModule,
     InputTextModule,
     InputTextareaModule,
-    SelectButtonModule
+    SelectButtonModule,
+    DialogModule
   ],
 })
 export class AtencionModule { }

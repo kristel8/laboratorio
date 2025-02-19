@@ -30,7 +30,6 @@ export class DetalleResultadosComponent implements OnInit {
     private router: Router,
     private resultadosService: ResultadosService,
     private storageService: StorageService,
-    private readonly servicioMensajesSwal: MensajesSwalService
   ) { }
 
   detalleResultadoForm = this.fb.group({

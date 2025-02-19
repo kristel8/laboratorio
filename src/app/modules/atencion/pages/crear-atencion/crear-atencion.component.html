@@ -17,10 +17,10 @@
 
         <div class="form form-searcher">
 
-          <span class="p-input-icon-right">
-            <i class="pi pi-search"></i>
-            <input id="numDocumento" type="text" toUpperCase formControlName="numDocumento" minlength="8" maxlength="11" pInputText numbersOnly
-            (keypress)="buscarPaciente($event)" autofocus />
+          <span class="p-inputgroup">
+            <input id="numDocumento" type="text" formControlName="numDocumento" minlength="8" maxlength="11" pInputText numbersOnly
+            (keypress)="searchPaciente($event)" autofocus />
+            <button pButton (click)="showBuscadorPaciente($event)" type="button" icon="pi pi-search"></button>
           </span>
 
           <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
@@ -204,3 +204,46 @@
   </div>
 
 </form>
+
+
+<p-dialog header="Lista de Pacientes" [(visible)]="isBuscadoPaciente" [modal]="true" [style]="{ width: '50vw' }"
+  [draggable]="false" [resizable]="false">
+  <p><b>Seleccione un paciente:</b></p>
+  <br>
+  <p-table #dt [columns]="colsPaciente" selectionMode="single" [value]="pacientes" dataKey="numDocumento"
+    [rows]="6" [paginator]="true" [globalFilterFields]="[
+      'nombre',
+      'numDocumento',
+      'tipoDocumento',
+      'apellido'
+    ]" [rowHover]="true"  responsiveLayout="scroll" (onRowSelect)="onRowEmpleadoSelected($event)">
+    <ng-template pTemplate="caption">
+      <div class="caption">
+        <span class="caption__search">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" toUpperCase (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Buscar..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr style="justify-content: center;">
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData" (dblclick)="putEmpleadoSeleccionado()">
+        <td *ngFor="let col of columns" style="justify-content: center;">
+          {{ rowData[col.field] }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="putEmpleadoSeleccionado()" label="Seleccionar" styleClass="p-button-text">
+    </p-button>
+  </ng-template>
+</p-dialog>

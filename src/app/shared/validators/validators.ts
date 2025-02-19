@@ -11,14 +11,14 @@ export function documentoValidator(): ValidatorFn {
     if (!numeroDocumento) return null; // Permitir vacío (otras validaciones pueden manejarlo)
 
     const regexDNI = /^\d{8}$/;
-    const regexCE = /^\d{12}$/;
+    const regexCE = /^\d{9}$/;
 
     if (tipoDocumento?.tipo === 'DNI' && !regexDNI.test(numeroDocumento)) {
       return { dniInvalido: 'El DNI debe tener 8 dígitos' };
     }
 
     if (tipoDocumento?.tipo === 'CE' && !regexCE.test(numeroDocumento)) {
-      return { ceInvalido: 'El CE debe tener 12 dígitos' };
+      return { ceInvalido: 'El CE debe tener 9 dígitos' };
     }
 
     return null;

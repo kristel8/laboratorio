@@ -188,10 +188,7 @@ export class MantenimientoExamenComponent implements OnInit {
         return this.servicePlantilla.insert(request)
       })
     ).subscribe((response) => {
-      if (response.mensaje.includes(ERROR)) {
-        this.servicioMensajesSwal.mensajeError(response.mensaje);
-      } else {
-        this.servicioMensajesSwal.mensajeGrabadoSatisfactorio();
+      if (response) {
         this.router.navigateByUrl('/examenes');
       }
     });
@@ -209,9 +206,8 @@ export class MantenimientoExamenComponent implements OnInit {
         return this.servicePlantilla.update(+this.id, request);
 
       })
-    ).subscribe(() => {
-      this.servicioMensajesSwal.mensajeActualizadoSatisfactorio();
-      this.router.navigateByUrl('/examenes');
+    ).subscribe((response) => {
+      if (response) this.router.navigateByUrl('/examenes');
     })
   }
 

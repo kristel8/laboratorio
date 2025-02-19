@@ -30,7 +30,7 @@
   <h3>Ingrese los resultados:</h3>
   <br>
   <p-table #dt [id]="dt" [columns]="cols" dataKey="id" [value]="elementos.controls" dataKey="idAnalisis"
-    [loading]="loading" [responsiveLayout]="'scroll'" [scrollable]="true" scrollHeight="calc(90vh - 300px)" [rowHover]="true">
+    [loading]="loading" [responsiveLayout]="'scroll'" [scrollable]="true" scrollHeight="calc(100vh - 400px)" [rowHover]="true">
     <ng-template pTemplate="header" let-columns>
       <tr>
         <th *ngFor="let col of columns" style="justify-content: center;">
