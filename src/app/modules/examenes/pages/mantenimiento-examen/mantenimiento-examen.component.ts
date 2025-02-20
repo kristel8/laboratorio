@@ -143,8 +143,8 @@ export class MantenimientoExamenComponent implements OnInit {
       isSubtitulo: [data?.isSubtitulo || false],
       idPlantillaAnalisis: [data?.idPlantillaAnalisis || null],
       descripcion: [data?.descripcion || null, Validators.required],
-      unidad: [data?.unidad || null],
-      valorReferencia: [data?.valorReferencia || null],
+      unidad: [data?.unidad || ''],
+      valorReferencia: [data?.valorReferencia || ''],
       estado: [true],
     });
     this.elementos.push(nuevaFila);

@@ -62,7 +62,6 @@ export class MantenimientoUsuarioComponent implements OnInit {
       this.titulo = 'Editar Usuario';
       this.id = id;
       this.isEditar = true;
-      this.usuario?.disable();
 
       this.serviceUsuario.getFindById(+this.id).subscribe((resultado) => {
         this.mostrarValoresInput(resultado[0]);

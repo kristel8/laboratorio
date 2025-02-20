@@ -211,11 +211,6 @@ export class MantenimientoPacienteComponent implements OnInit {
     const fechaTransformada = this.formatoFecha.transform(resultado.fechaNacimiento, 'yyyy-MM-dd')!;
     const tipoDocumento = this.tipoDocumentos.find((e) => e.tipo === resultado.tipoDocumento);
 
-    if (resultado.numDocumento) {
-      this.tipoDocumento?.disable();
-      this.numDocumento?.disable();
-    }
-
     this.pacienteForm.patchValue({
       tipoDocumento: tipoDocumento,
       numDocumento: resultado.numDocumento,
