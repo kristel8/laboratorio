@@ -120,10 +120,8 @@ export class MantenimientoUsuarioComponent implements OnInit {
       usuario: usuario,
     };
 
-
     if (this.isEditar) {
       this.editarElemento(params);
-      this.guardarDetallePermiso(+this.id);
     } else {
       this.crearElemento(params).subscribe((idUsuario: any) => {
         if (idUsuario) {
@@ -186,7 +184,11 @@ export class MantenimientoUsuarioComponent implements OnInit {
     this.serviceUsuario
       .update(+this.id, params)
       .subscribe((response) => {
-        if (response) this.router.navigateByUrl('/usuarios');
+        if (!response) return
+
+        if (response) {
+          this.guardarDetallePermiso(+this.id);
+        }
       });
   }
 
