@@ -82,7 +82,7 @@ export class CrearAtencionComponent implements OnInit {
   atencionForm = this.fb.group({
     pacienteForm: this.fb.group({
       tipoDocumento: [null, [Validators.required]],
-      numDocumento: [null, [Validators.required, documentoValidator()]],
+      numDocumento: [null, [documentoValidator()]],
       apellidos: [null],
       nombres: [null],
       fechaNacimiento: [null],
@@ -93,7 +93,7 @@ export class CrearAtencionComponent implements OnInit {
       direccion: [null],
       antecedentes: [null],
       referencia: [null],
-      idPaciente: [null],
+      idPaciente: [null, [Validators.required]],
       idAnalisis: [null],
     }),
 
@@ -215,7 +215,7 @@ export class CrearAtencionComponent implements OnInit {
 
   searchPaciente(event?: any): void {
     if (event && event.key === 'Enter') {
-    event?.preventDefault();
+      event?.preventDefault();
 
       this.buscarPaciente();
     }
@@ -223,14 +223,29 @@ export class CrearAtencionComponent implements OnInit {
 
   buscarPaciente(): void {
     const dniIngresado = this.numDocumento?.value;
-    if (!dniIngresado || !this.numDocumento?.valid) {
+    if (!this.rowSeleccionado && !this.numDocumento?.valid) {
       this.serviceMensajesToast.showError('Ingrese un documento válido.');
+      this.pacienteFormCtrl.reset();
+      this.tipoDocumento?.setValue(this.tipoDocumentos[0]);
+      this.numDocumento?.setValue(dniIngresado);
+      this.isNotLoaded = true;
       return;
     }
 
-    const paciente = this.pacientes.find(p => p.numDocumento === dniIngresado);
+    let paciente: IPaciente;
+
+    if (dniIngresado) {
+      paciente = this.pacientes.find(p => p.numDocumento === dniIngresado) as IPaciente;
+    } else {
+      paciente = this.pacientes.find(p => p.idPaciente === this.idPaciente?.value) as IPaciente;
+    }
+
     if (!paciente) {
       this.serviceMensajesToast.showError('El paciente no se encuentra registrado.');
+      this.pacienteFormCtrl.reset();
+      this.tipoDocumento?.setValue(this.tipoDocumentos[0]);
+      this.numDocumento?.setValue(dniIngresado);
+      this.isNotLoaded = true;
       return;
     }
 
@@ -259,11 +274,11 @@ export class CrearAtencionComponent implements OnInit {
   validateFechaNacimiento(paciente: IPaciente) {
     if (!paciente?.fechaNacimiento) {
       this.servicioMensajesSwal.mensajeAdvertenciaOpcion('El paciente no tiene fecha de nacimiento registrada. Vamos actualizarlo.')
-      .then((response) => {
-        if (response.isConfirmed) {
-          this.router.navigateByUrl(`paciente/mantenimiento-paciente/${paciente?.idPaciente}`);
-        }
-      });
+        .then((response) => {
+          if (response.isConfirmed) {
+            this.router.navigateByUrl(`paciente/mantenimiento-paciente/${paciente?.idPaciente}`);
+          }
+        });
 
       return;
     }
@@ -379,6 +394,7 @@ export class CrearAtencionComponent implements OnInit {
   putEmpleadoSeleccionado() {
     if (this.rowSeleccionado) {
       this.numDocumento?.setValue(this.rowSeleccionado.numDocumento);
+      this.idPaciente?.setValue(this.rowSeleccionado.idPaciente);
       this.buscarPaciente();
       this.isBuscadoPaciente = false;
     }

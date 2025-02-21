@@ -20,7 +20,7 @@
           <span class="p-inputgroup">
             <input id="numDocumento" type="text" formControlName="numDocumento" minlength="8" maxlength="11" pInputText numbersOnly
             (keypress)="searchPaciente($event)" autofocus />
-            <button pButton (click)="showBuscadorPaciente($event)" type="button" icon="pi pi-search"></button>
+            <button pButton (click)="showBuscadorPaciente($event)" type="button" icon="pi pi-search" *ngIf="!isEditar"></button>
           </span>
 
           <div class="validation" *ngIf="numDocumento?.invalid && (numDocumento?.dirty || numDocumento?.touched)">
@@ -215,7 +215,7 @@
       'nombre',
       'numDocumento',
       'tipoDocumento',
-      'apellido'
+      'apellidos'
     ]" [rowHover]="true"  responsiveLayout="scroll" (onRowSelect)="onRowEmpleadoSelected($event)">
     <ng-template pTemplate="caption">
       <div class="caption">

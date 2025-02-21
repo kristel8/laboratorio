@@ -60,8 +60,7 @@
       <div class="t-col-auto-2">
         <div class="form" style="width: 180px;">
           <span class="form-text">Fecha de Nacimiento:</span>
-          <p-calendar formControlName="fechaNacimiento" dateFormat="yy-mm-dd" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"
-            [readonlyInput]="true"></p-calendar>
+          <p-calendar formControlName="fechaNacimiento" dateFormat="yy-mm-dd" inputId="dateformat" [minDate]="minDate" [maxDate]="maxDate" appendTo="body"></p-calendar>
           <div class="validation"
             *ngIf="fechaNacimiento?.invalid && (fechaNacimiento?.dirty || fechaNacimiento?.touched)">
             <small *ngIf="fechaNacimiento?.errors?.['required']" class="p-error">Fecha Nacimiento es obligatorio</small>
