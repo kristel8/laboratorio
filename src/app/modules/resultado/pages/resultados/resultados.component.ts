@@ -113,12 +113,21 @@ export class ResultadosComponent implements OnInit {
   enviar(data: any, info: any): void {
     const numeroCelular = data.numeroCelular;
 
-    this.mensajeSwalService.mensajePreguntaEnviar(numeroCelular).then((response) => {
-      if (response.isConfirmed) {
-        this.downloadPdf(info.file, info.fileName);
-        const mensaje = `Hola *${data.apellidosYNombres}*, te saludamos de Laboratorios LAB SOL.%0AAdjunto el presente el PDF con los resultados correspondientes, si tiene alguna pregunta o necesita información adicional, no dudes en contactarnos.%0A%0AEsperamos su pronta mejora.%0A%0A¡Gracias por confiar en nosotros!%0A%0A*EQUIPO LABSOL*`
-        window.open(`https://wa.me/${numeroCelular}?text=${mensaje}`, '_blank');
-      }
-    })
+    if (numeroCelular) {
+      this.mensajeSwalService.mensajePreguntaEnviar(numeroCelular).then((response) => {
+        if (response.isConfirmed) {
+          this.downloadPdf(info.file, info.fileName);
+          const mensaje = `Hola *${data.apellidosYNombres}*, te saludamos de Laboratorios LAB SOL.%0AAdjunto el presente el PDF con los resultados correspondientes, si tiene alguna pregunta o necesita información adicional, no dudes en contactarnos.%0A%0AEsperamos su pronta mejora.%0A%0A¡Gracias por confiar en nosotros!%0A%0A*EQUIPO LABSOL*`
+          window.open(`https://wa.me/${numeroCelular}?text=${mensaje}`, '_blank');
+        }
+      });
+    } else {
+      this.mensajeSwalService.mensajePregunta('¿Ejecutamos la descarga de los resultados con firma? El paciente no cuenta con número de celular').then((response) => {
+        if (response.isConfirmed) {
+          this.downloadPdf(info.file, info.fileName);
+        }
+      });
+    }
+
   }
 }

@@ -14,6 +14,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DetalleResultadosComponent } from './pages/detalle-resultados/detalle-resultados.component';
 import { AgregarResultadosComponent } from './pages/agregar-resultados/agregar-resultados.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [ResultadosComponent, DetalleResultadosComponent, AgregarResultadosComponent],
@@ -29,7 +30,8 @@ import { TooltipModule } from 'primeng/tooltip';
     HttpClientModule,
     DropdownModule,
     InputNumberModule,
-    TooltipModule
+    TooltipModule,
+    InputTextareaModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

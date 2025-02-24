@@ -51,7 +51,7 @@ export class MantenimientoPacienteComponent implements OnInit {
     genero: [null, [Validators.required]],
     edad: [null],
     email: ['', [Validators.email]],
-    celular: [null, [Validators.required, Validators.pattern(PATTERNS.CELULAR)]],
+    celular: [null, [Validators.pattern(PATTERNS.CELULAR)]],
     direccion: [''],
     antecedentes: [''],
   });

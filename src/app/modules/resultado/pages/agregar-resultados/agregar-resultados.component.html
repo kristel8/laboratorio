@@ -49,7 +49,7 @@
             {{controls.value.descripcion}}
           </td>
           <td>
-            <input *ngIf="!elementos.at(i).get('isSubtitulo')?.value" type="text" formControlName="resultado" style="width: 180px;" pInputText />
+            <textarea *ngIf="!elementos.at(i).get('isSubtitulo')?.value" type="text" formControlName="resultado" style="width: 180px;" maxLength="400" [rows]="2" pInputTextarea></textarea>
           </td>
           <td>
             {{controls.value.unidad}}
