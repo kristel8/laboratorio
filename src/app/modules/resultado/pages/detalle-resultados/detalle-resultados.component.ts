@@ -179,7 +179,7 @@ export class DetalleResultadosComponent implements OnInit {
       dataExamen = {
         ...data,
         resultadoUroCultivo,
-        resultadoUroCultivoDescripcion:  resultadoUroCultivo === 1 ? 'POSITIVO' : 'NEGATIVO'
+        resultadoUroCultivoDescripcion: resultadoUroCultivo === 1 ? 'POSITIVO' : 'NEGATIVO'
       }
 
       const requestUroCultivo = {
@@ -191,6 +191,9 @@ export class DetalleResultadosComponent implements OnInit {
         this.storageService.setItem('examen-datos', dataExamen, true);
         this.router.navigateByUrl(`resultados/agregar-resultado`);
       });
+    } else {
+      this.storageService.setItem('examen-datos', dataExamen, true);
+      this.router.navigateByUrl(`resultados/agregar-resultado`);
     }
   }
 
