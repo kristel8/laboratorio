@@ -105,20 +105,27 @@ export class DetalleResultadosComponent implements OnInit {
   }
 
   imprimir(data: any, isFirma: number): void {
-    this.resultadosService.generarReporte(data.idAtencion, isFirma).subscribe((response) => {
-      if (isFirma) {
-        this.enviar(data, response)
-      } else {
-        const base64 = response.file as string;
-        printJS({
-          printable: base64,
-          type: 'pdf',
-          base64: true,
-          showModal: false,
-          onPrintDialogClose: () => {
-            console.log("Impresión finalizada");
-          }
-        });
+    this.resultadosService.generarReporteIndividual(data.idAtencionAnalisis, isFirma).subscribe({
+      next: (response) => {
+        this.mensajeSwalService.mensajeExito(response.mensaje);
+
+        if (isFirma) {
+          this.enviar(data, response[0])
+        } else {
+          const base64 = response[0].file as string;
+          printJS({
+            printable: base64,
+            type: 'pdf',
+            base64: true,
+            showModal: false,
+            onPrintDialogClose: () => {
+              console.log("Impresión finalizada");
+            }
+          });
+        }
+      },
+      error: (error) => {
+        this.mensajeSwalService.mensajeError(error.mensaje);
       }
     })
   }

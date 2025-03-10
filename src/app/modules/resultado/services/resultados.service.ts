@@ -45,6 +45,12 @@ export class ResultadosService {
 
     return this.httpClient.get<IResponseTicket>(`${this.URLServicio}atencion/getAnalisisPDFMerge/${idAtencion}`, { params }).pipe(
       map((response) => response.data[0])
-    );;
+    );
+  }
+
+  generarReporteIndividual(idAtencionAnalisis: number, isFirma: number): Observable<any> {
+    const params = new HttpParams().set('isFirma', isFirma);
+
+    return this.httpClient.get<IResponseTicket>(`${this.URLServicio}atencionanalisis/getAtencionAnalisisPDF/${idAtencionAnalisis}`, { params });
   }
 }
