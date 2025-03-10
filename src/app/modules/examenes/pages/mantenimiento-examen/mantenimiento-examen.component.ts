@@ -200,7 +200,7 @@ export class MantenimientoExamenComponent implements OnInit {
     this.idAnalisisCreado = resultado.idAnalisis;
   }
 
-  agregarFila(data?: IDetalleExamen, tipo?: number): void {
+  agregarFila(data: IDetalleExamen | undefined, tipo: number): void {
     const nuevaFila = this.fb.group({
       isSubtitulo: [data?.isSubtitulo || false],
       idPlantillaAnalisis: [data?.idPlantillaAnalisis || null],

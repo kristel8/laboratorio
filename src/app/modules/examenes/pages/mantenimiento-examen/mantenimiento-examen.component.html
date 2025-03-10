@@ -63,7 +63,7 @@
         <ng-container formArrayName="elementos">
           <tr [formGroupName]="i">
             <td style="max-width:180px; justify-content: center;">
-              <button pButton (click)="agregarFila()" type="button" icon="pi pi-plus" class="p-button-rounded"
+              <button pButton (click)="agregarFila(i, 0)" type="button" icon="pi pi-plus" class="p-button-rounded"
                 style="margin-right: 5px;"></button>
               <button pButton (click)="borrarFila(i)" type="button" [disabled]="elementos.length <= 1"
                 icon="pi pi-minus" class="p-button-rounded p-button-danger"></button>
