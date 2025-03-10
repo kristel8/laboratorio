@@ -30,6 +30,7 @@ import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEsPe from '@angular/common/locales/es-PE';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 registerLocaleData(localeEsPe); // Registrar localización peruana
 
@@ -63,7 +64,8 @@ registerLocaleData(localeEsPe); // Registrar localización peruana
     InputTextModule,
     ButtonModule,
     TooltipModule,
-    ToastModule
+    ToastModule,
+    InputSwitchModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

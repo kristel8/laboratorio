@@ -15,6 +15,8 @@ export interface IDetalleAtencion {
   fechaModificacion: string;
   usuario: string;
   estadoAtencionAnalisis: string;
+  isUroCultivo: boolean;
+  resultadoUroCultivo: number;
 }
 
 export interface IDetalleAnalisis {
@@ -33,4 +35,14 @@ export interface IResultadoAtencion {
   idPlantillaAnalisis: number;
   resultado: number;
   idAtencionAnalisis: number;
+}
+
+export interface IResultadoUroCultivo {
+  resultadoUroCultivo: number;
+  idAtencionAnalisis: number;
+}
+
+export interface IResultadoPlantillaUroCultivo {
+  tipoUroCultivo : number;
+  idAnalisis: number;
 }

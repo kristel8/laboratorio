@@ -14,6 +14,8 @@ import { MantenimientoExamenComponent } from './pages/mantenimiento-examen/mante
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DialogModule } from 'primeng/dialog';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     DropdownModule,
     InputNumberModule,
     DialogModule,
-    CheckboxModule
+    InputSwitchModule,
+    CheckboxModule,
+    SelectButtonModule
   ],
 })
 export class ExamenesModule { }

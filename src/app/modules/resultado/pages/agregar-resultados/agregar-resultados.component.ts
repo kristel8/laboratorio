@@ -6,7 +6,7 @@ import { IResponse } from 'src/app/global/response';
 import { PlantillaExamenService } from 'src/app/modules/examenes/services/plantilla-examen.service';
 import { IColumnasTabla } from 'src/app/shared/models/columnas';
 import { StorageService } from 'src/app/shared/services/storage.service';
-import { IDetalleAnalisis, IResultadoAtencion } from '../../models/resultado';
+import { IDetalleAnalisis, IResultadoAtencion, IResultadoPlantillaUroCultivo } from '../../models/resultado';
 import { ResultadosService } from '../../services/resultados.service';
 import { MensajesSwalService } from 'src/app/shared/services/mensajes-swal.service';
 
@@ -44,7 +44,9 @@ export class AgregarResultadosComponent implements OnInit {
     nroOrden: [{ value: null, disabled: true }],
     apellidosyNombres: [{ value: null, disabled: true }],
     examen: [{ value: null, disabled: true }],
+    tipoExamen: [{ value: null, disabled: true }],
     fecha: [{ value: null, disabled: true }],
+    tipoUroCultivo: [{ value: null, disabled: true }],
     elementos: this.fb.array([])
   });
 
@@ -59,7 +61,12 @@ export class AgregarResultadosComponent implements OnInit {
     this.isEditar = seleccionadoExamen.estadoAtencionAnalisis === 'COMPLETADO';
 
     if (!this.isEditar) {
-      this.plantillaExamenService.getFindById(this.examenSeleccionado.idAnalisis).subscribe((response) => {
+      const header: IResultadoPlantillaUroCultivo = {
+        idAnalisis: this.examenSeleccionado.idAnalisis,
+        tipoUroCultivo: this.examenSeleccionado.resultadoUroCultivo ?? 0
+      }
+
+      this.plantillaExamenService.getFindByIdAndUrocultivo(this.examenSeleccionado.idAnalisis, header).subscribe((response) => {
         if (response) {
           this.getColumnasTabla();
           this.listaDetalleExamenes = response;
@@ -118,7 +125,8 @@ export class AgregarResultadosComponent implements OnInit {
         nroOrden: seleccionadoAtencion.idAtencion,
         apellidosyNombres: seleccionadoAtencion.apellidosYNombres,
         fecha: seleccionadoExamen.fechaModificacion,
-        examen: seleccionadoExamen.examen
+        examen: seleccionadoExamen.examen,
+        tipoUroCultivo: seleccionadoExamen.resultadoUroCultivoDescripcion
       })
     } else {
       this.router.navigateByUrl(`resultados`);

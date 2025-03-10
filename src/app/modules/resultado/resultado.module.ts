@@ -15,6 +15,7 @@ import { DetalleResultadosComponent } from './pages/detalle-resultados/detalle-r
 import { AgregarResultadosComponent } from './pages/agregar-resultados/agregar-resultados.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [ResultadosComponent, DetalleResultadosComponent, AgregarResultadosComponent],
@@ -31,7 +32,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     DropdownModule,
     InputNumberModule,
     TooltipModule,
-    InputTextareaModule
+    InputTextareaModule,
+    RadioButtonModule
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -3,7 +3,7 @@
   <br />
   <h3>Datos de atención:</h3>
   <br />
-  <section class="container-form t-col-4 t-col-sm-2">
+  <section class="container-form t-col-5 t-col-sm-2">
     <div class="form" style="width: 100px;">
       <span class="form-text">Nro Atención:</span>
       <input id="nroOrden" type="text" toUpperCase formControlName="nroOrden" pInputText />
@@ -17,6 +17,10 @@
     <div class="form">
       <span class="form-text">Exámen:</span>
       <input id="examen" type="text" toUpperCase formControlName="examen" pInputText />
+    </div>
+    <div class="form" *ngIf="examenSeleccionado.isUroCultivo">
+      <span class="form-text">Tipo:</span>
+      <input id="tipoExamen" type="text" toUpperCase formControlName="tipoUroCultivo" pInputText readonly />
     </div>
 
     <div class="form">

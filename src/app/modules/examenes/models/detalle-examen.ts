@@ -5,4 +5,6 @@ export interface IDetalleExamen {
   unidad: string;
   valorReferencia: string;
   estado: boolean;
-  idAnalisis: number;}
+  idAnalisis: number;
+  tipoUroCultivo: number;
+}

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IAtencionAprobadas, IDetalleAnalisis, IDetalleAtencion, IResultadoAtencion } from '../models/resultado';
+import { IAtencionAprobadas, IDetalleAnalisis, IDetalleAtencion, IResultadoAtencion, IResultadoUroCultivo } from '../models/resultado';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IResponse, IResponseTicket } from 'src/app/global/response';
@@ -35,6 +35,10 @@ export class ResultadosService {
     return this.httpClient.put<IResponse>(`${this.URLServicio}resultadoatencion/update`, resultado);
   }
 
+
+  updateResultadoUrocultivo(resultado: IResultadoUroCultivo): Observable<IResponse> {
+    return this.httpClient.post<IResponse>(`${this.URLServicio}atencionanalisis/update/resultadoUroCultivo`, resultado);
+  }
 
   generarReporte(idAtencion: number, isFirma: number): Observable<any> {
     const params = new HttpParams().set('isFirma', isFirma);

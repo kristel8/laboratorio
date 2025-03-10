@@ -5,6 +5,7 @@ export interface IExamen {
   precio: number;
   estado: boolean;
   duracion: string;
+  isUroCultivo: boolean;
 }
 
 

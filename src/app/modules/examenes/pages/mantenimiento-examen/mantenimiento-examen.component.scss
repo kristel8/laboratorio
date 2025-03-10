@@ -1,9 +1,26 @@
 .t-col-4 {
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 120px 1fr;
+}
+
+.t-col-5 {
+  grid-template-columns: 1fr 1fr 100px 1fr 1fr;
+  display: grid;
 }
 
 .container-plantilla {
   .p-inputtext, .p-textarea {
     width: 100%;
   }
+}
+
+.contain-urocultivo {
+.form {
+  display: flex;
+  column-gap: 10px;
+}
+}
+
+.container-form {
+  row-gap: 30px;
+  display: grid;
 }

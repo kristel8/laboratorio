@@ -24,6 +24,12 @@ export const MENU = {
   Examen: 3
 }
 
+export const TIPO_UROCULTIVO = {
+  Positivo: 1,
+  Negativo: 2,
+}
+
+
 export class Constantes {
   public static ES_CALENDARIO: LocaleSettings = {
     firstDayOfWeek: 1,

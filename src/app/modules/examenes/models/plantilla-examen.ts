@@ -6,6 +6,7 @@ export interface IPlantillaExamen {
   valorReferencia: string;
   estado: boolean;
   idAnalisis: number;
+  tipoUroCultivo: number;
 }
 
 export interface IPlantillaExamenResponse {
