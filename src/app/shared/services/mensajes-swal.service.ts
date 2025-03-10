@@ -142,6 +142,28 @@ export class MensajesSwalService {
     return promesa;
   }
 
+  mensajePreguntaUroCultivo(mensaje: string): Promise<SweetAlertResult<any>> {
+    const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) => {
+      Swal.fire({
+        title: 'Consulta',
+        text: mensaje,
+        icon: 'info',
+        showDenyButton: true,
+        confirmButtonColor: '#3085d6',
+        denyButtonColor: '#d33',
+        confirmButtonText: 'Positivo',
+        denyButtonText: 'Negativo',
+        showCloseButton: true
+      }).then(
+        respuesta => {
+          resolve(respuesta);
+        }
+      )
+    });
+
+    return promesa;
+  }
+
   mensajePreguntaSiNoCancel(mensaje: string, textoConfirmar?: string, textoDenegar?: string): Promise<SweetAlertResult<any>> {
     const promesa = new Promise<SweetAlertResult<any>>((resolve, reject) => {
       Swal.fire({

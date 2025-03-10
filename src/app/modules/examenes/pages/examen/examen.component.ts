@@ -144,12 +144,32 @@ export class ExamenComponent implements OnInit {
   }
 
   verExamen(data: any): void {
-    this.service.generarExamenPlantilla(data.idAnalisis).subscribe((response) => {
+    let tipoUroCultivo = 0;
+
+    if (data.isUroCultivo) {
+      this.servicioMensajesSwal
+        .mensajePreguntaUroCultivo('Seleccione que tipo de exámen desea visualizar')
+        .then((response) => {
+          console.log(response);
+          if (response.isConfirmed) tipoUroCultivo = 1;
+
+          if (response.isDenied) tipoUroCultivo = 2;
+
+          if (response.isDismissed) return;
+
+          this.getExamenView(data, tipoUroCultivo);
+        });
+    } else {
+      this.getExamenView(data, tipoUroCultivo);
+    }
+  }
+
+  getExamenView(data: any, tipoUroCultivo: number): void {
+    this.service.generarExamenPlantilla(data.idAnalisis, tipoUroCultivo).subscribe((response) => {
       if (response) {
         this.isOpenView = true;
         this.pdfSrc = this.sanitizePdfUrl(this.convertBase64ToBlobUrl(response.file));
       }
-    })
-
+    });
   }
 }
