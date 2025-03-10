@@ -98,7 +98,7 @@ export class DetalleResultadosComponent implements OnInit {
       { field: 'fechaModificacion', header: 'Fecha de Modificación', visibility: true, formatoFecha: '' },
       { field: 'usuario', header: 'Usuario', visibility: true, formatoFecha: '' },
       { field: 'estadoAtencionAnalisis', header: 'Estado', visibility: true, formatoFecha: '' },
-      { field: 'isUroCultivo', header: 'Es Urocultivo?', visibility: true, formatoFecha: '' },
+      { field: 'isUroCultivo', header: '¿Es Urocultivo?', visibility: true, formatoFecha: '' },
     ];
 
     this.colsVisibles = this.cols.filter((x) => x.visibility == true);
