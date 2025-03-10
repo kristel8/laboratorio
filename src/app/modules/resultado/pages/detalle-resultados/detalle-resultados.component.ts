@@ -132,7 +132,7 @@ export class DetalleResultadosComponent implements OnInit {
 
 
   enviar(data: any, info: any): void {
-    const numeroCelular = data.numeroCelular;
+    const numeroCelular = this.atencionSelecionado.numeroCelular;
 
     if (numeroCelular) {
       this.mensajeSwalService.mensajePreguntaEnviar(numeroCelular).then((response) => {
